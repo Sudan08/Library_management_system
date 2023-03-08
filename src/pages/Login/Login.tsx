@@ -14,18 +14,18 @@ import {
     FormErrorMessage,
   } from '@chakra-ui/react';
   import React  from 'react';
+  import { chakra } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { Form } from 'react-router-dom';
 import { loginPayLoad } from '../../interface';
 
   
   const Login:React.FC= ()=> {
-    const  {register ,handleSubmit , watch , formState : {errors}} = useForm();
+    const  {register ,handleSubmit , watch , formState : {errors}} = useForm<loginPayLoad>();
     const handleLogin = (data: loginPayLoad) => {
-
+      console.log(data);
     }
 
-    const 
     return (
         <Box>
           <Flex
@@ -46,7 +46,8 @@ import { loginPayLoad } from '../../interface';
                       boxShadow={'lg'}
                       p={8}>
                       <Stack spacing={4}>
-                      <chakra.form>
+                      <chakra.form
+                      onSubmit={handleSubmit(handleLogin)}>
                       <FormControl isInvalid={Boolean(errors.email)}>
                       <FormLabel htmlFor="email">Email address</FormLabel>
                       <Input
@@ -62,10 +63,10 @@ import { loginPayLoad } from '../../interface';
                         })}
                       />
                         <FormErrorMessage>
-                        {/* {errors.email && errors.email.message} */}
+                        {errors.email && errors.email.message}
                         </FormErrorMessage>
                         </FormControl>
-                          <FormControl isInvalid={Boolean(errors.password)}>
+                        <FormControl isInvalid={Boolean(errors.password)}>
                               <FormLabel htmlFor='passoword'>Password</FormLabel>
                               <Input 
                                 type="password"
@@ -78,13 +79,21 @@ import { loginPayLoad } from '../../interface';
                                     message: 'Password must have at least 8 characters'
                                   },
                                 })}/>
+                          <FormErrorMessage>
+                          {errors.password && errors.password.message}  
+                          </FormErrorMessage>
                           </FormControl>
                           <Stack spacing={10}>
                               <Stack
                                   direction={{ base: 'column', sm: 'row' }}
                                   align={'start'}
                                   justify={'space-between'}>
-                                  <Checkbox>Remember me</Checkbox>
+                                  {/* <FormControl> */}
+                                  <Checkbox
+                                  {
+                                    ...register('rememberMe')
+                                  }>Remember me</Checkbox>
+                                  {/* </FormControl> */}
                                   <Link color={'blue.400'}>Forgot password?</Link>
                               </Stack>
                               <Button
@@ -93,6 +102,7 @@ import { loginPayLoad } from '../../interface';
                                   _hover={{
                                       bg: 'blue.500',
                                   }}
+                                  type = "submit"
                                   >
                                   Sign in
                               </Button>
