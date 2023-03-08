@@ -11,11 +11,21 @@ import {
     Heading,
     Text,
     useColorModeValue,
+    FormErrorMessage,
   } from '@chakra-ui/react';
   import React  from 'react';
+import { useForm } from 'react-hook-form';
+import { Form } from 'react-router-dom';
+import { loginPayLoad } from '../../interface';
 
   
   const Login:React.FC= ()=> {
+    const  {register ,handleSubmit , watch , formState : {errors}} = useForm();
+    const handleLogin = (data: loginPayLoad) => {
+
+    }
+
+    const 
     return (
         <Box>
           <Flex
@@ -36,13 +46,38 @@ import {
                       boxShadow={'lg'}
                       p={8}>
                       <Stack spacing={4}>
-                          <FormControl id="email">
-                              <FormLabel>Email address</FormLabel>
-                              <Input type="email" />
-                          </FormControl>
-                          <FormControl id="password">
-                              <FormLabel>Password</FormLabel>
-                              <Input type="password" />
+                      <chakra.form>
+                      <FormControl isInvalid={Boolean(errors.email)}>
+                      <FormLabel htmlFor="email">Email address</FormLabel>
+                      <Input
+                        placeholder="Email Address"
+                        id="email"
+                        type="email"
+                        {...register('email', {
+                          required: 'Email is required',
+                          pattern: {
+                            value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                            message: 'Invalid email address'
+                          },
+                        })}
+                      />
+                        <FormErrorMessage>
+                        {/* {errors.email && errors.email.message} */}
+                        </FormErrorMessage>
+                        </FormControl>
+                          <FormControl isInvalid={Boolean(errors.password)}>
+                              <FormLabel htmlFor='passoword'>Password</FormLabel>
+                              <Input 
+                                type="password"
+                                placeholder= "Password"
+                                id="password"
+                                {...register('password', {
+                                  required: 'Password is required',
+                                  minLength: {
+                                    value: 8,
+                                    message: 'Password must have at least 8 characters'
+                                  },
+                                })}/>
                           </FormControl>
                           <Stack spacing={10}>
                               <Stack
@@ -57,11 +92,14 @@ import {
                                   color={'white'}
                                   _hover={{
                                       bg: 'blue.500',
-                                  }}>
+                                  }}
+                                  >
                                   Sign in
                               </Button>
                           </Stack>
+                        </chakra.form>
                       </Stack>
+                      
                   </Box>
               </Stack>
           </Flex>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'; 
-import Login from './pages/Login'
+import Login from './pages/Login/Login';
 import { ChakraProvider } from '@chakra-ui/react';
 
 const App = () => {
