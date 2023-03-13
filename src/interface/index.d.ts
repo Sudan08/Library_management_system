@@ -18,4 +18,13 @@ export interface IAuthState {
     accessToken: string | null;
     scope: string | null;
     isAuthenticated: boolean;
-  }
+}
+
+export interface registerPayLoad {
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    password: string;
+    scope: string;
+}
