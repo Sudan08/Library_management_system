@@ -8,7 +8,7 @@ const Register:React.FC = () => {
   const handleRegister = (data: registerPayLoad) => {
     data.scope = "user";
     console.log(data);
-    fetch("http://localhost:3001/users/api/v1/signup",{
+    fetch("http://localhost:4000/users/api/v1/signup",{
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -105,7 +105,7 @@ const Register:React.FC = () => {
                         })}
                       />
                         <FormErrorMessage>
-                        {errors.email && errors.email.message}
+                        {errors.userName && errors.userName.message}
                         </FormErrorMessage>
                         </FormControl>
                         <FormControl isInvalid={Boolean(errors.password)}>
