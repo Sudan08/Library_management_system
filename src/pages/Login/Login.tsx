@@ -17,12 +17,31 @@ import {
 import { useForm } from 'react-hook-form';
 import { Form, Link } from 'react-router-dom';
 import { loginPayLoad } from '../../interface';
+import { useNavigate } from 'react-router-dom';
 
   
   const Login:React.FC= ()=> {
+    const navigate = useNavigate();
     const  {register , handleSubmit , watch , formState : {errors}} = useForm<loginPayLoad>();
     const handleLogin = (data: loginPayLoad) => {
-      console.log(data);
+    data.scope = "user";
+    fetch("http://localhost:4000/users/api/v1/login",{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      if(data.status == 200){
+        navigate('/dashboard');
+      }
+      else{
+        console.log(data);
+        alert(data.message);
+      }
+    })
     }
     
     return (

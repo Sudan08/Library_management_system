@@ -2,6 +2,7 @@ export interface loginPayLoad {
     email: string;
     password: string;
     rememberMe: boolean;
+    scope: string;
 }
 
 export interface ILoginResponse {
