@@ -21,6 +21,9 @@ import {
   FiStar,
   FiSettings,
   FiMenu,
+  FiBook,
+  FiBookmark,
+  FiBookOpen,
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
@@ -31,14 +34,14 @@ interface LinkItemProps {
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', icon: FiHome },
-  { name: 'Trending', icon: FiTrendingUp },
-  { name: 'Explore', icon: FiCompass },
+  { name: 'Books', icon: FiBook },
+  { name: 'ManageBooks', icon: FiBookOpen },
   { name: 'Favourites', icon: FiStar },
   { name: 'Settings', icon: FiSettings },
 ];
 
 function Sidebar({ children }: { children: ReactNode }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();  
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent

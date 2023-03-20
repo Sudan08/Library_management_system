@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from '../../components/dashboard/Sidebar';
 import {Box, HStack} from '@chakra-ui/react';
+import RegisterUI from '../../components/bookRegistration/RegisterUI';
 
 const Dashboard = () => {
   return (
@@ -11,7 +12,8 @@ const Dashboard = () => {
         <Sidebar />
       </Box>
       <Box>
-        {/* <Sample /> */}
+        <RegisterUI />
+        
       </Box>
     </HStack>
     </Box>

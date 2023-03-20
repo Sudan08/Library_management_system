@@ -1,5 +1,5 @@
 
-import { Box, Flex, Heading, Text, Link, Stack, Button, FormControl, FormLabel, FormErrorMessage, Input, useColorModeValue, chakra, HStack } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text, Link, Stack, Button, FormControl, FormLabel, FormErrorMessage, Input, useColorModeValue, chakra, HStack ,Image } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form';
 import { registerPayLoad } from '../../interface';
 
@@ -28,6 +28,8 @@ const Register:React.FC = () => {
               align={'center'}
               justify={'center'}
               bg={useColorModeValue('gray.50', 'gray.800')}>
+              <HStack justifyContent={'center'}>
+                <Image src = 'https://images.unsplash.com/photo-1678965979554-947b6ad8e212?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80' alt='city' maxWidth={'50%'}></Image>
               <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
                   <Stack align={'center'}>
                       <Heading fontSize={'4xl'}>Create an Account</Heading>
@@ -160,6 +162,7 @@ const Register:React.FC = () => {
                       
                   </Box>
               </Stack>
+              </HStack>
           </Flex>
     </Box>
   )

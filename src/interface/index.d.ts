@@ -24,7 +24,7 @@ export interface IAuthState {
 export interface registerPayLoad {
     firstName: string;
     lastName: string;
-    username: string;
+    userName: string;
     email: string;
     password: string;
     scope: string;

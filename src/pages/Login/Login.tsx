@@ -11,6 +11,8 @@ import {
     Text,
     useColorModeValue,
     FormErrorMessage,
+    HStack,
+    Image,
   } from '@chakra-ui/react';
   import React  from 'react';
   import { chakra } from '@chakra-ui/react';
@@ -23,9 +25,9 @@ import { useNavigate } from 'react-router-dom';
   const Login:React.FC= ()=> {
     const navigate = useNavigate();
     const  {register , handleSubmit , watch , formState : {errors}} = useForm<loginPayLoad>();
-    const handleLogin = (data: loginPayLoad) => {
+    const handleLogin = async (data: loginPayLoad) => {
     data.scope = "user";
-    fetch("http://localhost:4000/users/api/v1/login",{
+    await fetch("http://localhost:8000/users/api/v1/login",{
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,6 +37,8 @@ import { useNavigate } from 'react-router-dom';
     .then((res) => res.json())
     .then((data) => {
       if(data.status == 200){
+        const token =  data.token;
+        document.cookie = `token=${token};}`
         navigate('/dashboard');
       }
       else{
@@ -51,7 +55,10 @@ import { useNavigate } from 'react-router-dom';
               align={'center'}
               justify={'center'}
               bg={useColorModeValue('gray.50', 'gray.800')}>
-              <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+
+                <HStack justifyContent={'center'}>
+                  <Image src='https://images.unsplash.com/photo-1679218407381-a6f1660d60e9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80' alt = 'imagedami' maxW={'50%'}></Image>
+                  <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
                   <Stack align={'center'}>
                       <Heading fontSize={'4xl'}>Sign in to your account</Heading>
                   </Stack>
@@ -146,6 +153,7 @@ import { useNavigate } from 'react-router-dom';
                       
                   </Box>
               </Stack>
+              </HStack>
           </Flex>
           </Box>
     )
