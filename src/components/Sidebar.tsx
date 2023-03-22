@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, VStack, Text, Button, Icon } from '@chakra-ui/react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { AiOutlineHome, AiOutlineHistory } from 'react-icons/ai';
+import { IoLibraryOutline } from 'react-icons/io5';
 
 const Sidebar = () => {
   const location = useLocation();
@@ -16,27 +17,25 @@ const Sidebar = () => {
       maxH={'100vh'}
       height={'100vh'}
       width={'15vw'}
-      boxShadow={
-        'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;'
-      }
+      boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
+      zIndex={'10'}
     >
       <VStack
-        justifyContent={'space-around'}
+        justifyContent={'start'}
         alignItems={'center'}
         p={10}
         gap={10}
         height={'100vh'}
       >
-        <Box display={'flex'}>
-          <Text>Sudan Shakya</Text>
-        </Box>
+        <Icon as={IoLibraryOutline} boxSize="20" />
+        <Text fontSize={'3xl'}>Sudan Shakya</Text>
+
         <Box>
           <VStack justifyContent={'around'} alignItems={'center'} gap={'10'}>
             <NavLink to={'/dashboard'}>
               <Button
                 leftIcon={<AiOutlineHome />}
                 bg={isActive('/dashboard') ? 'brand.800' : 'brand.100'}
-                color="white"
               >
                 Home
               </Button>

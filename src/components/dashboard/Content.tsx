@@ -28,12 +28,13 @@ const Content = () => {
       width={'95%'}
       overflow={'hidden'}
       scrollBehavior={'smooth'}
+      my={'40px'}
     >
       <VStack width="full" justifyContent="flex-start" alignItems="flex-start">
         <Box m="4" p="4">
           <Input placeholder="Search" />
         </Box>
-        <Box m="4" p="4" flexDirection="Col" justifyContent="flex-start">
+        <VStack m="4" p="4" flexDirection="Col" justifyContent="flex-start">
           <Text>Romance</Text>
           <HStack gap="4" justifyContent="space-around">
             {Books.map((book, index) => (
@@ -45,7 +46,7 @@ const Content = () => {
               ></BookCard>
             ))}
           </HStack>
-        </Box>
+        </VStack>
       </VStack>
     </Box>
   );

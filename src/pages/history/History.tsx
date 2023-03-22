@@ -1,27 +1,19 @@
 import React from 'react';
 import Sidebar from '../../components/Sidebar';
-import {
-  Box,
-  HStack,
-  VStack,
-  Input,
-  Text,
-  Grid,
-  GridItem,
-} from '@chakra-ui/react';
+import { Box, Grid, GridItem } from '@chakra-ui/react';
 import Navbar from '../../components/Navbar';
-import Content from '../../components/dashboard/Content';
+import Htable from '../../components/History/Htable';
 
-const Dashboard = () => {
+const History = () => {
   return (
     <Box width={'100vw'} height={'100vh'}>
       <Grid
         templateAreas={`"navbar navbar navbar navbar navbar"
-      "sidebar content content content content"
-      "sidebar content content content content"
-      "sidebar content content content content"
-      "sidebar content content content content"
-      `}
+          "sidebar content content content content"
+          "sidebar content content content content"
+          "sidebar content content content content"
+          "sidebar content content content content"
+          `}
         templateRows={'10vh 1fr 1fr 1fr 1fr'}
         templateColumns={'3fr 3fr 3fr 3fr 3fr'}
         width={'100vw'}
@@ -34,11 +26,11 @@ const Dashboard = () => {
           <Sidebar />
         </GridItem>
         <GridItem area={'content'}>
-          <Content />
+          <Htable />
         </GridItem>
       </Grid>
     </Box>
   );
 };
 
-export default Dashboard;
+export default History;
