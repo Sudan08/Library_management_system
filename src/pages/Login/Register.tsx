@@ -1,52 +1,77 @@
-
-import { Box, Flex, Heading, Text, Link, Stack, Button, FormControl, FormLabel, FormErrorMessage, Input, useColorModeValue, chakra, HStack ,Image } from '@chakra-ui/react'
+import {
+  Box,
+  Flex,
+  Heading,
+  Text,
+  Link,
+  Stack,
+  Button,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  Input,
+  useColorModeValue,
+  chakra,
+  HStack,
+  Image,
+} from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { registerPayLoad } from '../../interface';
 
-const Register:React.FC = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<registerPayLoad>();
+const Register: React.FC = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<registerPayLoad>({});
   const handleRegister = (data: registerPayLoad) => {
-    data.scope = "user";
+    data.scope = 'user';
     console.log(data);
-    fetch("http://localhost:4000/users/api/v1/signup",{
-      method: "POST",
+    fetch('http://localhost:8000/users/api/v1/signup', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
   };
 
   return (
     <Box>
-        <Flex
-            minH={'100vh'}
-              align={'center'}
-              justify={'center'}
-              bg={useColorModeValue('gray.50', 'gray.800')}>
-              <HStack justifyContent={'center'}>
-                <Image src = 'https://images.unsplash.com/photo-1678965979554-947b6ad8e212?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80' alt='city' maxWidth={'50%'}></Image>
-              <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-                  <Stack align={'center'}>
-                      <Heading fontSize={'4xl'}>Create an Account</Heading>
-                  </Stack>
-                  <Box
-                      rounded={'lg'}
-                      bg={useColorModeValue('white', 'gray.700')}
-                      boxShadow={'lg'}
-                      p={8}>
-                      <Stack spacing={4}>
-                      <chakra.form
-                      onSubmit={handleSubmit(handleRegister)}
-                      flexDirection= {'column'}
-                      gap={4}
-                      >
-                       <HStack>   
-                      <FormControl isInvalid={Boolean(errors.firstName)}>
+      <Flex
+        minH={'100vh'}
+        align={'center'}
+        justify={'center'}
+        bg={useColorModeValue('gray.50', 'gray.800')}
+      >
+        <HStack justifyContent={'center'}>
+          <Image
+            src="https://images.unsplash.com/photo-1678965979554-947b6ad8e212?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80"
+            alt="city"
+            maxWidth={'50%'}
+          ></Image>
+          <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+            <Stack align={'center'}>
+              <Heading fontSize={'4xl'}>Create an Account</Heading>
+            </Stack>
+            <Box
+              rounded={'lg'}
+              bg={useColorModeValue('white', 'gray.700')}
+              boxShadow={'lg'}
+              p={8}
+            >
+              <Stack spacing={4}>
+                <chakra.form
+                  onSubmit={handleSubmit(handleRegister)}
+                  flexDirection={'column'}
+                  gap={4}
+                >
+                  <HStack>
+                    <FormControl isInvalid={Boolean(errors.firstName)}>
                       <FormLabel htmlFor="firstName">First Name</FormLabel>
                       <Input
                         placeholder="First Name"
@@ -56,12 +81,12 @@ const Register:React.FC = () => {
                           required: 'Firstname is required',
                         })}
                       />
-                        <FormErrorMessage>
+                      <FormErrorMessage>
                         {errors.firstName && errors.firstName.message}
-                        </FormErrorMessage>
-                        </FormControl>
+                      </FormErrorMessage>
+                    </FormControl>
 
-                        <FormControl isInvalid={Boolean(errors.lastName)}>
+                    <FormControl isInvalid={Boolean(errors.lastName)}>
                       <FormLabel htmlFor="lastName">Last Name</FormLabel>
                       <Input
                         placeholder="Last Name"
@@ -71,101 +96,113 @@ const Register:React.FC = () => {
                           required: 'Lastname is required',
                         })}
                       />
-                        <FormErrorMessage>
+                      <FormErrorMessage>
                         {errors.lastName && errors.lastName.message}
-                        </FormErrorMessage>
-                        </FormControl>
-                        </HStack>
+                      </FormErrorMessage>
+                    </FormControl>
+                  </HStack>
 
-                      <FormControl isInvalid={Boolean(errors.email)}>
-                      <FormLabel htmlFor="email">Email address</FormLabel>
-                      <Input
-                        placeholder="Email Address"
-                        id="email"
-                        type="email"
-                        {...register('email', {
-                          required: 'Email is required',
-                          pattern: {
-                            value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                            message: 'Invalid email address'
-                          },
-                        })}
-                      />
-                        <FormErrorMessage>
-                        {errors.email && errors.email.message}
-                        </FormErrorMessage>
-                        </FormControl>
+                  <FormControl isInvalid={Boolean(errors.email)}>
+                    <FormLabel htmlFor="email">Email address</FormLabel>
+                    <Input
+                      placeholder="Email Address"
+                      id="email"
+                      type="email"
+                      {...register('email', {
+                        required: 'Email is required',
+                        pattern: {
+                          value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                          message: 'Invalid email address',
+                        },
+                      })}
+                    />
+                    <FormErrorMessage>
+                      {errors.email && errors.email.message}
+                    </FormErrorMessage>
+                  </FormControl>
 
-                      <FormControl isInvalid={Boolean(errors.userName)}>
-                      <FormLabel htmlFor="userName">Username</FormLabel>
-                      <Input
-                        placeholder="Username"
-                        id="userName"
-                        type="userName"
-                        {...register('userName', {
-                          required: 'Username is required',
-                        })}
-                      />
-                        <FormErrorMessage>
-                        {errors.userName && errors.userName.message}
-                        </FormErrorMessage>
-                        </FormControl>
-                        <FormControl isInvalid={Boolean(errors.password)}>
-                              <FormLabel htmlFor='passoword'>Password</FormLabel>
-                              <Input 
-                                type="password"
-                                placeholder= "Password"
-                                id="password"
-                                {...register('password', {
-                                  required: 'Password is required',
-                                  minLength: {
-                                    value: 8,
-                                    message: 'Password must have at least 8 characters'
-                                  },
-                                })}/>
-                          <FormErrorMessage>
-                          {errors.password && errors.password.message}  
-                          </FormErrorMessage>
-                          </FormControl>
-                          <Stack spacing={10}>
-                              <Button
-                                  bg={'green.400'}
-                                  color={'white'}
-                                  _hover={{
-                                      bg: 'green.500',
-                                  }}
-                                  type = "submit"
-                                  >
-                                  Register
-                              </Button>
-                              <Box display={"flex"} flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'} gap={5} >
-                                <Box height={0} width={'full'} border={'1px solid black'}></Box>
-                                <Text>OR</Text>
-                                <Box height={0} width={'full'} border={'1px solid black'}></Box>
-                              </Box>
-                              <Link 
-                              bg={'blue.400'}
-                              color={'white'}
-                              _hover={
-                                  {
-                                      bg: 'blue.500',
-                                  }
-                              }
-                              as = {Button}
-                              href = "/"
-                              >
-                                Login
-                              </Link>
-                          </Stack>
-                        </chakra.form>
-                      </Stack>
-                      
-                  </Box>
+                  <FormControl isInvalid={Boolean(errors.userName)}>
+                    <FormLabel htmlFor="userName">Username</FormLabel>
+                    <Input
+                      placeholder="Username"
+                      id="userName"
+                      type="userName"
+                      {...register('userName', {
+                        required: 'Username is required',
+                      })}
+                    />
+                    <FormErrorMessage>
+                      {errors.userName && errors.userName.message}
+                    </FormErrorMessage>
+                  </FormControl>
+                  <FormControl isInvalid={Boolean(errors.password)}>
+                    <FormLabel htmlFor="passoword">Password</FormLabel>
+                    <Input
+                      type="password"
+                      placeholder="Password"
+                      id="password"
+                      {...register('password', {
+                        required: 'Password is required',
+                        minLength: {
+                          value: 8,
+                          message: 'Password must have at least 8 characters',
+                        },
+                      })}
+                    />
+                    <FormErrorMessage>
+                      {errors.password && errors.password.message}
+                    </FormErrorMessage>
+                  </FormControl>
+                  <Stack spacing={10}>
+                    <Button
+                      bg={'green.400'}
+                      color={'white'}
+                      _hover={{
+                        bg: 'green.500',
+                      }}
+                      type="submit"
+                    >
+                      Register
+                    </Button>
+                    <Box
+                      display={'flex'}
+                      flexDirection={'row'}
+                      justifyContent={'space-between'}
+                      alignItems={'center'}
+                      gap={5}
+                    >
+                      <Box
+                        height={0}
+                        width={'full'}
+                        border={'1px solid black'}
+                      ></Box>
+                      <Text>OR</Text>
+                      <Box
+                        height={0}
+                        width={'full'}
+                        border={'1px solid black'}
+                      ></Box>
+                    </Box>
+                    <Link
+                      bg={'blue.400'}
+                      color={'white'}
+                      _hover={{
+                        bg: 'blue.500',
+                      }}
+                      as={Button}
+                      href="/"
+                    >
+                      Login
+                    </Link>
+                  </Stack>
+                </chakra.form>
               </Stack>
-              </HStack>
-          </Flex>
+            </Box>
+          </Stack>
+        </HStack>
+      </Flex>
     </Box>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

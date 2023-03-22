@@ -1,24 +1,17 @@
 import React from 'react';
 import Sidebar from '../../components/dashboard/Sidebar';
-import {Box, HStack} from '@chakra-ui/react';
+import { Box, HStack, VStack } from '@chakra-ui/react';
 import RegisterUI from '../../components/bookRegistration/RegisterUI';
+import Navbar from '../../components/dashboard/Navbar';
 
 const Dashboard = () => {
   return (
     <>
-    <Box height={'100vh'} width={'100vw'}>
-    <HStack>
-      <Box>
+      <Box height={'100vh'} width={'100vw'}>
         <Sidebar />
       </Box>
-      <Box>
-        <RegisterUI />
-        
-      </Box>
-    </HStack>
-    </Box>
     </>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
