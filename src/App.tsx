@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login/Login';
 import Register from './pages/Login/Register';
 import { extendTheme } from '@chakra-ui/react';
+import '../index.css';
 
 const theme = extendTheme({
   colors: {
