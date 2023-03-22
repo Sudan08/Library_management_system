@@ -7,6 +7,7 @@ import Login from './pages/Login/Login';
 import Register from './pages/Login/Register';
 import { extendTheme } from '@chakra-ui/react';
 import '../index.css';
+import History from './pages/history/History';
 
 const theme = extendTheme({
   colors: {
@@ -31,6 +32,7 @@ const App = () => {
         <Routes>
           <Route element={<ProtectedRoute />}>
             <Route path={'/dashboard'} element={<Dashboard />} />
+            <Route path={'/history'} element={<History />} />
           </Route>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
