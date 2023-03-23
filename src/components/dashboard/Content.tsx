@@ -34,7 +34,7 @@ const Content = () => {
         <Box m="4" p="4">
           <Input placeholder="Search" />
         </Box>
-        <VStack m="4" p="4" flexDirection="Col" justifyContent="flex-start">
+        <VStack m="4" p="4">
           <Text>Romance</Text>
           <HStack gap="4" justifyContent="space-around">
             {Books.map((book, index) => (

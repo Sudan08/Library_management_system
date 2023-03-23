@@ -35,7 +35,7 @@ const Sidebar = () => {
             <NavLink to={'/dashboard'}>
               <Button
                 leftIcon={<AiOutlineHome />}
-                bg={isActive('/dashboard') ? 'brand.800' : 'brand.100'}
+                bg={isActive('/dashboard') ? 'brand.500' : 'brand.100'}
               >
                 Home
               </Button>
@@ -43,14 +43,30 @@ const Sidebar = () => {
             <NavLink to={'/history'}>
               <Button
                 leftIcon={<AiOutlineHistory />}
-                bg={isActive('/history') ? 'brand.800' : 'brand.100'}
+                bg={isActive('/history') ? 'brand.500' : 'brand.100'}
                 width={['3rem', '6rem', '8rem']}
               >
                 History
               </Button>
             </NavLink>
-            <Button></Button>
-            <Button></Button>
+            <NavLink to={'#'}>
+              <Button
+                leftIcon={<AiOutlineHistory />}
+                bg={isActive('#') ? 'brand.500' : 'brand.100'}
+                width={['3rem', '6rem', '8rem']}
+              >
+                Setting
+              </Button>
+            </NavLink>
+            <NavLink to={'#'}>
+              <Button
+                leftIcon={<AiOutlineHistory />}
+                bg={isActive('#') ? 'brand.500' : 'brand.100'}
+                width={['3rem', '6rem', '8rem']}
+              >
+                Log Out
+              </Button>
+            </NavLink>
           </VStack>
         </Box>
         <Box></Box>
@@ -65,17 +81,21 @@ const SidebarItems = [
   {
     name: 'Home',
     path: '/dashboard',
-    icon: <Icon />,
+    icon: <AiOutlineHome />,
   },
   {
     name: 'History',
     path: '/history',
-    icon: <Icon />,
+    icon: <AiOutlineHistory />,
   },
   {
     name: 'Settings',
     path: '/settings',
     icon: <Icon />,
   },
-  {},
+  {
+    name: 'Log Out',
+    path: '/logout',
+    icon: <Icon />,
+  },
 ];

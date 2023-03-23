@@ -15,7 +15,7 @@ const Navbar = () => {
       >
         <Box p={'10px'} m={'10px'}>
           <Image
-            src="../../public/images/hck_ing_group_logo.png"
+            src="/images/hck_ing_group_logo.png"
             alt="herald_logo"
             maxH={'50px'}
             maxw={'50px'}
