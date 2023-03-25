@@ -1,6 +1,18 @@
 import React from 'react';
-import { Box, HStack, Flex, VStack, Text, Input } from '@chakra-ui/react';
+import {
+  Box,
+  HStack,
+  Flex,
+  VStack,
+  Text,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Icon,
+} from '@chakra-ui/react';
 import BookCard from './BookCard';
+import { BsSearch } from 'react-icons/bs';
 
 const Content = () => {
   const Books = [
@@ -26,16 +38,69 @@ const Content = () => {
       boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
       maxWidth={'95%'}
       width={'95%'}
-      overflow={'hidden'}
-      scrollBehavior={'smooth'}
       my={'40px'}
+      overflow={'scroll'}
+      maxH={'90%'}
     >
-      <VStack width="full" justifyContent="flex-start" alignItems="flex-start">
-        <Box m="4" p="4">
-          <Input placeholder="Search" />
+      <VStack
+        width="full"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+        overflow="auto"
+      >
+        <Box width="300px" alignSelf="flex-end" p={4} m={4}>
+          <InputGroup>
+            <InputLeftElement
+              pointerEvents="none"
+              color="gray.300"
+              fontSize="1.2em"
+            >
+              <Icon as={BsSearch} />
+            </InputLeftElement>
+            <Input placeholder="Search" />
+          </InputGroup>
         </Box>
-        <VStack m="4" p="4">
-          <Text>Romance</Text>
+        <VStack m="4" p="4" gap="5" alignItems="flex-start">
+          <Text mx="5">Romance</Text>
+          <HStack gap="4" justifyContent="space-around">
+            {Books.map((book, index) => (
+              <BookCard
+                key={index}
+                src={book.src}
+                title={book.title}
+                desc={book.desc}
+              ></BookCard>
+            ))}
+          </HStack>
+        </VStack>
+        <VStack m="4" p="4" gap="5" alignItems="flex-start">
+          <Text mx="5">Romance</Text>
+          <HStack gap="4" justifyContent="space-around">
+            {Books.map((book, index) => (
+              <BookCard
+                key={index}
+                src={book.src}
+                title={book.title}
+                desc={book.desc}
+              ></BookCard>
+            ))}
+          </HStack>
+        </VStack>
+        <VStack m="4" p="4" gap="5" alignItems="flex-start">
+          <Text mx="5">Romance</Text>
+          <HStack gap="4" justifyContent="space-around">
+            {Books.map((book, index) => (
+              <BookCard
+                key={index}
+                src={book.src}
+                title={book.title}
+                desc={book.desc}
+              ></BookCard>
+            ))}
+          </HStack>
+        </VStack>
+        <VStack m="4" p="4" gap="5" alignItems="flex-start">
+          <Text mx="5">Romance</Text>
           <HStack gap="4" justifyContent="space-around">
             {Books.map((book, index) => (
               <BookCard

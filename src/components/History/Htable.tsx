@@ -1,5 +1,15 @@
 import React from 'react';
-import { Box, Text, Table, Tr, Th, Thead, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Text,
+  Table,
+  Tr,
+  Th,
+  Thead,
+  VStack,
+  Tbody,
+  Td,
+} from '@chakra-ui/react';
 
 const Htable = () => {
   return (
@@ -20,6 +30,7 @@ const Htable = () => {
         <Table>
           <Thead>
             <Tr>
+              <Th>S.N</Th>
               <Th>Book Name</Th>
               <Th>Author</Th>
               <Th>Genre</Th>
@@ -28,6 +39,17 @@ const Htable = () => {
               <Th>Return Status</Th>
             </Tr>
           </Thead>
+          <Tbody>
+            <Tr>
+              <Td>1</Td>
+              <Td>Harry Potter and Order of Phoenix</Td>
+              <Td>JK Rowling</Td>
+              <Td>Action</Td>
+              <Td>2020</Td>
+              <Td>2021</Td>
+              <Td>True</Td>
+            </Tr>
+          </Tbody>
         </Table>
       </VStack>
     </Box>
