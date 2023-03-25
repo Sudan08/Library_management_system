@@ -23,6 +23,7 @@ export interface registerPayLoad {
   userName: string;
   email: string;
   password: string;
+  scope: string;
 }
 
 export interface IUser {

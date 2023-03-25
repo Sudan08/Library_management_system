@@ -8,7 +8,7 @@ export const authApi = createApi({
     baseUrl: BASEURL + '/users/api/v1',
   }),
   endpoints: (builder) => ({
-    login: builder.mutation<ILoginResponse>({
+    login: builder.mutation({
       query: (body) => ({
         url: '/login',
         method: 'POST',
@@ -18,4 +18,4 @@ export const authApi = createApi({
   }),
 });
 
-export const { useLoginMutation, useLogoutMutation } = authApi;
+export const { useLoginMutation } = authApi;
