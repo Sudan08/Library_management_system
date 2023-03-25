@@ -23,7 +23,7 @@ const Navbar = () => {
             src="/images/hck_ing_group_logo.png"
             alt="herald_logo"
             maxH={'50px'}
-            maxw={'50px'}
+            maxW={'50px'}
           />
         </Box>
         <Box p={'10px'} m={'10px'}>

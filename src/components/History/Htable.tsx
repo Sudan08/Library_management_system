@@ -23,7 +23,7 @@ const Htable = () => {
     >
       <VStack justifyContent="flex-start" alignItems="start">
         <Box m="9">
-          <Text fontSize="3xl" fontWeight="light" fontFamily="Popins" font>
+          <Text fontSize="3xl" fontWeight="light" fontFamily="Popins">
             History
           </Text>
         </Box>
