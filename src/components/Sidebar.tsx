@@ -3,9 +3,11 @@ import { Box, VStack, Text, Button, Icon } from '@chakra-ui/react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { AiOutlineHome, AiOutlineHistory } from 'react-icons/ai';
 import { IoLibraryOutline } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const isActive = (path: string) => {
     return location.pathname === path;
   };
@@ -32,41 +34,30 @@ const Sidebar = () => {
 
         <Box>
           <VStack justifyContent={'around'} alignItems={'center'} gap={'10'}>
-            <NavLink to={'/dashboard'}>
-              <Button
-                leftIcon={<AiOutlineHome />}
-                bg={isActive('/dashboard') ? 'brand.500' : 'brand.100'}
-              >
-                Home
-              </Button>
-            </NavLink>
-            <NavLink to={'/history'}>
-              <Button
-                leftIcon={<AiOutlineHistory />}
-                bg={isActive('/history') ? 'brand.500' : 'brand.100'}
-                width={['3rem', '6rem', '8rem']}
-              >
-                History
-              </Button>
-            </NavLink>
-            <NavLink to={'#'}>
-              <Button
-                leftIcon={<AiOutlineHistory />}
-                bg={isActive('#') ? 'brand.500' : 'brand.100'}
-                width={['3rem', '6rem', '8rem']}
-              >
-                Setting
-              </Button>
-            </NavLink>
-            <NavLink to={'#'}>
-              <Button
-                leftIcon={<AiOutlineHistory />}
-                bg={isActive('#') ? 'brand.500' : 'brand.100'}
-                width={['3rem', '6rem', '8rem']}
-              >
-                Log Out
-              </Button>
-            </NavLink>
+            {SidebarItems.map((item, index) => {
+              return (
+                <NavLink to={item.path} key={index}>
+                  <Button
+                    leftIcon={item.icon}
+                    bg={isActive(item.path) ? 'brand.500' : 'brand.100'}
+                  >
+                    {item.name}
+                  </Button>
+                </NavLink>
+              );
+            })}
+
+            <Button
+              leftIcon={<AiOutlineHistory />}
+              bg={isActive('#') ? 'brand.500' : 'brand.100'}
+              width={['3rem', '6rem', '8rem']}
+              onClick={() => {
+                navigate('/');
+                localStorage.removeItem('token');
+              }}
+            >
+              Log Out
+            </Button>
           </VStack>
         </Box>
         <Box></Box>
@@ -85,12 +76,12 @@ const SidebarItems = [
   },
   {
     name: 'History',
-    path: '/history',
+    path: '/history:id',
     icon: <AiOutlineHistory />,
   },
   {
-    name: 'Settings',
-    path: '/settings',
+    name: 'My Books',
+    path: '/myBooks:id',
     icon: <Icon />,
   },
   {

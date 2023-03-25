@@ -32,7 +32,7 @@ const App = () => {
         <Routes>
           <Route element={<ProtectedRoute />}>
             <Route path={'/dashboard'} element={<Dashboard />} />
-            <Route path={'/history'} element={<History />} />
+            <Route path={'/history:id'} element={<History />} />
           </Route>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />

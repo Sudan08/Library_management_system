@@ -14,16 +14,19 @@ import {
   chakra,
   HStack,
   Image,
+  useToast,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { registerPayLoad } from '../../interface';
 
 const Register: React.FC = () => {
+  const toast = useToast();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<registerPayLoad>({});
+
   const handleRegister = (data: registerPayLoad) => {
     data.scope = 'user';
     console.log(data);

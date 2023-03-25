@@ -13,6 +13,7 @@ import {
   FormErrorMessage,
   HStack,
   Image,
+  useToast,
 } from '@chakra-ui/react';
 import React from 'react';
 import { chakra } from '@chakra-ui/react';
@@ -20,38 +21,47 @@ import { useForm } from 'react-hook-form';
 import { Form, Link } from 'react-router-dom';
 import { loginPayLoad } from '../../interface';
 import { useNavigate } from 'react-router-dom';
+import { useLoginMutation } from '../../auth/authApiSlice';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const toast = useToast();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<loginPayLoad>();
-  const handleLogin = async (data: loginPayLoad) => {
-    data.scope = 'user';
+
+  const [login, { isLoading }] = useLoginMutation();
+
+  const dispatch = useAppDispatch();
+
+  const handleLogin = async (values: loginPayLoad) => {
     try {
-      await fetch('http://localhost:8000/users/api/v1/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.status == 200) {
-            const token = data.token;
-            document.cookie = `token=${token};}`;
-            localStorage.setItem('token', token);
-            navigate('/dashboard');
-          } else {
-            alert(data.message);
-          }
+      const data = await login(values).unwrap();
+      console.log(data);
+      if (data) {
+        dispatch({ type: 'auth/login', payload: data });
+        toast({
+          title: 'Login Success',
+          description: 'We are redirecting you to the dashboard',
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
         });
+        navigate('/dashboard');
+      }
     } catch (err) {
-      alert(err);
+      console.log(err);
+      toast({
+        title: 'Login Failed',
+        description: 'Please check your credentials',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import { useAppSelector } from '../store/store';
 
 const ProtectedRoute = () => {
-  const isAuthenticated = localStorage.getItem('token');
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
   if (isAuthenticated === undefined) {
     return null;
