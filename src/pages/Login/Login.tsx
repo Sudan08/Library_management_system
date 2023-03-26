@@ -22,7 +22,7 @@ import { Form, Link } from 'react-router-dom';
 import { loginPayLoad } from '../../interface';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../auth/authApiSlice';
-import { useAppDispatch, useAppSelector } from '../../store/store';
+import { useAppDispatch } from '../../store/store';
 import { useCookies } from 'react-cookie';
 
 const Login: React.FC = () => {
@@ -32,7 +32,6 @@ const Login: React.FC = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<loginPayLoad>();
 

@@ -12,21 +12,48 @@ import {
   FormLabel,
   FormControl,
   Input,
+  useToast,
 } from '@chakra-ui/react';
 import React from 'react';
 
 import { useForm } from 'react-hook-form';
 import { IBookRegister } from '../../interface';
+import { useCreateBookMutation } from '../../books/bookApiSlice';
+import { useAppDispatch } from '../../store/store';
 
 const RegisterUI = () => {
+  const [postBook, { isLoading }] = useCreateBookMutation();
+  const toast = useToast();
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm<IBookRegister>();
+  const dispatch = useAppDispatch();
   const { onClose, onOpen, isOpen } = useDisclosure();
-  const onSubmit = (data: IBookRegister) => {
-    console.log(data);
+  const onSubmit = async (values: IBookRegister) => {
+    try {
+      const data = await postBook(values).unwrap();
+      if (data) {
+        dispatch({ type: 'books/createBook', payload: data });
+        toast({
+          description: 'Adding Book',
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        });
+        console.log(data);
+      }
+    } catch (err) {
+      console.log(err);
+      toast({
+        title: 'Failed',
+        description: 'Please check your credentials',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    }
   };
   return (
     <>

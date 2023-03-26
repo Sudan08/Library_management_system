@@ -40,8 +40,8 @@ export interface IBooks {
   title: string;
   genre: string[];
   author: string;
-  src: string;
-  description: string;
+  // src: string;
+  // description: string;
 }
 
 export interface IBookRegister {

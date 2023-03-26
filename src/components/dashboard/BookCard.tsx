@@ -32,7 +32,8 @@ const BookCard = (data: BookCardProps) => {
           />
           <Stack mt="6" spacing="3">
             <Heading size="md">{data.title}</Heading>
-            <Text>{data.desc}</Text>
+            <Text>{data.author}</Text>
+            <Text>{data.genre}</Text>
           </Stack>
         </CardBody>
         <Divider />

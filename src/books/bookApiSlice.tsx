@@ -1,21 +1,23 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { apiSlice } from '../api/apiSlice';
 
-export const BookApi = createApi({
-  reducerPath: 'bookApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000/books/api/v1/' }),
+export const BookApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getBooks: builder.query({
-      query: () => '/getBooks',
+      query: () => '/books/api/v1/getBooks',
     }),
+    providesTags: ['Books'],
     getBook: builder.query({
       query: (id) => `/books/${id}`,
+      providesTags: ['books'],
     }),
     createBook: builder.mutation({
       query: (body) => ({
-        url: '/addBook',
+        url: '/books/api/v1/addBook',
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['books'],
     }),
     updateBook: builder.mutation({
       query: ({ id, body }) => ({
