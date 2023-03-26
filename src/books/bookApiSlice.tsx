@@ -2,17 +2,17 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const BookApi = createApi({
   reducerPath: 'bookApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000/books/api/v1/' }),
   endpoints: (builder) => ({
     getBooks: builder.query({
-      query: () => '/books',
+      query: () => '/getBooks',
     }),
     getBook: builder.query({
       query: (id) => `/books/${id}`,
     }),
     createBook: builder.mutation({
       query: (body) => ({
-        url: '/books',
+        url: '/addBook',
         method: 'POST',
         body,
       }),

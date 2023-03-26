@@ -11,12 +11,15 @@ import {
   InputRightElement,
   Icon,
   Button,
+  useDisclosure,
 } from '@chakra-ui/react';
 import BookCard from './BookCard';
 import { BsSearch } from 'react-icons/bs';
 import { useAppSelector } from '../../store/store';
+import RegisterUI from '../bookRegistration/RegisterUI';
 
 const Content = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const scope = useAppSelector((state) => state.auth.scope);
   const Books = [
     {
@@ -79,20 +82,19 @@ const Content = () => {
           </InputGroup>
           {scope === 'admin' ? (
             <Box>
-              <Button bg="brand.500">Add Book</Button>
+              <RegisterUI />
             </Box>
           ) : null}
         </HStack>
         <VStack m="4" p="4" gap="5" alignItems="flex-start" maxWidth={'40vw'}>
           <Text mx="5">Romance</Text>
-          <HStack gap="4" justifyContent="space-around" overflow="scroll">
+          <HStack gap="4" justifyContent="space-around">
             {Books.map((book, index) => (
               <BookCard
                 key={index}
                 src={book.src}
                 title={book.title}
                 desc={book.desc}
-                overflow="scroll"
               ></BookCard>
             ))}
           </HStack>

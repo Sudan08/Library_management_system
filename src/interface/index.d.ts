@@ -43,3 +43,11 @@ export interface IBooks {
   src: string;
   description: string;
 }
+
+export interface IBookRegister {
+  title: string;
+  genre: string[];
+  author: string;
+  // src: string;
+  // description: string;
+}

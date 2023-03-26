@@ -21,7 +21,6 @@ type BookCardProps = {
 
 const BookCard = (data: BookCardProps) => {
   const scope = useAppSelector((state) => state.auth.scope);
-  console.log(scope);
   return (
     <>
       <Card height={'500px'} width={'200px'}>

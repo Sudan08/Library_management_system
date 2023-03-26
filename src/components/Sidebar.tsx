@@ -58,6 +58,7 @@ const Sidebar = () => {
                   return (
                     <NavLink to={item.path} key={index}>
                       <Button
+                        py={10}
                         leftIcon={item.icon}
                         bg={isActive(item.path) ? 'brand.500' : 'brand.300'}
                         _hover={{ bg: 'brand.400' }}
