@@ -10,12 +10,38 @@ import {
   InputLeftElement,
   InputRightElement,
   Icon,
+  Button,
+  useDisclosure,
 } from '@chakra-ui/react';
 import BookCard from './BookCard';
 import { BsSearch } from 'react-icons/bs';
+import { useAppSelector } from '../../store/store';
+import RegisterUI from '../bookRegistration/RegisterUI';
 
 const Content = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const scope = useAppSelector((state) => state.auth.scope);
   const Books = [
+    {
+      src: 'https://images.unsplash.com/photo-1679465186081-24f2f37a806f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+      title: 'This',
+      desc: 'This is a book',
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1679465186081-24f2f37a806f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+      title: 'This',
+      desc: 'This is a book',
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1679465186081-24f2f37a806f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+      title: 'This',
+      desc: 'This is a book',
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1679465186081-24f2f37a806f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+      title: 'This',
+      desc: 'This is a book',
+    },
     {
       src: 'https://images.unsplash.com/photo-1679465186081-24f2f37a806f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
       title: 'This',
@@ -42,13 +68,8 @@ const Content = () => {
       overflow={'scroll'}
       maxH={'90%'}
     >
-      <VStack
-        width="full"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        overflow="auto"
-      >
-        <Box width="300px" alignSelf="flex-end" p={4} m={4}>
+      <VStack width="full" justifyContent="flex-start" alignItems="flex-start">
+        <HStack width="300px" alignSelf="flex-end" p={4} m={4}>
           <InputGroup>
             <InputLeftElement
               pointerEvents="none"
@@ -59,8 +80,13 @@ const Content = () => {
             </InputLeftElement>
             <Input placeholder="Search" />
           </InputGroup>
-        </Box>
-        <VStack m="4" p="4" gap="5" alignItems="flex-start">
+          {scope === 'admin' ? (
+            <Box>
+              <RegisterUI />
+            </Box>
+          ) : null}
+        </HStack>
+        <VStack m="4" p="4" gap="5" alignItems="flex-start" maxWidth={'40vw'}>
           <Text mx="5">Romance</Text>
           <HStack gap="4" justifyContent="space-around">
             {Books.map((book, index) => (

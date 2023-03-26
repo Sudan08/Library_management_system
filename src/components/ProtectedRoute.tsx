@@ -1,18 +1,23 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import Dashboard from '../pages/dashboard/Dashboard';
-
-const ProtectedRoute = () => {
+const UserRoute = () => {
   const [cookies] = useCookies(['user']);
-
-  if (cookies.user === 'admin' && cookies.isAuthenticated === true) {
-    return <Outlet />;
-  } else if (cookies.user === 'user' && cookies.isAuthenticated === true) {
+  console.log(cookies);
+  if (cookies.user[1] === true && cookies.user[0] === 'user') {
     return <Outlet />;
   } else {
     return <Navigate to="/" />;
   }
 };
 
-export default ProtectedRoute;
+const AdminRoute = () => {
+  const [cookies] = useCookies(['user']);
+  if (cookies.user[1] === true && cookies.user[0] === 'admin') {
+    return <Outlet />;
+  } else {
+    return <Navigate to="/" />;
+  }
+};
+
+export { UserRoute, AdminRoute };

@@ -2,12 +2,13 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 import Dashboard from './pages/dashboard/Dashboard';
-import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login/Login';
 import Register from './pages/Login/Register';
 import { extendTheme } from '@chakra-ui/react';
 import '../index.css';
 import History from './pages/history/History';
+import { UserRoute, AdminRoute } from './components/ProtectedRoute';
+import AdminDashboard from './pages/dashboard/AdminDashboard';
 
 const theme = extendTheme({
   colors: {
@@ -30,9 +31,13 @@ const App = () => {
     <ChakraProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route element={<ProtectedRoute />}>
-            <Route path={'/dashboard'} element={<Dashboard />} />
+          <Route element={<UserRoute />}>
+            <Route path={'/home'} element={<Dashboard />} />
             <Route path={'/history:id'} element={<History />} />
+          </Route>
+          <Route element={<AdminRoute />}>
+            <Route path={'/admin'} element={<AdminDashboard />} />
+            <Route path={'/books'} element={<Dashboard />} />
           </Route>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />

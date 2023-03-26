@@ -4,10 +4,12 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { AiOutlineHome, AiOutlineHistory } from 'react-icons/ai';
 import { IoLibraryOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../store/store';
 
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const scope = useAppSelector((state) => state.auth.scope);
   const isActive = (path: string) => {
     return location.pathname === path;
   };
@@ -23,36 +25,56 @@ const Sidebar = () => {
       zIndex={'10'}
     >
       <VStack
-        justifyContent={'start'}
+        justifyContent={'space-between'}
         alignItems={'center'}
         p={10}
         gap={10}
         height={'100vh'}
       >
-        <Icon as={IoLibraryOutline} boxSize="20" />
-        <Text fontSize={'3xl'}>Sudan Shakya</Text>
+        <VStack display={'flex'} justifyContent={'space-around'} gap={'10'}>
+          <Icon as={IoLibraryOutline} boxSize="20" />
+          <Text fontSize={'3xl'}>Sudan Shakya</Text>
+        </VStack>
 
         <Box>
           <VStack justifyContent={'around'} alignItems={'center'} gap={'10'}>
-            {SidebarItems.map((item, index) => {
-              return (
-                <NavLink to={item.path} key={index}>
-                  <Button
-                    leftIcon={item.icon}
-                    bg={isActive(item.path) ? 'brand.500' : 'brand.100'}
-                    _hover={{ bg: 'brand.400' }}
-                    width={['3rem', '6rem', '8rem', '10rem', '14rem']}
-                  >
-                    {item.name}
-                  </Button>
-                </NavLink>
-              );
-            })}
+            {scope === 'admin'
+              ? SidebarAdminItems.map((item, index) => {
+                  return (
+                    <NavLink to={item.path} key={index}>
+                      <Button
+                        py={10}
+                        leftIcon={item.icon}
+                        bg={isActive(item.path) ? 'brand.500' : 'brand.300'}
+                        _hover={{ bg: 'brand.400' }}
+                        width={['3rem', '6rem', '8rem', '10rem', '14rem']}
+                      >
+                        {item.name}
+                      </Button>
+                    </NavLink>
+                  );
+                })
+              : SidebarUserItems.map((item, index) => {
+                  return (
+                    <NavLink to={item.path} key={index}>
+                      <Button
+                        py={10}
+                        leftIcon={item.icon}
+                        bg={isActive(item.path) ? 'brand.500' : 'brand.300'}
+                        _hover={{ bg: 'brand.400' }}
+                        width={['3rem', '6rem', '8rem', '10rem', '14rem']}
+                      >
+                        {item.name}
+                      </Button>
+                    </NavLink>
+                  );
+                })}
 
             <Button
               leftIcon={<AiOutlineHistory />}
-              bg={isActive('#') ? 'brand.500' : 'brand.100'}
-              width={['3rem', '6rem', '8rem']}
+              bg={isActive('#') ? 'brand.500' : 'brand.300'}
+              width={['3rem', '6rem', '8rem', '10rem', '14rem']}
+              py={10}
               onClick={() => {
                 navigate('/');
                 localStorage.removeItem('token');
@@ -70,10 +92,10 @@ const Sidebar = () => {
 
 export default Sidebar;
 
-const SidebarItems = [
+const SidebarUserItems = [
   {
     name: 'Home',
-    path: '/dashboard',
+    path: '/home',
     icon: <AiOutlineHome />,
   },
   {
@@ -83,6 +105,24 @@ const SidebarItems = [
   },
   {
     name: 'My Books',
+    path: '/myBooks:id',
+    icon: <Icon />,
+  },
+];
+
+const SidebarAdminItems = [
+  {
+    name: 'Home',
+    path: '/admin',
+    icon: <AiOutlineHome />,
+  },
+  {
+    name: 'Books',
+    path: '/books',
+    icon: <AiOutlineHistory />,
+  },
+  {
+    name: 'Users',
     path: '/myBooks:id',
     icon: <Icon />,
   },

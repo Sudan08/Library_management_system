@@ -28,7 +28,7 @@ import { useCookies } from 'react-cookie';
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const toast = useToast();
-  const [cookies , setCookie] = useCookies(['user']);
+  const [cookies, setCookie] = useCookies(['user']);
   const {
     register,
     handleSubmit,
@@ -55,7 +55,7 @@ const Login: React.FC = () => {
         setCookie('token', data.token, [{ path: '/' }, { httpOnly: true }]);
         setCookie('user', [data.scope, data.isAuthenticated], { path: '/' });
         {
-          data.scope === 'admin' ? navigate('/admin') : navigate('/dashboard');
+          data.scope === 'admin' ? navigate('/admin') : navigate('/home');
         }
       }
     } catch (err) {

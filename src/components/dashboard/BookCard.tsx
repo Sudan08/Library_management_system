@@ -11,6 +11,7 @@ import {
   ButtonGroup,
   Button,
 } from '@chakra-ui/react';
+import { useAppSelector } from '../../store/store';
 
 type BookCardProps = {
   src: string;
@@ -19,6 +20,7 @@ type BookCardProps = {
 };
 
 const BookCard = (data: BookCardProps) => {
+  const scope = useAppSelector((state) => state.auth.scope);
   return (
     <>
       <Card height={'500px'} width={'200px'}>
@@ -35,11 +37,17 @@ const BookCard = (data: BookCardProps) => {
         </CardBody>
         <Divider />
         <CardFooter>
-          <ButtonGroup spacing="2">
-            <Button variant="solid" colorScheme="blue">
-              Book Now
+          {scope === 'admin' ? (
+            <Button bg="brand.500" width="full">
+              View
             </Button>
-          </ButtonGroup>
+          ) : (
+            <ButtonGroup>
+              <Button variant="solid" bg="brand.500">
+                Book Now
+              </Button>
+            </ButtonGroup>
+          )}
         </CardFooter>
       </Card>
     </>
