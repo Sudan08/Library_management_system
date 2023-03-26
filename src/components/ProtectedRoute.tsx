@@ -1,18 +1,17 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAppSelector } from '../store/store';
+import { useCookies } from 'react-cookie';
+import Dashboard from '../pages/dashboard/Dashboard';
 
 const ProtectedRoute = () => {
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const [cookies] = useCookies(['user']);
 
-  if (isAuthenticated === undefined) {
-    return null;
-  }
-
-  if (isAuthenticated) {
+  if (cookies.user === 'admin' && cookies.isAuthenticated === true) {
+    return <Outlet />;
+  } else if (cookies.user === 'user' && cookies.isAuthenticated === true) {
     return <Outlet />;
   } else {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/" />;
   }
 };
 
