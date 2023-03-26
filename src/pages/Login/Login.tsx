@@ -23,10 +23,12 @@ import { loginPayLoad } from '../../interface';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../auth/authApiSlice';
 import { useAppDispatch, useAppSelector } from '../../store/store';
+import { useCookies } from 'react-cookie';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const toast = useToast();
+  const [cookies , setCookie] = useCookies(['user']);
   const {
     register,
     handleSubmit,
@@ -41,17 +43,20 @@ const Login: React.FC = () => {
   const handleLogin = async (values: loginPayLoad) => {
     try {
       const data = await login(values).unwrap();
-      console.log(data);
       if (data) {
         dispatch({ type: 'auth/login', payload: data });
         toast({
-          title: 'Login Success',
           description: 'We are redirecting you to the dashboard',
           status: 'success',
           duration: 9000,
           isClosable: true,
         });
-        navigate('/dashboard');
+        console.log(data);
+        setCookie('token', data.token, [{ path: '/' }, { httpOnly: true }]);
+        setCookie('user', [data.scope, data.isAuthenticated], { path: '/' });
+        {
+          data.scope === 'admin' ? navigate('/admin') : navigate('/dashboard');
+        }
       }
     } catch (err) {
       console.log(err);

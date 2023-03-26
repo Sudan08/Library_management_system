@@ -40,6 +40,8 @@ const Sidebar = () => {
                   <Button
                     leftIcon={item.icon}
                     bg={isActive(item.path) ? 'brand.500' : 'brand.100'}
+                    _hover={{ bg: 'brand.400' }}
+                    width={['3rem', '6rem', '8rem', '10rem', '14rem']}
                   >
                     {item.name}
                   </Button>
@@ -82,11 +84,6 @@ const SidebarItems = [
   {
     name: 'My Books',
     path: '/myBooks:id',
-    icon: <Icon />,
-  },
-  {
-    name: 'Log Out',
-    path: '/logout',
     icon: <Icon />,
   },
 ];
