@@ -19,6 +19,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { IBookRegister } from '../../interface';
 import { useCreateBookMutation } from '../../books/bookApiSlice';
+import { useAppDispatch } from '../../store/store';
 
 const RegisterUI = () => {
   const [postBook, { isLoading }] = useCreateBookMutation();
@@ -28,11 +29,13 @@ const RegisterUI = () => {
     register,
     formState: { errors },
   } = useForm<IBookRegister>();
+  const dispatch = useAppDispatch();
   const { onClose, onOpen, isOpen } = useDisclosure();
   const onSubmit = async (values: IBookRegister) => {
     try {
       const data = await postBook(values).unwrap();
       if (data) {
+        dispatch({ type: 'books/createBook', payload: data });
         toast({
           description: 'Adding Book',
           status: 'success',

@@ -11,54 +11,21 @@ import {
   InputRightElement,
   Icon,
   Button,
+  Spinner,
   useDisclosure,
 } from '@chakra-ui/react';
 import BookCard from './BookCard';
 import { BsSearch } from 'react-icons/bs';
 import { useAppSelector } from '../../store/store';
 import RegisterUI from '../bookRegistration/RegisterUI';
+import { useGetBooksQuery } from '../../books/bookApiSlice';
 
 const Content = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const scope = useAppSelector((state) => state.auth.scope);
-  const Books = [
-    {
-      src: 'https://images.unsplash.com/photo-1679465186081-24f2f37a806f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-      title: 'This',
-      desc: 'This is a book',
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1679465186081-24f2f37a806f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-      title: 'This',
-      desc: 'This is a book',
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1679465186081-24f2f37a806f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-      title: 'This',
-      desc: 'This is a book',
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1679465186081-24f2f37a806f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-      title: 'This',
-      desc: 'This is a book',
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1679465186081-24f2f37a806f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-      title: 'This',
-      desc: 'This is a book',
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1679465186081-24f2f37a806f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-      title: 'This',
-      desc: 'This is a book',
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1679465186081-24f2f37a806f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-      title: 'This',
-      desc: 'This is a book',
-    },
-  ];
+  const { data, isLoading, error } = useGetBooksQuery();
 
+  const getBooks = isLoading ? [] : data.books;
   return (
     <Box
       boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
@@ -89,12 +56,12 @@ const Content = () => {
         <VStack m="4" p="4" gap="5" alignItems="flex-start" maxWidth={'40vw'}>
           <Text mx="5">Romance</Text>
           <HStack gap="4" justifyContent="space-around">
-            {Books.map((book, index) => (
+            {getBooks.map((book, index) => (
               <BookCard
                 key={index}
-                src={book.src}
-                title={book.title}
-                desc={book.desc}
+                src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+                author={book.author}
+                genre={book.genre}
               ></BookCard>
             ))}
           </HStack>
@@ -102,12 +69,13 @@ const Content = () => {
         <VStack m="4" p="4" gap="5" alignItems="flex-start">
           <Text mx="5">Romance</Text>
           <HStack gap="4" justifyContent="space-around">
-            {Books.map((book, index) => (
+            {getBooks.map((book, index) => (
               <BookCard
                 key={index}
-                src={book.src}
+                src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80"
                 title={book.title}
-                desc={book.desc}
+                author={book.author}
+                genre={book.genre}
               ></BookCard>
             ))}
           </HStack>
@@ -115,25 +83,13 @@ const Content = () => {
         <VStack m="4" p="4" gap="5" alignItems="flex-start">
           <Text mx="5">Romance</Text>
           <HStack gap="4" justifyContent="space-around">
-            {Books.map((book, index) => (
+            {getBooks.map((book, index) => (
               <BookCard
                 key={index}
-                src={book.src}
+                src="https://images.unsplash.com/photo-1576872381149-7847515ce5d8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=736&q=80"
                 title={book.title}
-                desc={book.desc}
-              ></BookCard>
-            ))}
-          </HStack>
-        </VStack>
-        <VStack m="4" p="4" gap="5" alignItems="flex-start">
-          <Text mx="5">Romance</Text>
-          <HStack gap="4" justifyContent="space-around">
-            {Books.map((book, index) => (
-              <BookCard
-                key={index}
-                src={book.src}
-                title={book.title}
-                desc={book.desc}
+                author={book.author}
+                genre={book.genre}
               ></BookCard>
             ))}
           </HStack>
