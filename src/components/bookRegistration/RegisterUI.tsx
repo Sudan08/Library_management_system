@@ -34,6 +34,7 @@ const RegisterUI = () => {
   const onSubmit = async (values: IBookRegister) => {
     try {
       const data = await postBook(values).unwrap();
+      console.log(data);
       if (data) {
         dispatch({ type: 'books/createBook', payload: data });
         toast({
@@ -42,7 +43,6 @@ const RegisterUI = () => {
           duration: 9000,
           isClosable: true,
         });
-        console.log(data);
       }
     } catch (err) {
       console.log(err);

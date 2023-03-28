@@ -35,13 +35,15 @@ export interface IUser {
   src: string;
 }
 
-export interface IBooks {
-  id: number;
+export interface IBookState {
+  allBooks: IBook[];
+}
+
+export interface IBook {
+  _id: string;
   title: string;
   genre: string[];
   author: string;
-  // src: string;
-  // description: string;
 }
 
 export interface IBookRegister {

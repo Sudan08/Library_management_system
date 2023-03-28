@@ -46,7 +46,12 @@ const Navbar = () => {
         </Box>
         <Box p={'10px'} m={'10px'}>
           <HStack gap="10" justifyContent="space-between" mr="40px">
-            <Icon as={GrNotification} w="6" h="6" />
+            <Icon
+              as={GrNotification}
+              w="6"
+              h="6"
+              color={colorMode === 'light' ? 'black' : 'white'}
+            />
             <Icon
               as={
                 colorMode === 'light' ? MdOutlineDarkMode : MdOutlineLightMode

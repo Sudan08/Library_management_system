@@ -105,7 +105,7 @@ const SidebarUserItems = [
   },
   {
     name: 'My Books',
-    path: '/myBooks:id',
+    path: '/books/:id',
     icon: <Icon />,
   },
 ];
@@ -118,12 +118,12 @@ const SidebarAdminItems = [
   },
   {
     name: 'Books',
-    path: '/books',
+    path: '/admin/books',
     icon: <AiOutlineHistory />,
   },
   {
     name: 'Users',
-    path: '/myBooks:id',
+    path: '/admin/books/:id',
     icon: <Icon />,
   },
 ];
