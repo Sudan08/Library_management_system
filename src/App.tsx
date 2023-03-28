@@ -9,6 +9,7 @@ import '../index.css';
 import History from './pages/history/History';
 import { UserRoute, AdminRoute } from './components/ProtectedRoute';
 import AdminDashboard from './pages/dashboard/AdminDashboard';
+import Book from './pages/book/Book';
 
 const theme = extendTheme({
   colors: {
@@ -34,10 +35,12 @@ const App = () => {
           <Route element={<UserRoute />}>
             <Route path={'/home'} element={<Dashboard />} />
             <Route path={'/history:id'} element={<History />} />
+            <Route path={'/books/:id'} element={<Book />} />
           </Route>
           <Route element={<AdminRoute />}>
             <Route path={'/admin'} element={<AdminDashboard />} />
-            <Route path={'/books'} element={<Dashboard />} />
+            <Route path={'/admin/books'} element={<Dashboard />} />
+            <Route path={'/admin/books/:id'} element={<Book />} />
           </Route>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />

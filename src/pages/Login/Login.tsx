@@ -50,7 +50,7 @@ const Login: React.FC = () => {
           duration: 9000,
           isClosable: true,
         });
-        console.log(data);
+        localStorage.setItem('authdata', JSON.stringify(data));
         setCookie('token', data.token, [{ path: '/' }, { httpOnly: true }]);
         setCookie('user', [data.scope, data.isAuthenticated], { path: '/' });
         {

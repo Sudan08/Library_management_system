@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { IAuthState } from '../interface/index';
 
 const initalState: IAuthState = {
-  accessToken: null,
+  token: null,
   scope: null,
   isAuthenticated: false,
 };
@@ -12,12 +12,12 @@ const authSlice = createSlice({
   initialState: initalState,
   reducers: {
     login(state, action) {
-      state.accessToken = action.payload.accessToken;
+      state.token = action.payload.token;
       state.scope = action.payload.scope;
       state.isAuthenticated = action.payload.isAuthenticated;
     },
     logout(state) {
-      state.accessToken = null;
+      state.token = null;
       state.scope = null;
       state.isAuthenticated = false;
     },
