@@ -13,6 +13,7 @@ import {
   FormControl,
   Input,
   useToast,
+  Textarea,
 } from '@chakra-ui/react';
 import React from 'react';
 
@@ -21,7 +22,7 @@ import { IBookRegister } from '../../interface';
 import { useCreateBookMutation } from '../../books/bookApiSlice';
 import { useAppDispatch } from '../../store/store';
 
-const RegisterUI = () => {
+const RegisterUI = ({ action, book }) => {
   const [postBook, { isLoading }] = useCreateBookMutation();
   const toast = useToast();
   const {
@@ -58,12 +59,14 @@ const RegisterUI = () => {
   return (
     <>
       <Button bg="brand.500" onClick={onOpen}>
-        Add Book
+        {action === 'add' ? 'Add Book' : 'Edit Book'}
       </Button>
       <Modal isOpen={isOpen} size={['md', 'lg', 'xl']} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Add Book</ModalHeader>
+          <ModalHeader>
+            {action === 'add' ? 'Add Book' : 'Update Book'}
+          </ModalHeader>
           <ModalCloseButton />
           <form onSubmit={handleSubmit(onSubmit)}>
             <ModalBody>
@@ -72,6 +75,7 @@ const RegisterUI = () => {
                 <Input
                   placeholder="Title"
                   id="title"
+                  value={action === 'update' ? book.title : ''}
                   {...register('title', {
                     required: 'This is required',
                   })}
@@ -86,6 +90,7 @@ const RegisterUI = () => {
                 <Input
                   placeholder="Genre"
                   id="genre"
+                  value={action === 'update' ? book.genre : ''}
                   {...register('genre', {
                     required: 'This is required',
                   })}
@@ -100,6 +105,7 @@ const RegisterUI = () => {
                 <Input
                   placeholder="Author"
                   id="author"
+                  value={action === 'update' ? book.author : ''}
                   {...register('author', {
                     required: 'This is required',
                   })}
@@ -109,10 +115,25 @@ const RegisterUI = () => {
                   {errors.author && errors.author.message}
                 </FormErrorMessage>
               </FormControl>
+              <FormControl isInvalid={Boolean(errors.description)}>
+                <FormLabel htmlFor="description">Description</FormLabel>
+                <Textarea
+                  placeholder="Description"
+                  id="description"
+                  value={action === 'update' ? book.description : ''}
+                  {...register('description', {
+                    required: 'This is required',
+                  })}
+                />
+
+                <FormErrorMessage>
+                  {errors.description && errors.description.message}
+                </FormErrorMessage>
+              </FormControl>
             </ModalBody>
             <ModalFooter>
               <Button bg="brand.500" type="submit">
-                Submit
+                {action === 'add' ? 'Submit' : 'Update'}
               </Button>
             </ModalFooter>
           </form>

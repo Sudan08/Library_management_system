@@ -33,7 +33,9 @@ const Sidebar = () => {
       >
         <VStack display={'flex'} justifyContent={'space-around'} gap={'10'}>
           <Icon as={IoLibraryOutline} boxSize="20" />
-          <Text fontSize={'3xl'}>Sudan Shakya</Text>
+          <Text fontSize={'1xl'} fontWeight={'900'}>
+            Library Management System
+          </Text>
         </VStack>
 
         <Box>
@@ -122,8 +124,8 @@ const SidebarAdminItems = [
     icon: <AiOutlineHistory />,
   },
   {
-    name: 'Users',
-    path: '/admin/books/:id',
+    name: 'Booking Logs',
+    path: '/admin/bookings',
     icon: <Icon />,
   },
 ];

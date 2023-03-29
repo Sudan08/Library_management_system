@@ -38,20 +38,14 @@ const AdminRoute = () => {
   if (cookies.user[1] === true && cookies.user[0] === 'admin') {
     dispatch({ type: 'auth/login', payload: authdata });
     const { data: allbooks } = useGetBooksQuery(null);
-
     useEffect(() => {
       if (allbooks) {
         dispatch(addBook(allbooks));
       }
     }, [allbooks]);
+    console.log(allbooks);
 
-    return (
-      <>
-        <Suspense fallback={<Spinner />}>
-          <Outlet />
-        </Suspense>
-      </>
-    );
+    return <>{allbooks === undefined ? <Spinner /> : <Outlet />}</>;
   } else {
     return <Navigate to="/" />;
   }

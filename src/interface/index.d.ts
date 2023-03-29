@@ -51,5 +51,5 @@ export interface IBookRegister {
   genre: string[];
   author: string;
   // src: string;
-  // description: string;
+  description: string;
 }

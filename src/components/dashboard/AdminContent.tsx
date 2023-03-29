@@ -76,78 +76,83 @@ const AdminContent = () => {
       maxH={'90%'}
       overflow={'scroll'}
     >
-      <HStack justifyContent="flex-start" alignItems="start">
-        <VStack
-          justifyContent="flex-start"
-          alignItems="start"
-          gap="10"
-          m={'10'}
-          p={'10'}
-        >
-          <Text>Books</Text>
-          <Box height={'40vh'} width={'40vw'}>
-            <ResponsiveContainer>
-              <AreaChart
-                width={400}
-                height={300}
-                data={data}
-                margin={{
-                  top: 10,
-                  right: 30,
-                  left: 0,
-                  bottom: 0,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Area
-                  type="monotone"
-                  dataKey="uv"
-                  stroke="#8884d8"
-                  fill="#8884d8"
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </Box>
-        </VStack>
-        <VStack
-          justifyContent="flex-start"
-          alignItems={'flex-start'}
-          m={'10'}
-          p={'10'}
-          gap={'5'}
-        >
-          <Text>Users</Text>
-          <Box height={'30vh'} width={'20vw'}>
-            <ResponsiveContainer>
-              <AreaChart
-                width={400}
-                height={300}
-                data={data}
-                margin={{
-                  top: 10,
-                  right: 30,
-                  left: 0,
-                  bottom: 0,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Area
-                  type="monotone"
-                  dataKey="uv"
-                  stroke="#8884d8"
-                  fill="#8884d8"
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </Box>
-        </VStack>
-      </HStack>
+      <VStack justifyContent="start" alignItems={'start'} margin={'4'}>
+        <Text margin={'5'} fontSize={'3xl'} fontWeight={'bold'}>
+          Admin Dashboard
+        </Text>
+        <HStack justifyContent="flex-start" alignItems="start">
+          <VStack
+            justifyContent="flex-start"
+            alignItems="start"
+            gap="10"
+            m={'10'}
+            p={'10'}
+          >
+            <Text>Books</Text>
+            <Box height={'40vh'} width={'40vw'}>
+              <ResponsiveContainer>
+                <AreaChart
+                  width={400}
+                  height={300}
+                  data={data}
+                  margin={{
+                    top: 10,
+                    right: 30,
+                    left: 0,
+                    bottom: 0,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Area
+                    type="monotone"
+                    dataKey="uv"
+                    stroke="#8884d8"
+                    fill="#8884d8"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </Box>
+          </VStack>
+          <VStack
+            justifyContent="flex-start"
+            alignItems={'flex-start'}
+            m={'10'}
+            p={'10'}
+            gap={'5'}
+          >
+            <Text>Users</Text>
+            <Box height={'30vh'} width={'20vw'}>
+              <ResponsiveContainer>
+                <AreaChart
+                  width={400}
+                  height={300}
+                  data={data}
+                  margin={{
+                    top: 10,
+                    right: 30,
+                    left: 0,
+                    bottom: 0,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Area
+                    type="monotone"
+                    dataKey="uv"
+                    stroke="#8884d8"
+                    fill="#8884d8"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </Box>
+          </VStack>
+        </HStack>
+      </VStack>
     </Box>
   );
 };

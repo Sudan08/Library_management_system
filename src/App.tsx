@@ -10,6 +10,7 @@ import History from './pages/history/History';
 import { UserRoute, AdminRoute } from './components/ProtectedRoute';
 import AdminDashboard from './pages/dashboard/AdminDashboard';
 import Book from './pages/book/Book';
+import Booking from './pages/booking/Booking';
 
 const theme = extendTheme({
   colors: {
@@ -41,6 +42,7 @@ const App = () => {
             <Route path={'/admin'} element={<AdminDashboard />} />
             <Route path={'/admin/books'} element={<Dashboard />} />
             <Route path={'/admin/books/:id'} element={<Book />} />
+            <Route path={'/admin/bookings'} element={<Booking />} />
           </Route>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
