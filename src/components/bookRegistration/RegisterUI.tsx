@@ -19,23 +19,29 @@ import React from 'react';
 
 import { useForm } from 'react-hook-form';
 import { IBookRegister } from '../../interface';
-import { useCreateBookMutation } from '../../books/bookApiSlice';
+import {
+  useCreateBookMutation,
+  useUpdateBookMutation,
+} from '../../books/bookApiSlice';
 import { useAppDispatch } from '../../store/store';
+import { useParams } from 'react-router-dom';
 
 const RegisterUI = ({ action, book }) => {
-  const [postBook, { isLoading }] = useCreateBookMutation();
+  const { id } = useParams();
+  const [postBook] = useCreateBookMutation();
+  const [updateBook] = useUpdateBookMutation();
   const toast = useToast();
   const {
     handleSubmit,
     register,
+    watch,
     formState: { errors },
   } = useForm<IBookRegister>();
   const dispatch = useAppDispatch();
   const { onClose, onOpen, isOpen } = useDisclosure();
-  const onSubmit = async (values: IBookRegister) => {
+  const createBook = async (values: IBookRegister) => {
     try {
       const data = await postBook(values).unwrap();
-      console.log(data);
       if (data) {
         dispatch({ type: 'books/createBook', payload: data });
         toast({
@@ -44,6 +50,32 @@ const RegisterUI = ({ action, book }) => {
           duration: 9000,
           isClosable: true,
         });
+        onClose;
+      }
+    } catch (err) {
+      console.log(err);
+      toast({
+        title: 'Failed',
+        description: 'Please check your credentials',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const editBook = async (values: IBookRegister) => {
+    try {
+      const data = await updateBook(id, values).unwrap();
+      if (data) {
+        dispatch({ type: 'books/createBook', payload: data });
+        toast({
+          description: 'Updating Book',
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        });
+        onClose;
       }
     } catch (err) {
       console.log(err);
@@ -68,16 +100,22 @@ const RegisterUI = ({ action, book }) => {
             {action === 'add' ? 'Add Book' : 'Update Book'}
           </ModalHeader>
           <ModalCloseButton />
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form
+            onSubmit={
+              action === 'add'
+                ? handleSubmit(createBook)
+                : handleSubmit(editBook)
+            }
+          >
             <ModalBody>
               <FormControl isInvalid={Boolean(errors.title)}>
                 <FormLabel htmlFor="title">Title</FormLabel>
                 <Input
                   placeholder="Title"
                   id="title"
-                  value={action === 'update' ? book.title : ''}
                   {...register('title', {
                     required: 'This is required',
+                    value: action === 'update' ? book.title : '',
                   })}
                 />
 
@@ -90,9 +128,9 @@ const RegisterUI = ({ action, book }) => {
                 <Input
                   placeholder="Genre"
                   id="genre"
-                  value={action === 'update' ? book.genre : ''}
                   {...register('genre', {
                     required: 'This is required',
+                    value: action === 'update' ? book.genre : '',
                   })}
                 />
 
@@ -105,9 +143,9 @@ const RegisterUI = ({ action, book }) => {
                 <Input
                   placeholder="Author"
                   id="author"
-                  value={action === 'update' ? book.author : ''}
                   {...register('author', {
                     required: 'This is required',
+                    value: action === 'update' ? book.author : null,
                   })}
                 />
 
@@ -120,9 +158,9 @@ const RegisterUI = ({ action, book }) => {
                 <Textarea
                   placeholder="Description"
                   id="description"
-                  value={action === 'update' ? book.description : ''}
                   {...register('description', {
                     required: 'This is required',
+                    value: action === 'update' ? book.description : '',
                   })}
                 />
 
