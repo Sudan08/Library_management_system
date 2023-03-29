@@ -18,6 +18,7 @@ import {
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { registerPayLoad } from '../../interface';
+import { useNavigate } from 'react-router-dom';
 
 const Register: React.FC = () => {
   const toast = useToast();
@@ -26,6 +27,8 @@ const Register: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<registerPayLoad>({});
+
+  const navigate = useNavigate();
 
   const handleRegister = (data: registerPayLoad) => {
     data.scope = 'user';
@@ -156,7 +159,7 @@ const Register: React.FC = () => {
                       {errors.password && errors.password.message}
                     </FormErrorMessage>
                   </FormControl>
-                  <Stack spacing={10}>
+                  <Stack spacing={10} mt={'10'}>
                     <Button
                       bg={'green.400'}
                       color={'white'}
@@ -193,7 +196,7 @@ const Register: React.FC = () => {
                         bg: 'blue.500',
                       }}
                       as={Button}
-                      href="/"
+                      onClick={() => navigate('/')}
                     >
                       Login
                     </Link>

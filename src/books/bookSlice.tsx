@@ -11,8 +11,6 @@ const bookSlice = createSlice({
   reducers: {
     addBook: (state: IBookState, action: payloadAction<IBook[]>) => {
       state.allBooks = action.payload;
-      //       state.src = action.payload.src;
-      //       state.description = action.payload.description;
     },
     updateBook(state, action) {
       state.id = action.payload.id;

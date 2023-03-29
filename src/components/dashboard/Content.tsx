@@ -36,27 +36,36 @@ const Content = () => {
       maxH={'90%'}
     >
       <VStack width="full" justifyContent="flex-start" alignItems="flex-start">
-        <HStack width="300px" alignSelf="flex-end" p={4} m={4}>
-          <InputGroup>
-            <InputLeftElement
-              pointerEvents="none"
-              color="gray.300"
-              fontSize="1.2em"
-            >
-              <Icon as={BsSearch} />
-            </InputLeftElement>
-            <Input placeholder="Search" />
-          </InputGroup>
-          {scope === 'admin' ? (
-            <Box>
-              <RegisterUI />
-            </Box>
-          ) : null}
+        <HStack width="full" justifyContent="space-between" p={4} m={4}>
+          <Box>
+            <Text fontSize={'4xl'} fontWeight={'bold'}>
+              Books
+            </Text>
+          </Box>
+          <HStack>
+            <InputGroup>
+              <InputLeftElement
+                pointerEvents="none"
+                color="gray.300"
+                fontSize="1.2em"
+              >
+                <Icon as={BsSearch} />
+              </InputLeftElement>
+              <Input placeholder="Search" />
+            </InputGroup>
+            {scope === 'admin' ? (
+              <Box>
+                <RegisterUI action={'add'} />
+              </Box>
+            ) : null}
+          </HStack>
         </HStack>
 
         <>
           <VStack m="4" p="4" gap="5" alignItems="flex-start" maxWidth={'40vw'}>
-            <Text mx="5">Romance</Text>
+            <Text mx="5" fontSize={'2xl'}>
+              Romance
+            </Text>
             <HStack gap="4" justifyContent="space-around">
               {getBooks?.map((book, index) => (
                 <BookCard
