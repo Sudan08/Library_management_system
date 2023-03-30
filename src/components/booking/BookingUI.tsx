@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Box,
   HStack,
@@ -18,6 +18,22 @@ const BookingUI = () => {
   const handleIssued = () => {
     setIssued(!issued);
   };
+
+  const [bookingData, setBookingData] = React.useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8000/booking/api/v1/getbooking', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setBookingData(data.booking);
+      });
+  }, []);
+
   return (
     <Box
       boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
@@ -39,25 +55,29 @@ const BookingUI = () => {
               <Th>S.N</Th>
               <Th>Book Name</Th>
               <Th>Author</Th>
-              <Th>Genre</Th>
-              <Th>Booissuedked by</Th>
+              <Th>Booked by</Th>
               <Th>Booked Date</Th>
               <Th>Issued</Th>
             </Tr>
           </Thead>
           <Tbody>
-            <Tr>
-              <Td>1</Td>
-              <Td>Harry Potter and Order of Phoenix</Td>
-              <Td>JK Rowling</Td>
-              <Td>Action</Td>
-              <Td>Amrit Budathoki</Td>
-              <Td>29/03/2023</Td>
-              <Td bg={issued ? 'green' : 'red'}>{issued ? 'True' : 'False'}</Td>
-              <Td>
-                <Button onClick={handleIssued}>Issued</Button>
-              </Td>
-            </Tr>
+            {bookingData.map((data, index) => {
+              return (
+                <Tr key={index}>
+                  <Td>{index + 1}</Td>
+                  <Td>{data.title}</Td>
+                  <Td>{data.author}</Td>
+                  <Td>{data.userName}</Td>
+                  <Td>{data.bookedDate}</Td>
+                  <Td bg={data.isIssued ? 'green' : 'red'}>
+                    {data.isIssued ? 'True' : 'False'}
+                  </Td>
+                  <Td>
+                    <Button onClick={handleIssued}>Issued</Button>
+                  </Td>
+                </Tr>
+              );
+            })}
           </Tbody>
         </Table>
       </VStack>

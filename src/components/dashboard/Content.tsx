@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useMemo } from 'react';
 import {
   Box,
   HStack,
@@ -18,16 +18,16 @@ import BookCard from '../bookRegistration/BookCard';
 import { BsSearch } from 'react-icons/bs';
 import { useAppSelector } from '../../store/store';
 import RegisterUI from '../bookRegistration/RegisterUI';
-import { useGetBooksQuery } from '../../books/bookApiSlice';
-import { addBook } from '../../books/bookSlice';
 
 const Content = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const scope = useAppSelector((state) => state.auth.scope);
+  const scope = useAppSelector((state) => state?.auth?.scope);
   const getBooks = useAppSelector((state) => state.books.allBooks.books);
   if (getBooks === undefined) return <div>loading</div>;
-  const filteredBooks = getBooks.slice(0, 6);
-
+  if (getBooks === undefined) return <div>loading</div>;
+  const filteredBooks = useMemo(() => {
+    return getBooks.slice(0, 6);
+  }, [getBooks]);
   return (
     <Box
       boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
@@ -76,7 +76,8 @@ const Content = () => {
                 <BookCard
                   key={index}
                   bookId={book._id}
-                  src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+                  src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80"
+                  title={book.title}
                   author={book.author}
                   genre={book.genre}
                 ></BookCard>

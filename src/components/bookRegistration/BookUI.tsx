@@ -23,17 +23,16 @@ import RegisterUI from '../bookRegistration/RegisterUI';
 
 const BookUI = () => {
   const book = useAppSelector((state) => state.books.allBooks.books);
+  const { _userId, userName } = useAppSelector((state) => state?.auth);
+  const { scope } = JSON.parse(localStorage.getItem('authdata'));
+  if (book && _userId === undefined) return <div>loading</div>;
   const bookid = useParams();
+
   const toast = useToast();
   const navigate = useNavigate();
-  if (book === undefined) return <div>loading</div>;
   const [thisbook] = book.filter((book) => book._id === bookid.id);
   const [deleteData] = useDeleteBookMutation();
-  const [bookupdate, setBookupdate] = React.useState(false);
-
-  const handleUpdate = () => {
-    setBookupdate(true);
-  };
+  const date = new Date().toLocaleDateString();
 
   const handleDelete = async () => {
     try {
@@ -54,7 +53,41 @@ const BookUI = () => {
     } catch (err) {
       console.log(err);
     }
-    // console.log(data);
+  };
+
+  const handleBook = () => {
+    try {
+      fetch('http://localhost:8000/booking/api/v1/postbooking', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          bookId: bookid.id,
+          userId: _userId,
+          userName: userName,
+          title: thisbook.title,
+          author: thisbook.author,
+          bookedDate: date,
+          isIssued: false,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data) {
+            toast({
+              title: 'Book booked',
+              description: 'Book booked successfully',
+              status: 'success',
+              duration: 9000,
+              isClosable: true,
+            });
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <Box
@@ -106,24 +139,29 @@ const BookUI = () => {
           >
             <VStack justifyContent={'start'} alignItems={'start'}>
               <Text fontSize={'5xl'} fontWeight={'900'}>
-                Title : {thisbook.title}
+                Title : {thisbook?.title}
               </Text>
               <Text fontSize={'3xl'} fontWeight={'500'}>
-                Author : {thisbook.author}
+                Author : {thisbook?.author}
               </Text>
               <HStack gap={'5'}>
                 <Text fontSize={'1xl'} fontWeight={'500'}>
                   Genre :
                 </Text>
                 <Box boxShadow="md" p="3" rounded={'md'} bg={'red.400'}>
-                  {thisbook.genre}
+                  {thisbook?.genre}
                 </Box>
               </HStack>
               <Text fontSize={'1xl'} fontWeight={'500'}>
-                {thisbook.description}
+                {thisbook?.description}
               </Text>
             </VStack>
-            <VStack justifyContent="start" gap={'9'}>
+            <VStack
+              justifyContent={'start'}
+              alignItems={'start'}
+              gap={'9'}
+              width={'full'}
+            >
               <HStack
                 gap={'5'}
                 justifyContent={'start'}
@@ -134,7 +172,7 @@ const BookUI = () => {
                   Booked :
                 </Text>
                 <Box boxShadow="md" p="3" rounded={'md'} bg={'red.400'}>
-                  {thisbook.booked}
+                  {thisbook.booked === false ? 'False' : 'True'}
                 </Box>
               </HStack>
               <HStack
@@ -143,14 +181,26 @@ const BookUI = () => {
                 width={'full'}
                 gap={'8'}
               >
-                <RegisterUI action={'update'} book={thisbook} />
-                <Button
-                  leftIcon={<BsTrash3Fill />}
-                  colorScheme={'red'}
-                  onClick={handleDelete}
-                >
-                  Delete
-                </Button>
+                {scope === 'user' ? (
+                  <Button
+                    leftIcon={<BsTrash3Fill />}
+                    colorScheme={'red'}
+                    onClick={handleBook}
+                  >
+                    Book now
+                  </Button>
+                ) : (
+                  <>
+                    <RegisterUI action={'update'} book={thisbook} />
+                    <Button
+                      leftIcon={<BsTrash3Fill />}
+                      colorScheme={'red'}
+                      onClick={handleDelete}
+                    >
+                      Delete
+                    </Button>
+                  </>
+                )}
               </HStack>
             </VStack>
           </VStack>
