@@ -49,17 +49,9 @@ const BookCard = (data: BookCardProps) => {
         </CardBody>
         <Divider />
         <CardFooter>
-          {scope === 'admin' ? (
-            <Button bg="brand.500" width="full" onClick={handleClick}>
-              View
-            </Button>
-          ) : (
-            <ButtonGroup>
-              <Button variant="solid" bg="brand.500">
-                Book Now
-              </Button>
-            </ButtonGroup>
-          )}
+          <Button bg="brand.500" width="full" onClick={handleClick}>
+            View
+          </Button>
         </CardFooter>
       </Card>
     </>

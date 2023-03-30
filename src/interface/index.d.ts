@@ -9,6 +9,8 @@ export interface ILoginResponse {
   email: string;
   scope: string;
   accessToken: string;
+  userName: string;
+  _userid: string;
 }
 
 export interface IAuthState {

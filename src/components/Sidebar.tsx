@@ -107,7 +107,7 @@ const SidebarUserItems = [
   },
   {
     name: 'My Books',
-    path: '/books/:id',
+    path: '/mybooks/:id',
     icon: <Icon />,
   },
 ];
