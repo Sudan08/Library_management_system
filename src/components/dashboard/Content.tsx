@@ -25,6 +25,8 @@ const Content = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const scope = useAppSelector((state) => state.auth.scope);
   const getBooks = useAppSelector((state) => state.books.allBooks.books);
+  if (getBooks === undefined) return <div>loading</div>;
+  const filteredBooks = getBooks.slice(0, 6);
 
   return (
     <Box
@@ -63,11 +65,14 @@ const Content = () => {
 
         <>
           <VStack m="4" p="4" gap="5" alignItems="flex-start" maxWidth={'40vw'}>
-            <Text mx="5" fontSize={'2xl'}>
-              Romance
-            </Text>
+            <HStack justifyContent={'space-between'} m={'5'} width={'65vw'}>
+              <Text mx="5" fontSize={'2xl'}>
+                Romance
+              </Text>
+              <Text>See more:</Text>
+            </HStack>
             <HStack gap="4" justifyContent="space-around">
-              {getBooks?.map((book, index) => (
+              {filteredBooks?.map((book, index) => (
                 <BookCard
                   key={index}
                   bookId={book._id}
@@ -81,7 +86,7 @@ const Content = () => {
           <VStack m="4" p="4" gap="5" alignItems="flex-start">
             <Text mx="5">Romance</Text>
             <HStack gap="4" justifyContent="space-around">
-              {getBooks?.map((book, index) => (
+              {filteredBooks?.map((book, index) => (
                 <BookCard
                   key={index}
                   bookId={book._id}
@@ -96,7 +101,7 @@ const Content = () => {
           <VStack m="4" p="4" gap="5" alignItems="flex-start">
             <Text mx="5">Romance</Text>
             <HStack gap="4" justifyContent="space-around">
-              {getBooks?.map((book, index) => (
+              {filteredBooks?.map((book, index) => (
                 <BookCard
                   key={index}
                   bookId={book._id}

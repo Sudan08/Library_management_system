@@ -123,21 +123,36 @@ const BookUI = () => {
                 {thisbook.description}
               </Text>
             </VStack>
-            <HStack
-              justifyContent={'start'}
-              alignItems={'start'}
-              width={'full'}
-              gap={'8'}
-            >
-              <RegisterUI action={'update'} book={thisbook} />
-              <Button
-                leftIcon={<BsTrash3Fill />}
-                colorScheme={'red'}
-                onClick={handleDelete}
+            <VStack justifyContent="start" gap={'9'}>
+              <HStack
+                gap={'5'}
+                justifyContent={'start'}
+                alignItems={'start'}
+                width={'full'}
               >
-                Delete
-              </Button>
-            </HStack>
+                <Text fontSize={'1xl'} fontWeight={'500'}>
+                  Booked :
+                </Text>
+                <Box boxShadow="md" p="3" rounded={'md'} bg={'red.400'}>
+                  {thisbook.booked}
+                </Box>
+              </HStack>
+              <HStack
+                justifyContent={'start'}
+                alignItems={'start'}
+                width={'full'}
+                gap={'8'}
+              >
+                <RegisterUI action={'update'} book={thisbook} />
+                <Button
+                  leftIcon={<BsTrash3Fill />}
+                  colorScheme={'red'}
+                  onClick={handleDelete}
+                >
+                  Delete
+                </Button>
+              </HStack>
+            </VStack>
           </VStack>
         </HStack>
       </VStack>

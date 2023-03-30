@@ -14,6 +14,7 @@ import {
   Input,
   useToast,
   Textarea,
+  Switch,
 } from '@chakra-ui/react';
 import React from 'react';
 
@@ -34,7 +35,6 @@ const RegisterUI = ({ action, book }) => {
   const {
     handleSubmit,
     register,
-    watch,
     formState: { errors },
   } = useForm<IBookRegister>();
   const dispatch = useAppDispatch();
@@ -66,7 +66,9 @@ const RegisterUI = ({ action, book }) => {
 
   const editBook = async (values: IBookRegister) => {
     try {
-      const data = await updateBook(id, values).unwrap();
+      values._id = id;
+      console.log(values);
+      const data = await updateBook(values).unwrap();
       if (data) {
         dispatch({ type: 'books/createBook', payload: data });
         toast({
@@ -166,6 +168,19 @@ const RegisterUI = ({ action, book }) => {
 
                 <FormErrorMessage>
                   {errors.description && errors.description.message}
+                </FormErrorMessage>
+              </FormControl>
+              <FormControl isInvalid={Boolean(errors.booked)}>
+                <FormLabel htmlFor="booked">Booked</FormLabel>
+                <Switch
+                  id="bookded"
+                  {...register('booked', {
+                    value: action === 'update' ? book.bookded : false,
+                  })}
+                />
+
+                <FormErrorMessage>
+                  {errors.booked && errors.booked.message}
                 </FormErrorMessage>
               </FormControl>
             </ModalBody>
