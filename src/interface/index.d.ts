@@ -44,12 +44,14 @@ export interface IBook {
   title: string;
   genre: string[];
   author: string;
+  booked: string;
 }
 
 export interface IBookRegister {
   title: string;
   genre: string[];
   author: string;
-  // src: string;
+  src: string;
   description: string;
+  booked: string;
 }

@@ -12,14 +12,6 @@ const bookSlice = createSlice({
     addBook: (state: IBookState, action: payloadAction<IBook[]>) => {
       state.allBooks = action.payload;
     },
-    updateBook(state, action) {
-      state.id = action.payload.id;
-      state.title = action.payload.title;
-      state.genre = action.payload.genre;
-      state.author = action.payload.author;
-      //       state.src = action.payload.src;
-      //       state.description = action.payload.description;
-    },
   },
 });
 

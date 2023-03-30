@@ -20,11 +20,12 @@ export const BookApi = apiSlice.injectEndpoints({
       invalidatesTags: ['books'],
     }),
     updateBook: builder.mutation({
-      query: ({ id, body }) => ({
-        url: `/books/${id}`,
+      query: (body) => ({
+        url: `/books/api/v1/updateBook/${body?._id}`,
         method: 'PUT',
         body,
       }),
+      invalidatesTags: ['books'],
     }),
     deleteBook: builder.mutation({
       query: (id) => ({
