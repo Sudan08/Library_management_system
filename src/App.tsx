@@ -30,6 +30,9 @@ const theme = extendTheme({
 });
 
 const App = () => {
+  // getting Chakra theme and setting it to the ChakraProvider component
+  // also setting the routes for the application
+  // if the user is logged in then only he can access the books page
   return (
     <ChakraProvider theme={theme}>
       <BrowserRouter>
@@ -38,12 +41,14 @@ const App = () => {
             <Route path={'/home'} element={<Dashboard />} />
             <Route path={'/history:id'} element={<History />} />
             <Route path={'/books/:id'} element={<Book />} />
+            <Route path="*" element={<h1>404</h1>} />
           </Route>
           <Route element={<AdminRoute />}>
             <Route path={'/admin'} element={<AdminDashboard />} />
             <Route path={'/admin/books'} element={<Dashboard />} />
             <Route path={'/admin/books/:id'} element={<Book />} />
             <Route path={'/admin/bookings'} element={<Booking />} />
+            <Route path="*" element={<h1>404</h1>} />
           </Route>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />

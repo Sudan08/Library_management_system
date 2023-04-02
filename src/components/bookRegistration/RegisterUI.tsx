@@ -28,21 +28,27 @@ import { useAppDispatch } from '../../store/store';
 import { useParams } from 'react-router-dom';
 
 const RegisterUI = ({ action, book }) => {
+  // using react router dom hooks
   const { id } = useParams();
+  // using post and update mutation from the bookApiSlice
   const [postBook] = useCreateBookMutation();
   const [updateBook] = useUpdateBookMutation();
   const toast = useToast();
+  // using react hook form to handle form data
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm<IBookRegister>();
   const dispatch = useAppDispatch();
+  // using chakra ui hooks
   const { onClose, onOpen, isOpen } = useDisclosure();
   const createBook = async (values: IBookRegister) => {
     try {
+      // using unwrap to get the data from the mutation
       const data = await postBook(values).unwrap();
       if (data) {
+        // dispatching the data to the store
         dispatch({ type: 'books/createBook', payload: data });
         toast({
           description: 'Adding Book',
