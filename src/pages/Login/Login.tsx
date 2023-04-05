@@ -26,21 +26,26 @@ import { useAppDispatch } from '../../store/store';
 import { useCookies } from 'react-cookie';
 
 const Login: React.FC = () => {
+  // using react router dom hooks
   const navigate = useNavigate();
   const toast = useToast();
+  // setting cookies for the user
   const [cookies, setCookie] = useCookies(['user']);
+  // using react hook form to handle form data
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<loginPayLoad>();
 
+  // using the login mutation from the authApiSlice
   const [login, { isLoading }] = useLoginMutation();
 
   const dispatch = useAppDispatch();
 
   const handleLogin = async (values: loginPayLoad) => {
     try {
+      // using unwrap to get the data from the mutation
       const data = await login(values).unwrap();
       if (data) {
         dispatch({ type: 'auth/login', payload: data });
@@ -50,9 +55,11 @@ const Login: React.FC = () => {
           duration: 9000,
           isClosable: true,
         });
+        // setting the authdata in the local storage
         localStorage.setItem('authdata', JSON.stringify(data));
         setCookie('token', data.token, [{ path: '/' }, { httpOnly: true }]);
         setCookie('user', [data.scope, data.isAuthenticated], { path: '/' });
+        // redirecting the user to the dashboard based on the scope
         {
           data.scope === 'admin' ? navigate('/admin') : navigate('/home');
         }

@@ -15,6 +15,7 @@ import {
   useToast,
   Textarea,
   Switch,
+  Select,
 } from '@chakra-ui/react';
 import React from 'react';
 
@@ -28,21 +29,27 @@ import { useAppDispatch } from '../../store/store';
 import { useParams } from 'react-router-dom';
 
 const RegisterUI = ({ action, book }) => {
+  // using react router dom hooks
   const { id } = useParams();
+  // using post and update mutation from the bookApiSlice
   const [postBook] = useCreateBookMutation();
   const [updateBook] = useUpdateBookMutation();
   const toast = useToast();
+  // using react hook form to handle form data
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm<IBookRegister>();
   const dispatch = useAppDispatch();
+  // using chakra ui hooks
   const { onClose, onOpen, isOpen } = useDisclosure();
   const createBook = async (values: IBookRegister) => {
     try {
+      // using unwrap to get the data from the mutation
       const data = await postBook(values).unwrap();
       if (data) {
+        // dispatching the data to the store
         dispatch({ type: 'books/createBook', payload: data });
         toast({
           description: 'Adding Book',
@@ -127,15 +134,25 @@ const RegisterUI = ({ action, book }) => {
               </FormControl>
               <FormControl isInvalid={Boolean(errors.genre)}>
                 <FormLabel htmlFor="genre">Genre</FormLabel>
-                <Input
-                  placeholder="Genre"
+                <Select
                   id="genre"
                   {...register('genre', {
                     required: 'This is required',
                     value: action === 'update' ? book.genre : '',
                   })}
-                />
-
+                >
+                  <option selected disabled>
+                    Select one
+                  </option>
+                  <option value="Fiction"> Fiction</option>
+                  <option value="Non-Fiction"> Non-Fiction</option>
+                  <option value="Romance"> Romance</option>
+                  <option value="Mystery"> Mystery</option>
+                  <option value="Thriller"> Thriller</option>
+                  <option value="Fantasy"> Fantasy</option>
+                  <option value="Science Fiction"> Science Fiction</option>
+                  <option value="Horror"> Horror</option>
+                </Select>
                 <FormErrorMessage>
                   {errors.genre && errors.genre.message}
                 </FormErrorMessage>
