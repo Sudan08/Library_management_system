@@ -1013,6 +1013,39 @@
   resolved "https://registry.yarnpkg.com/@chakra-ui/visually-hidden/-/visually-hidden-2.0.15.tgz#60df64e0ab97d95fee4e6c61ccabd15fd5ace398"
   integrity sha512-WWULIiucYRBIewHKFA7BssQ2ABLHLVd9lrUo3N3SZgR0u4ZRDDVEUNOy+r+9ruDze8+36dGbN9wsN1IdELtdOw==
 
+"@cloudinary/html@^1.11.2":
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/@cloudinary/html/-/html-1.11.2.tgz#a906234880ffad3b6e0666a650157b885204375e"
+  integrity sha512-IibBZliI7MOK3dxvz0WlsEyTIsqZhY3SiCBQM0CNwCKxn3N1TO8OgetfU26Now1lJbdoF5JQ8S7Cn6ZWNuU1KA==
+  dependencies:
+    "@types/lodash.clonedeep" "^4.5.6"
+    "@types/lodash.debounce" "^4.0.6"
+    "@types/node" "^14.14.10"
+    lodash.clonedeep "^4.5.0"
+    lodash.debounce "^4.0.8"
+    typescript "^4.1.2"
+
+"@cloudinary/react@^1.11.2":
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/@cloudinary/react/-/react-1.11.2.tgz#6eb540533c18d77d134c47b705e76a867c4ee0a7"
+  integrity sha512-ZnVthMW7TExLMPmyven4N7EVr2oX2yZqnHn6EHBlni9iM0AZd6qtR8R5/SscxNLNwgBieWuvmejUlUT4LqPpMg==
+  dependencies:
+    "@cloudinary/html" "^1.11.2"
+
+"@cloudinary/transformation-builder-sdk@^1.2.7":
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/@cloudinary/transformation-builder-sdk/-/transformation-builder-sdk-1.2.7.tgz#974ebada3425f913c74122441f5eb546443f9100"
+  integrity sha512-Q1fhw37BXXmN6/BCxdnw3OUJ6aAy/zpDWH5t+xIwmG5GtYUYMZqOjvdOkOhWBmus9ptq9znuGsYn8h5vtSjT+w==
+  dependencies:
+    "@cloudinary/url-gen" "^1.7.0"
+
+"@cloudinary/url-gen@^1.7.0", "@cloudinary/url-gen@^1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@cloudinary/url-gen/-/url-gen-1.9.2.tgz#799dd889ad6e487e1d4447a550c7df3b9b91a851"
+  integrity sha512-LFL79Galcj8WZaXW6QOOt5LQVkioQdH7DR7blYcU9Zi0ae1y0L4Ujmr69RsUNshCNy/EdVAg0aVG/jjqKDnJsg==
+  dependencies:
+    "@cloudinary/transformation-builder-sdk" "^1.2.7"
+
 "@emotion/babel-plugin@^11.10.6":
   version "11.10.6"
   resolved "https://registry.yarnpkg.com/@emotion/babel-plugin/-/babel-plugin-11.10.6.tgz#a68ee4b019d661d6f37dec4b8903255766925ead"
@@ -1431,6 +1464,20 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.11.tgz#d421b6c527a3037f7c84433fd2c4229e016863d3"
   integrity sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==
 
+"@types/lodash.clonedeep@^4.5.6":
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/@types/lodash.clonedeep/-/lodash.clonedeep-4.5.7.tgz#0e119f582ed6f9e6b373c04a644651763214f197"
+  integrity sha512-ccNqkPptFIXrpVqUECi60/DFxjNKsfoQxSQsgcBJCX/fuX1wgyQieojkcWH/KpE3xzLoWN/2k+ZeGqIN3paSvw==
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash.debounce@^4.0.6":
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/@types/lodash.debounce/-/lodash.debounce-4.0.7.tgz#0285879defb7cdb156ae633cecd62d5680eded9f"
+  integrity sha512-X1T4wMZ+gT000M2/91SYj0d/7JfeNZ9PeeOldSNoE/lunLeQXKvkmIumI29IaKMotU/ln/McOIvgzZcQ/3TrSA==
+  dependencies:
+    "@types/lodash" "*"
+
 "@types/lodash.mergewith@4.6.7":
   version "4.6.7"
   resolved "https://registry.yarnpkg.com/@types/lodash.mergewith/-/lodash.mergewith-4.6.7.tgz#eaa65aa5872abdd282f271eae447b115b2757212"
@@ -1442,6 +1489,11 @@
   version "4.14.191"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.191.tgz#09511e7f7cba275acd8b419ddac8da9a6a79e2fa"
   integrity sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==
+
+"@types/node@^14.14.10":
+  version "14.18.42"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.18.42.tgz#fa39b2dc8e0eba61bdf51c66502f84e23b66e114"
+  integrity sha512-xefu+RBie4xWlK8hwAzGh3npDz/4VhF6icY/shU+zv/1fNn+ZVG7T7CRwe9LId9sAYRPxI+59QBPuKL3WpyGRg==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -2820,6 +2872,16 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
+lodash.clonedeep@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
+  integrity sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==
+
+lodash.debounce@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+  integrity sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==
+
 lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
@@ -3160,6 +3222,11 @@ react-icons@^4.8.0:
   version "4.8.0"
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.8.0.tgz#621e900caa23b912f737e41be57f27f6b2bff445"
   integrity sha512-N6+kOLcihDiAnj5Czu637waJqSnwlMNROzVZMhfX68V/9bu9qHaMIJC4UdozWoOk57gahFCNHwVvWzm0MTzRjg==
+
+react-images-uploading@^3.1.7:
+  version "3.1.7"
+  resolved "https://registry.yarnpkg.com/react-images-uploading/-/react-images-uploading-3.1.7.tgz#a53bf0d08624802dc6b74db4ec5695b0bfaf5a5c"
+  integrity sha512-woET50eCezm645iIeP4gCoN7HjdR3T64UXC5l53yd+2vHFp+pwABH8Z/aAO5IXDeC1aP6doQ+K738L701zswAw==
 
 react-is@^16.10.2, react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
@@ -3600,7 +3667,7 @@ typed-array-length@^1.0.4:
     for-each "^0.3.3"
     is-typed-array "^1.1.9"
 
-typescript@^4.9.3:
+typescript@^4.1.2, typescript@^4.9.3:
   version "4.9.5"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.5.tgz#095979f9bcc0d09da324d58d03ce8f8374cbe65a"
   integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==

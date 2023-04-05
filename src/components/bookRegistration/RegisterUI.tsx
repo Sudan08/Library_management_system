@@ -13,12 +13,18 @@ import {
   FormControl,
   Input,
   useToast,
+  HStack,
   Textarea,
   Switch,
   Select,
+  Box,
+  Icon,
+  VStack,
 } from '@chakra-ui/react';
-import React from 'react';
-
+import React, { useState } from 'react';
+import ImageUploading from 'react-images-uploading';
+import { BsFillTrashFill } from 'react-icons/bs';
+import { GrUpdate } from 'react-icons/gr';
 import { useForm } from 'react-hook-form';
 import { IBookRegister } from '../../interface';
 import {
@@ -46,6 +52,21 @@ const RegisterUI = ({ action, book }) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
   const createBook = async (values: IBookRegister) => {
     try {
+      console.log(values.src[0]);
+      const Imgdata = new FormData();
+      Imgdata.append('file', values.src[0]);
+      Imgdata.append('upload_preset', 'kkokk0pi');
+      Imgdata.append('cloud_name', 'dhd9bmxlj');
+      const res = await fetch(
+        'https://api.cloudinary.com/v1_1/dhd9bmxlj/image/upload',
+        {
+          method: 'POST',
+          body: Imgdata,
+        }
+      );
+      const res_data = await res.json();
+      console.log(res_data);
+      values.src = res_data.url;
       // using unwrap to get the data from the mutation
       const data = await postBook(values).unwrap();
       if (data) {
@@ -117,6 +138,9 @@ const RegisterUI = ({ action, book }) => {
             }
           >
             <ModalBody>
+              <FormControl>
+                <Input type="file" {...register('src')} />
+              </FormControl>
               <FormControl isInvalid={Boolean(errors.title)}>
                 <FormLabel htmlFor="title">Title</FormLabel>
                 <Input

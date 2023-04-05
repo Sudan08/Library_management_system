@@ -124,11 +124,7 @@ const BookUI = () => {
         >
           <Box m={'5'} p={'5'}>
             <Image
-              src={
-                thisbook?.title === 'Game of thornes'
-                  ? 'https://imgs.search.brave.com/07pnL9IXVyATl0igkJAgPIpBoX6N1Jyl-g7Rhjv8jrY/rs:fit:794:1200:1/g:ce/aHR0cDovLzQuYnAu/YmxvZ3Nwb3QuY29t/Ly1rV3ZnVXJ1SWpi/WS9UMEYyTlhVel9o/SS9BQUFBQUFBQUFD/WS83bHVBelRwTzdz/VS9zMTYwMC9Hb1Qr/Y292ZXIuanBn'
-                  : 'https://imgs.search.brave.com/EzwornD2t_YRN_VQjyNDJfUy_miZpYvVXIxxInszpOg/rs:fit:800:555:1/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi91bmF2/YWlsYWJsZS1zdGFt/cC1yb3VuZC12aW50/YWdlLWdydW5nZS1s/YWJlbC1zaWduLTE4/Njk1OTkxOC5qcGc'
-              }
+              src={thisbook?.src}
               alt="#"
               height={['10rem', '15rem', '30rem']}
             ></Image>
