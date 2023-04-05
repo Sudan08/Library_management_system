@@ -15,6 +15,7 @@ import {
   useToast,
   Textarea,
   Switch,
+  Select,
 } from '@chakra-ui/react';
 import React from 'react';
 
@@ -133,15 +134,25 @@ const RegisterUI = ({ action, book }) => {
               </FormControl>
               <FormControl isInvalid={Boolean(errors.genre)}>
                 <FormLabel htmlFor="genre">Genre</FormLabel>
-                <Input
-                  placeholder="Genre"
+                <Select
                   id="genre"
                   {...register('genre', {
                     required: 'This is required',
                     value: action === 'update' ? book.genre : '',
                   })}
-                />
-
+                >
+                  <option selected disabled>
+                    Select one
+                  </option>
+                  <option value="Fiction"> Fiction</option>
+                  <option value="Non-Fiction"> Non-Fiction</option>
+                  <option value="Romance"> Romance</option>
+                  <option value="Mystery"> Mystery</option>
+                  <option value="Thriller"> Thriller</option>
+                  <option value="Fantasy"> Fantasy</option>
+                  <option value="Science Fiction"> Science Fiction</option>
+                  <option value="Horror"> Horror</option>
+                </Select>
                 <FormErrorMessage>
                   {errors.genre && errors.genre.message}
                 </FormErrorMessage>

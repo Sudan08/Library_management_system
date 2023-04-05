@@ -33,6 +33,7 @@ const BookUI = () => {
   const [thisbook] = book.filter((book) => book._id === bookid.id);
   const [deleteData] = useDeleteBookMutation();
   const date = new Date().toLocaleDateString();
+  console.log(thisbook);
 
   const handleDelete = async () => {
     try {
@@ -123,7 +124,11 @@ const BookUI = () => {
         >
           <Box m={'5'} p={'5'}>
             <Image
-              src="https://images.unsplash.com/photo-1565292266983-74457d481f44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
+              src={
+                thisbook?.title === 'Game of thornes'
+                  ? 'https://imgs.search.brave.com/07pnL9IXVyATl0igkJAgPIpBoX6N1Jyl-g7Rhjv8jrY/rs:fit:794:1200:1/g:ce/aHR0cDovLzQuYnAu/YmxvZ3Nwb3QuY29t/Ly1rV3ZnVXJ1SWpi/WS9UMEYyTlhVel9o/SS9BQUFBQUFBQUFD/WS83bHVBelRwTzdz/VS9zMTYwMC9Hb1Qr/Y292ZXIuanBn'
+                  : 'https://imgs.search.brave.com/EzwornD2t_YRN_VQjyNDJfUy_miZpYvVXIxxInszpOg/rs:fit:800:555:1/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi91bmF2/YWlsYWJsZS1zdGFt/cC1yb3VuZC12aW50/YWdlLWdydW5nZS1s/YWJlbC1zaWduLTE4/Njk1OTkxOC5qcGc'
+              }
               alt="#"
               height={['10rem', '15rem', '30rem']}
             ></Image>
