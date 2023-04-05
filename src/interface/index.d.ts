@@ -47,6 +47,7 @@ export interface IBook {
   genre: string[];
   author: string;
   booked: string;
+  src: string;
 }
 
 export interface IBookRegister {
