@@ -1,17 +1,18 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
-import Dashboard from './pages/dashboard/Dashboard';
 import Login from './pages/Login/Login';
 import Register from './pages/Login/Register';
 import { extendTheme } from '@chakra-ui/react';
 import '../index.css';
-import History from './pages/history/History';
 import { UserRoute, AdminRoute } from './components/ProtectedRoute';
 import AdminDashboard from './pages/dashboard/AdminDashboard';
-import Book from './pages/book/Book';
-import Booking from './pages/booking/Booking';
-import MyBook from './pages/book/MyBook';
+import Layout from './components/Layout';
+import MyBooks from './components/bookRegistration/MyBooks';
+import Htable from './components/History/Htable';
+import BookUI from './components/bookRegistration/BookUI';
+import BookingUI from './components/booking/BookingUI';
+import Content from './components/dashboard/Content';
 
 const theme = extendTheme({
   colors: {
@@ -38,23 +39,27 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route element={<UserRoute />}>
-            <Route path={'/home'} element={<Dashboard />} />
-            <Route path={'/history:id'} element={<History />} />
-            <Route path={'/books/:id'} element={<Book />} />
-            <Route path="*" element={<h1>404</h1>} />
+            <Route element={<Layout />}>
+              <Route path={'/home'} element={<Content />} />
+              <Route path={'/history:id'} element={<Htable />} />
+              <Route path={'/books/:id'} element={<MyBooks />} />
+              <Route path={'*'} element={<h1>404</h1>} />
+            </Route>
           </Route>
           <Route element={<AdminRoute />}>
-            <Route path={'/admin'} element={<AdminDashboard />} />
-            <Route path={'/admin/books'} element={<Dashboard />} />
-            <Route path={'/admin/books/:id'} element={<Book />} />
-            <Route path={'/admin/bookings'} element={<Booking />} />
-            <Route path="*" element={<h1>404</h1>} />
+            <Route element={<Layout />}>
+              <Route path={'/admin'} element={<AdminDashboard />} />
+              <Route path={'/admin/books'} element={<Content />} />
+              <Route path={'/admin/books/:id'} element={<BookUI />} />
+              <Route path={'/admin/bookings'} element={<BookingUI />} />
+              <Route path={'*'} element={<h1>404</h1>} />
+            </Route>
           </Route>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/home/books/:id" element={<Book />} />
-          <Route path="/mybooks/:id" element={<MyBook />} />
-          <Route path="*" element={<h1>404</h1>} />
+          {/* <Route path="/home/books/:id" element={<Book />} /> */}
+          {/* <Route path="/mybooks/:id" element={<MyBook />} /> */}
+          <Route path={'*'} element={<h1>404</h1>} />
         </Routes>
       </BrowserRouter>
     </ChakraProvider>

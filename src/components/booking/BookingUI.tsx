@@ -14,10 +14,7 @@ import {
 } from '@chakra-ui/react';
 
 const BookingUI = () => {
-  const [issued, setIssued] = React.useState(false);
-  const handleIssued = () => {
-    setIssued(!issued);
-  };
+  // const [issued, setIssued] = React.useState(false);
 
   const [bookingData, setBookingData] = React.useState([]);
 
@@ -73,7 +70,7 @@ const BookingUI = () => {
                     {data.isIssued ? 'True' : 'False'}
                   </Td>
                   <Td>
-                    <Button onClick={handleIssued}>Issued</Button>
+                    <Button onClick={'#'}>Issued</Button>
                   </Td>
                 </Tr>
               );

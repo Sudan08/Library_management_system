@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Grid, GridItem } from '@chakra-ui/react';
-import Navbar from '../../components/Navbar';
-import Sidebar from '../../components/Sidebar';
-import MyBooks from '../../components/bookRegistration/MyBooks';
+import Navbar from './Navbar';
+import Sidebar from './Sidebar';
+import { Outlet } from 'react-router-dom';
+import { useAppDispatch } from '../store/store';
+import { useGetBooksQuery } from '../books/bookApiSlice';
+import { addBook } from '../books/bookSlice';
 
-const Book = () => {
+const Layout = () => {
+  const dispatch = useAppDispatch();
+  const authdata = JSON.parse(localStorage.getItem('authdata'));
+
+  const { data: allbooks } = useGetBooksQuery(null);
+  useEffect(() => {
+    if (allbooks) {
+      dispatch(addBook(allbooks));
+    }
+  }, [allbooks]);
+
+  useEffect(() => {
+    if (authdata) {
+      dispatch(addBook(authdata));
+    }
+  }, [authdata]);
+
   return (
     <Box width={'100vw'} height={'100vh'}>
       <Grid
@@ -26,11 +45,11 @@ const Book = () => {
           <Sidebar />
         </GridItem>
         <GridItem area={'content'}>
-          <MyBooks />
+          <Outlet />
         </GridItem>
       </Grid>
     </Box>
   );
 };
 
-export default Book;
+export default Layout;
