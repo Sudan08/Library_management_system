@@ -76,7 +76,7 @@ const Content = () => {
                 <BookCard
                   key={index}
                   bookId={book._id}
-                  src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80"
+                  src={book?.src}
                   title={book.title}
                   author={book.author}
                   genre={book.genre}
@@ -91,7 +91,7 @@ const Content = () => {
                 <BookCard
                   key={index}
                   bookId={book._id}
-                  src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80"
+                  src={book?.src}
                   title={book.title}
                   author={book.author}
                   genre={book.genre}
@@ -106,7 +106,7 @@ const Content = () => {
                 <BookCard
                   key={index}
                   bookId={book._id}
-                  src="https://images.unsplash.com/photo-1576872381149-7847515ce5d8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=736&q=80"
+                  src={book?.src}
                   title={book.title}
                   author={book.author}
                   genre={book.genre}
