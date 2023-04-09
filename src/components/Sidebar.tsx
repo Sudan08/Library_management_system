@@ -25,10 +25,10 @@ const Sidebar = () => {
       zIndex={'10'}
     >
       <VStack
-        justifyContent={'space-between'}
+        justifyContent={'start'}
         alignItems={'center'}
         p={10}
-        gap={10}
+        gap={24}
         height={'100vh'}
       >
         <VStack display={'flex'} justifyContent={'space-around'} gap={'10'}>
@@ -45,10 +45,11 @@ const Sidebar = () => {
                   return (
                     <NavLink to={item.path} key={index}>
                       <Button
-                        py={10}
+                        py={7}
                         leftIcon={item.icon}
-                        bg={isActive(item.path) ? 'brand.500' : 'brand.300'}
-                        _hover={{ bg: 'brand.400' }}
+                        bg={isActive(item.path) ? 'brand.500' : 'white'}
+                        color={isActive(item.path) ? 'white' : 'black'}
+                        _hover={{ bg: 'brand.200' }}
                         width={['3rem', '6rem', '8rem', '10rem', '14rem']}
                       >
                         {item.name}
@@ -60,10 +61,11 @@ const Sidebar = () => {
                   return (
                     <NavLink to={item.path} key={index}>
                       <Button
-                        py={10}
+                        py={7}
                         leftIcon={item.icon}
-                        bg={isActive(item.path) ? 'brand.500' : 'brand.300'}
-                        _hover={{ bg: 'brand.400' }}
+                        bg={isActive(item.path) ? 'brand.500' : 'white'}
+                        color={isActive(item.path) ? 'white' : 'black'}
+                        _hover={{ bg: 'brand.200' }}
                         width={['3rem', '6rem', '8rem', '10rem', '14rem']}
                       >
                         {item.name}
@@ -71,22 +73,24 @@ const Sidebar = () => {
                     </NavLink>
                   );
                 })}
-
-            <Button
-              leftIcon={<AiOutlineHistory />}
-              bg={isActive('#') ? 'brand.500' : 'brand.300'}
-              width={['3rem', '6rem', '8rem', '10rem', '14rem']}
-              py={10}
-              onClick={() => {
-                navigate('/');
-                localStorage.removeItem('token');
-              }}
-            >
-              Log Out
-            </Button>
           </VStack>
         </Box>
-        <Box></Box>
+        <Box>
+          <Button
+            leftIcon={<AiOutlineHistory />}
+            bg={'red.500'}
+            color={'white'}
+            width={['3rem', '6rem', '8rem', '10rem', '14rem']}
+            py={7}
+            _hover={{ bg: 'red.700' }}
+            onClick={() => {
+              navigate('/');
+              localStorage.removeItem('token');
+            }}
+          >
+            Log Out
+          </Button>
+        </Box>
       </VStack>
     </Box>
   );

@@ -6,8 +6,8 @@ import Register from './pages/Login/Register';
 import { extendTheme } from '@chakra-ui/react';
 import '../index.css';
 import { UserRoute, AdminRoute } from './components/ProtectedRoute';
-import AdminDashboard from './pages/dashboard/AdminDashboard';
 import Layout from './components/Layout';
+import AdminContent from './components/dashboard/AdminContent';
 import MyBooks from './components/bookRegistration/MyBooks';
 import Htable from './components/History/Htable';
 import BookUI from './components/bookRegistration/BookUI';
@@ -42,13 +42,14 @@ const App = () => {
             <Route element={<Layout />}>
               <Route path={'/home'} element={<Content />} />
               <Route path={'/history:id'} element={<Htable />} />
-              <Route path={'/books/:id'} element={<MyBooks />} />
+              <Route path={'/home/books/:id'} element={<BookUI />} />
+              <Route path={'/mybooks/:id'} element={<MyBooks />} />
               <Route path={'*'} element={<h1>404</h1>} />
             </Route>
           </Route>
           <Route element={<AdminRoute />}>
             <Route element={<Layout />}>
-              <Route path={'/admin'} element={<AdminDashboard />} />
+              <Route path={'/admin'} element={<AdminContent />} />
               <Route path={'/admin/books'} element={<Content />} />
               <Route path={'/admin/books/:id'} element={<BookUI />} />
               <Route path={'/admin/bookings'} element={<BookingUI />} />

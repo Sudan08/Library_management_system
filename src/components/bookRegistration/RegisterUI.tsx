@@ -22,7 +22,6 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import ImageUploading from 'react-images-uploading';
 import { BsFillTrashFill } from 'react-icons/bs';
 import { GrUpdate } from 'react-icons/gr';
 import { useForm } from 'react-hook-form';
@@ -52,7 +51,6 @@ const RegisterUI = ({ action, book }) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
   const createBook = async (values: IBookRegister) => {
     try {
-      console.log(values.src[0]);
       const Imgdata = new FormData();
       Imgdata.append('file', values.src[0]);
       Imgdata.append('upload_preset', 'kkokk0pi');
@@ -65,7 +63,6 @@ const RegisterUI = ({ action, book }) => {
         }
       );
       const res_data = await res.json();
-      console.log(res_data);
       values.src = res_data.url;
       // using unwrap to get the data from the mutation
       const data = await postBook(values).unwrap();
