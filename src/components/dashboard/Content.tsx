@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import {
   Box,
   HStack,
@@ -20,13 +20,10 @@ import { useAppSelector } from '../../store/store';
 import RegisterUI from '../bookRegistration/RegisterUI';
 
 const Content = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const scope = useAppSelector((state) => state?.auth?.scope);
   const getBooks = useAppSelector((state) => state.books.allBooks.books);
-  if (getBooks === undefined) return <div>loading</div>;
-  if (getBooks === undefined) return <div>loading</div>;
   const filteredBooks = useMemo(() => {
-    return getBooks.slice(0, 6);
+    return getBooks?.slice(0, 6);
   }, [getBooks]);
   return (
     <Box
@@ -45,7 +42,9 @@ const Content = () => {
             </Text>
           </Box>
           <HStack>
-            <InputGroup>
+            <InputGroup
+              boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
+            >
               <InputLeftElement
                 pointerEvents="none"
                 color="gray.300"

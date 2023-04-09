@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   Box,
   HStack,
@@ -11,30 +11,28 @@ import {
   Text,
   Button,
   useToast,
+  Spinner,
 } from '@chakra-ui/react';
 import { BsSearch } from 'react-icons/bs';
 import { useAppSelector } from '../../store/store';
 import { useParams } from 'react-router-dom';
 import { BsTrash3Fill } from 'react-icons/bs';
-import { MdUpdate } from 'react-icons/md';
 import { useDeleteBookMutation } from '../../books/bookApiSlice';
 import { useNavigate } from 'react-router-dom';
 import RegisterUI from '../bookRegistration/RegisterUI';
 
 const BookUI = () => {
-  const book = useAppSelector((state) => state.books.allBooks.books);
+  const book = useAppSelector((state) => state?.books?.allBooks?.books);
   const { _userId, userName } = useAppSelector((state) => state?.auth);
   const { scope } = JSON.parse(localStorage.getItem('authdata'));
-  if (book && _userId === undefined) return <div>loading</div>;
   const bookid = useParams();
-
   const toast = useToast();
   const navigate = useNavigate();
-  const [thisbook] = book.filter((book) => book._id === bookid.id);
+  const thisbook = useMemo(() => {
+    return book?.filter((item) => item._id === bookid.id);
+  }, [book]);
   const [deleteData] = useDeleteBookMutation();
-  const date = new Date().toLocaleDateString();
-  console.log(thisbook);
-
+  const date = new Date().toISOString().split('T')[0];
   const handleDelete = async () => {
     try {
       if (bookid) {
@@ -99,114 +97,122 @@ const BookUI = () => {
       overflow={'scroll'}
       maxH={'90%'}
     >
-      <VStack width="full" justifyContent="flex-start" alignItems="flex-start">
-        <HStack width="300px" alignSelf="flex-end" p={4} m={4}>
-          <InputGroup>
-            <InputLeftElement
-              pointerEvents="none"
-              color="gray.300"
-              fontSize="1.2em"
-            >
-              <Icon as={BsSearch} />
-            </InputLeftElement>
-            <Input placeholder="Search" />
-          </InputGroup>
-        </HStack>
-
-        <HStack
-          m="4"
-          p="4"
-          gap="5"
+      {thisbook === undefined ? (
+        <Spinner />
+      ) : (
+        <VStack
+          width="full"
           justifyContent="flex-start"
-          alignItems={'start'}
-          maxWidth={'full'}
-          width={'full'}
+          alignItems="flex-start"
         >
-          <Box m={'5'} p={'5'}>
-            <Image
-              src={thisbook?.src}
-              alt="#"
-              height={['10rem', '15rem', '30rem']}
-            ></Image>
-          </Box>
-          <VStack
-            m={'5'}
-            p={'5'}
-            justifyContent={'space-between'}
-            gap={'10'}
-            minHeight={'30vh'}
-            maxHeight={'70vh'}
-            height={'55vh'}
+          <HStack width="300px" alignSelf="flex-end" p={4} m={4}>
+            <InputGroup>
+              <InputLeftElement
+                pointerEvents="none"
+                color="gray.300"
+                fontSize="1.2em"
+              >
+                <Icon as={BsSearch} />
+              </InputLeftElement>
+              <Input placeholder="Search" />
+            </InputGroup>
+          </HStack>
+
+          <HStack
+            m="4"
+            p="4"
+            gap="5"
+            justifyContent="flex-start"
+            alignItems={'start'}
+            maxWidth={'full'}
+            width={'full'}
           >
-            <VStack justifyContent={'start'} alignItems={'start'}>
-              <Text fontSize={'5xl'} fontWeight={'900'}>
-                Title : {thisbook?.title}
-              </Text>
-              <Text fontSize={'3xl'} fontWeight={'500'}>
-                Author : {thisbook?.author}
-              </Text>
-              <HStack gap={'5'}>
-                <Text fontSize={'1xl'} fontWeight={'500'}>
-                  Genre :
-                </Text>
-                <Box boxShadow="md" p="3" rounded={'md'} bg={'red.400'}>
-                  {thisbook?.genre}
-                </Box>
-              </HStack>
-              <Text fontSize={'1xl'} fontWeight={'500'}>
-                {thisbook?.description}
-              </Text>
-            </VStack>
+            <Box m={'5'} p={'5'}>
+              <Image
+                src={thisbook[0]?.src}
+                alt="#"
+                height={['10rem', '15rem', '30rem']}
+              ></Image>
+            </Box>
             <VStack
-              justifyContent={'start'}
-              alignItems={'start'}
-              gap={'9'}
-              width={'full'}
+              m={'5'}
+              p={'5'}
+              justifyContent={'space-between'}
+              gap={'10'}
+              minHeight={'30vh'}
+              maxHeight={'70vh'}
+              height={'55vh'}
             >
-              <HStack
-                gap={'5'}
-                justifyContent={'start'}
-                alignItems={'start'}
-                width={'full'}
-              >
-                <Text fontSize={'1xl'} fontWeight={'500'}>
-                  Booked :
+              <VStack justifyContent={'start'} alignItems={'start'}>
+                <Text fontSize={'5xl'} fontWeight={'900'}>
+                  Title : {thisbook[0]?.title}
                 </Text>
-                <Box boxShadow="md" p="3" rounded={'md'} bg={'red.400'}>
-                  {thisbook.booked === false ? 'False' : 'True'}
-                </Box>
-              </HStack>
-              <HStack
+                <Text fontSize={'3xl'} fontWeight={'500'}>
+                  Author : {thisbook[0]?.author}
+                </Text>
+                <HStack gap={'5'}>
+                  <Text fontSize={'1xl'} fontWeight={'500'}>
+                    Genre :
+                  </Text>
+                  <Box boxShadow="md" p="3" rounded={'md'} bg={'red.400'}>
+                    {thisbook[0]?.genre}
+                  </Box>
+                </HStack>
+                <Text fontSize={'1xl'} fontWeight={'500'}>
+                  {thisbook[0]?.description}
+                </Text>
+              </VStack>
+              <VStack
                 justifyContent={'start'}
                 alignItems={'start'}
+                gap={'9'}
                 width={'full'}
-                gap={'8'}
               >
-                {scope === 'user' ? (
-                  <Button
-                    leftIcon={<BsTrash3Fill />}
-                    colorScheme={'red'}
-                    onClick={handleBook}
-                  >
-                    Book now
-                  </Button>
-                ) : (
-                  <>
-                    <RegisterUI action={'update'} book={thisbook} />
+                <HStack
+                  gap={'5'}
+                  justifyContent={'start'}
+                  alignItems={'start'}
+                  width={'full'}
+                >
+                  <Text fontSize={'1xl'} fontWeight={'500'}>
+                    Booked :
+                  </Text>
+                  <Box boxShadow="md" p="3" rounded={'md'} bg={'red.400'}>
+                    {thisbook[0].booked === false ? 'False' : 'True'}
+                  </Box>
+                </HStack>
+                <HStack
+                  justifyContent={'start'}
+                  alignItems={'start'}
+                  width={'full'}
+                  gap={'8'}
+                >
+                  {scope === 'user' ? (
                     <Button
                       leftIcon={<BsTrash3Fill />}
                       colorScheme={'red'}
-                      onClick={handleDelete}
+                      onClick={handleBook}
                     >
-                      Delete
+                      Book now
                     </Button>
-                  </>
-                )}
-              </HStack>
+                  ) : (
+                    <>
+                      <RegisterUI action={'update'} book={thisbook[0]} />
+                      <Button
+                        leftIcon={<BsTrash3Fill />}
+                        colorScheme={'red'}
+                        onClick={handleDelete}
+                      >
+                        Delete
+                      </Button>
+                    </>
+                  )}
+                </HStack>
+              </VStack>
             </VStack>
-          </VStack>
-        </HStack>
-      </VStack>
+          </HStack>
+        </VStack>
+      )}
     </Box>
   );
 };

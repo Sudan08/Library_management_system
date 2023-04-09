@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom';
 import { useAppDispatch } from '../store/store';
 import { useGetBooksQuery } from '../books/bookApiSlice';
 import { addBook } from '../books/bookSlice';
-
+import { login } from '../auth/authSlice';
 const Layout = () => {
   const dispatch = useAppDispatch();
   const authdata = JSON.parse(localStorage.getItem('authdata'));
@@ -20,7 +20,7 @@ const Layout = () => {
 
   useEffect(() => {
     if (authdata) {
-      dispatch(addBook(authdata));
+      dispatch(login(authdata));
     }
   }, [authdata]);
 

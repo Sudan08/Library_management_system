@@ -70,7 +70,7 @@ const BookingUI = () => {
                     {data.isIssued ? 'True' : 'False'}
                   </Td>
                   <Td>
-                    <Button onClick={'#'}>Issued</Button>
+                    <Button>Issued</Button>
                   </Td>
                 </Tr>
               );
