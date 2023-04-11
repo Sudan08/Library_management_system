@@ -77,7 +77,7 @@ const Sidebar = () => {
         </Box>
         <Box>
           <Button
-            leftIcon={<AiOutlineHistory />}
+            leftIcon={<Icon as={AiOutlineHome} h={'8'} w={'8'} mr={'8'} />}
             bg={'red.500'}
             color={'white'}
             width={['3rem', '6rem', '8rem', '10rem', '14rem']}
@@ -102,17 +102,17 @@ const SidebarUserItems = [
   {
     name: 'Home',
     path: '/home',
-    icon: <AiOutlineHome />,
+    icon: <Icon as={AiOutlineHome} h={'8'} w={'8'} mr={'8'} />,
   },
   {
     name: 'History',
     path: '/history:id',
-    icon: <AiOutlineHistory />,
+    icon: <Icon as={AiOutlineHistory} h={'8'} w={'8'} mr={'8'} />,
   },
   {
     name: 'My Books',
     path: '/mybooks/:id',
-    icon: <Icon />,
+    icon: <Icon as={AiOutlineHistory} h={'8'} w={'8'} mr={'8'} />,
   },
 ];
 
@@ -120,16 +120,16 @@ const SidebarAdminItems = [
   {
     name: 'Home',
     path: '/admin',
-    icon: <AiOutlineHome />,
+    icon: <Icon as={AiOutlineHome} h={'8'} w={'8'} mr={'8'} />,
   },
   {
     name: 'Books',
     path: '/admin/books',
-    icon: <AiOutlineHistory />,
+    icon: <Icon as={AiOutlineHome} h={'8'} w={'8'} mr={'8'} />,
   },
   {
     name: 'Booking Logs',
     path: '/admin/bookings',
-    icon: <Icon />,
+    icon: <Icon as={AiOutlineHome} h={'8'} w={'8'} mr={'8'} />,
   },
 ];

@@ -22,17 +22,18 @@ import { useNavigate } from 'react-router-dom';
 import RegisterUI from '../bookRegistration/RegisterUI';
 
 const BookUI = () => {
-  const book = useAppSelector((state) => state?.books?.allBooks?.books);
-  const { _userId, userName } = useAppSelector((state) => state?.auth);
   const { scope } = JSON.parse(localStorage.getItem('authdata'));
   const bookid = useParams();
   const toast = useToast();
   const navigate = useNavigate();
+  const { _userId, userName } = useAppSelector((state) => state?.auth);
+  const book = useAppSelector((state) => state?.books?.allBooks?.books);
   const thisbook = useMemo(() => {
     return book?.filter((item) => item._id === bookid.id);
   }, [book]);
   const [deleteData] = useDeleteBookMutation();
   const date = new Date().toISOString().split('T')[0];
+
   const handleDelete = async () => {
     try {
       if (bookid) {
@@ -88,6 +89,7 @@ const BookUI = () => {
       console.log(err);
     }
   };
+
   return (
     <Box
       boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
