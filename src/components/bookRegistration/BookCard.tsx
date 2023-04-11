@@ -23,7 +23,7 @@ type BookCardProps = {
 
 const BookCard = (data: BookCardProps) => {
   const navigate = useNavigate();
-  const scope = useAppSelector((state) => state.auth.scope);
+  const scope = useAppSelector((state) => state?.auth?.scope);
   const handleClick = () => {
     if (scope === 'admin') {
       navigate(`/admin/books/${data.bookId}`);
