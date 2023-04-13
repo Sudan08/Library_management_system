@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import {
   Box,
-  HStack,
   VStack,
   Text,
   Table,
@@ -13,10 +12,18 @@ import {
   Button,
 } from '@chakra-ui/react';
 
+type BookingData = {
+  title: string;
+  author: string;
+  userName: string;
+  bookedDate: string;
+  isIssued: boolean;
+};
+
 const BookingUI = () => {
   // const [issued, setIssued] = React.useState(false);
 
-  const [bookingData, setBookingData] = React.useState([]);
+  const [bookingData, setBookingData] = React.useState<BookingData[]>([]);
 
   useEffect(() => {
     fetch('http://localhost:8000/booking/api/v1/getbooking', {

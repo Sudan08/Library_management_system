@@ -2,18 +2,12 @@ import React, { useMemo, useEffect } from 'react';
 import {
   Box,
   HStack,
-  Flex,
   VStack,
   Text,
   Input,
   InputGroup,
   InputLeftElement,
-  InputRightElement,
   Icon,
-  Button,
-  Spinner,
-  useDisclosure,
-  Image,
 } from '@chakra-ui/react';
 import BookCard from '../bookRegistration/BookCard';
 import { BsSearch } from 'react-icons/bs';
@@ -24,7 +18,6 @@ import useFilterBooks from '../../customhooks/useFilteredBooks.ts';
 const Content = () => {
   const scope = useAppSelector((state) => state?.auth?.scope);
   const books = useFilterBooks();
-  console.log(books);
   return (
     <Box
       boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}

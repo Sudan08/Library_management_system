@@ -3,25 +3,17 @@ import {
   Box,
   HStack,
   Icon,
-  Text,
   Image,
-  Select,
   Menu,
   Avatar,
   AvatarBadge,
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-  Button,
 } from '@chakra-ui/react';
 import { GrNotification } from 'react-icons/gr';
 import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
 import { useColorMode } from '@chakra-ui/react';
-import { RxAvatar } from 'react-icons/rx';
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -46,12 +38,6 @@ const Navbar = () => {
         </Box>
         <Box p={'10px'} m={'10px'}>
           <HStack gap="10" justifyContent="space-between" mr="40px">
-            <Icon
-              as={GrNotification}
-              w="6"
-              h="6"
-              color={colorMode === 'light' ? 'black' : 'white'}
-            />
             <Icon
               as={
                 colorMode === 'light' ? MdOutlineDarkMode : MdOutlineLightMode

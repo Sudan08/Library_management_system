@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, VStack, Text, Button, Icon } from '@chakra-ui/react';
+import { Box, VStack, Text, Button, Icon, HStack } from '@chakra-ui/react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { AiOutlineHome, AiOutlineHistory } from 'react-icons/ai';
 import { IoLibraryOutline } from 'react-icons/io5';
