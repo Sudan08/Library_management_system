@@ -10,14 +10,14 @@ export interface ILoginResponse {
   scope: string;
   accessToken: string;
   userName: string;
-  _userid: string;
+  _userId: string;
 }
 
-export interface IAuthState {
-  accessToken: string | null;
-  scope: string | null;
-  isAuthenticated: boolean;
-}
+// export interface IAuthState {
+//   accessToken: string | null;
+//   scope: string | null;
+//   isAuthenticated: boolean;
+// }
 
 export interface registerPayLoad {
   firstName: string;
@@ -46,7 +46,8 @@ export interface IBook {
   title: string;
   genre: string[];
   author: string;
-  booked: string;
+  booked: boolean;
+  description: string;
   src: string;
 }
 

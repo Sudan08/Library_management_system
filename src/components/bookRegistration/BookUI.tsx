@@ -20,14 +20,16 @@ import { BsTrash3Fill } from 'react-icons/bs';
 import { useDeleteBookMutation } from '../../books/bookApiSlice';
 import { useNavigate } from 'react-router-dom';
 import RegisterUI from '../bookRegistration/RegisterUI';
+import { IBookState, ILoginResponse } from '../../interface';
 
 const BookUI = () => {
-  const { scope } = JSON.parse(localStorage.getItem('authdata'));
+  const { scope } = JSON.parse(localStorage.getItem('authdata') || '{}');
   const bookid = useParams();
   const toast = useToast();
   const navigate = useNavigate();
-  const { _userId, userName } = useAppSelector((state) => state?.auth);
-  const book = useAppSelector((state) => state?.books?.allBooks?.books);
+  const { _userId, userName } =
+    useAppSelector<ILoginResponse>((state) => state?.auth) || {};
+  const book = useAppSelector((state) => state?.books?.allBooks);
   const thisbook = useMemo(() => {
     return book?.filter((item) => item._id === bookid.id);
   }, [book]);
@@ -66,8 +68,8 @@ const BookUI = () => {
           bookId: bookid.id,
           userId: _userId,
           userName: userName,
-          title: thisbook.title,
-          author: thisbook.author,
+          title: thisbook[0].title,
+          author: thisbook[0].author,
           bookedDate: date,
           isIssued: false,
         }),
