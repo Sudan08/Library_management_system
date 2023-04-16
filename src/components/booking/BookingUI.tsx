@@ -34,20 +34,20 @@ const BookingUI = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setBookingData(data.booking);
+        setBookingData(data.booking.reverse());
       });
   }, []);
-
   return (
     <Box
       boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
       maxWidth={'95%'}
       width={'95%'}
-      overflow={'hidden'}
+      height={'80vh'}
+      overflow={'auto'}
       scrollBehavior={'smooth'}
       my={'40px'}
     >
-      <VStack justifyContent="flex-start" alignItems="start">
+      <VStack justifyContent="flex-start" alignItems="start" width="full">
         <Box m="9">
           <Text fontSize="3xl" fontWeight="light" fontFamily="Popins">
             Booking Log
@@ -72,7 +72,7 @@ const BookingUI = () => {
                   <Td>{data.title}</Td>
                   <Td>{data.author}</Td>
                   <Td>{data.userName}</Td>
-                  <Td>{data.bookedDate}</Td>
+                  <Td>{data.bookedDate.split('T')[0]}</Td>
                   <Td bg={data.isIssued ? 'green' : 'red'}>
                     {data.isIssued ? 'True' : 'False'}
                   </Td>
