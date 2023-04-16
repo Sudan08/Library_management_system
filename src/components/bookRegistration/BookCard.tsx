@@ -19,6 +19,8 @@ type BookCardProps = {
   title: string;
   desc: string;
   bookId: string;
+  author: string;
+  genre: string;
 };
 
 const BookCard = (data: BookCardProps) => {

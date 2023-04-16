@@ -12,29 +12,44 @@ import {
   Button,
   useToast,
   Spinner,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { BsSearch } from 'react-icons/bs';
 import { useAppSelector } from '../../store/store';
 import { useParams } from 'react-router-dom';
 import { BsTrash3Fill } from 'react-icons/bs';
-import { useDeleteBookMutation } from '../../books/bookApiSlice';
+import { BsBookmarkFill } from 'react-icons/bs';
+import {
+  useDeleteBookMutation,
+  useUpdateBookMutation,
+} from '../../books/bookApiSlice';
 import { useNavigate } from 'react-router-dom';
 import RegisterUI from '../bookRegistration/RegisterUI';
 import { IBookState, ILoginResponse } from '../../interface';
 
 const BookUI = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { scope } = JSON.parse(localStorage.getItem('authdata') || '{}');
   const bookid = useParams();
   const toast = useToast();
   const navigate = useNavigate();
   const { _userId, userName } =
     useAppSelector<ILoginResponse>((state) => state?.auth) || {};
-  const book = useAppSelector((state) => state?.books?.allBooks);
+  const { allBooks } = useAppSelector<IBookState>((state) => state?.books);
   const thisbook = useMemo(() => {
-    return book?.filter((item) => item._id === bookid.id);
-  }, [book]);
+    return allBooks.books?.filter((item) => item._id === bookid.id);
+  }, [allBooks]);
   const [deleteData] = useDeleteBookMutation();
   const date = new Date().toISOString().split('T')[0];
+
+  const [updateData] = useUpdateBookMutation();
 
   const handleDelete = async () => {
     try {
@@ -57,39 +72,51 @@ const BookUI = () => {
     }
   };
 
-  const handleBook = () => {
+  const updateBooking = async () => {
     try {
-      fetch('http://localhost:8000/booking/api/v1/postbooking', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          bookId: bookid.id,
-          userId: _userId,
-          userName: userName,
-          title: thisbook[0].title,
-          author: thisbook[0].author,
-          bookedDate: date,
-          isIssued: false,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          if (data) {
-            toast({
-              title: 'Book booked',
-              description: 'Book booked successfully',
-              status: 'success',
-              duration: 9000,
-              isClosable: true,
-            });
-          }
-        });
+      const res = await updateData({
+        _id: bookid.id,
+        booked: true,
+      }).unwrap();
+      console.log(res);
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleBook = () => {
+    // try {
+    updateBooking();
+    //   fetch('http://localhost:8000/booking/api/v1/postbooking', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       bookId: bookid.id,
+    //       userId: _userId,
+    //       userName: userName,
+    //       title: thisbook[0].title,
+    //       author: thisbook[0].author,
+    //       bookedDate: date,
+    //       isIssued: false,
+    //     }),
+    //   })
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       if (data) {
+    //         toast({
+    //           title: 'Book booked',
+    //           description: 'Book booked successfully',
+    //           status: 'success',
+    //           duration: 9000,
+    //           isClosable: true,
+    //         });
+    //       }
+    //     });
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   return (
@@ -175,7 +202,7 @@ const BookUI = () => {
                 <HStack
                   gap={'5'}
                   justifyContent={'start'}
-                  alignItems={'start'}
+                  alignItems={'center'}
                   width={'full'}
                 >
                   <Text fontSize={'1xl'} fontWeight={'500'}>
@@ -193,9 +220,11 @@ const BookUI = () => {
                 >
                   {scope === 'user' ? (
                     <Button
-                      leftIcon={<BsTrash3Fill />}
-                      colorScheme={'red'}
-                      onClick={handleBook}
+                      leftIcon={<BsBookmarkFill />}
+                      onClick={onOpen}
+                      bg={'brand.500'}
+                      color={'white'}
+                      _hover={{ bg: 'brand.600', color: 'black' }}
                     >
                       Book now
                     </Button>
@@ -217,6 +246,27 @@ const BookUI = () => {
           </HStack>
         </VStack>
       )}
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Book this?</ModalHeader>
+          <ModalCloseButton />
+          <ModalFooter>
+            <Button colorScheme="red" mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button
+              leftIcon={<BsBookmarkFill />}
+              onClick={handleBook}
+              bg={'brand.500'}
+              color={'white'}
+              _hover={{ bg: 'brand.600', color: 'black' }}
+            >
+              Book now
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };

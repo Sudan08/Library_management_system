@@ -7,11 +7,13 @@ import { useAppDispatch } from '../store/store';
 import { useGetBooksQuery } from '../books/bookApiSlice';
 import { addBook } from '../books/bookSlice';
 import { login } from '../auth/authSlice';
+
 const Layout = () => {
   const dispatch = useAppDispatch();
-  const authdata = JSON.parse(localStorage.getItem('authdata'));
+  const authdata = JSON.parse(localStorage.getItem('authdata') as string);
 
   const { data: allbooks } = useGetBooksQuery(null);
+  console.log(allbooks);
   useEffect(() => {
     if (allbooks) {
       dispatch(addBook(allbooks));
