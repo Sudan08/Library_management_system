@@ -8,7 +8,7 @@ import '../index.css';
 import { UserRoute, AdminRoute } from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import AdminContent from './components/dashboard/AdminContent';
-import MyBooks from './components/bookRegistration/MyBooks';
+import MyBooks from './components/bookRegistration/MyBooksUI';
 import Htable from './components/History/Htable';
 import BookUI from './components/bookRegistration/BookUI';
 import BookingUI from './components/booking/BookingUI';

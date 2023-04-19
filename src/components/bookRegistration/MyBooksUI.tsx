@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Flex, Text, VStack, Box } from '@chakra-ui/react';
-import BookCard from '../bookRegistration/BookCard';
+import BookCard from './BookCard';
 
 const MyBooks = () => {
   useEffect(() => {

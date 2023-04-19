@@ -4,9 +4,9 @@ import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import { Outlet } from 'react-router-dom';
 import { useAppDispatch } from '../store/store';
-import { useGetBooksQuery } from '../books/bookApiSlice';
-import { addBook } from '../books/bookSlice';
-import { login } from '../auth/authSlice';
+import { useGetBooksQuery } from '../slice/api/books/bookApiSlice';
+import { addBook } from '../slice/api/books/bookSlice';
+import { login } from '../slice/api/auth/authSlice';
 
 const Layout = () => {
   const dispatch = useAppDispatch();

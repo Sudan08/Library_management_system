@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { apiSlice } from '../api/apiSlice';
+import { apiSlice } from '../apiSlice';
 
 export const BookApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -33,6 +33,14 @@ export const BookApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['books'],
     }),
+    patchBook: builder.mutation({
+      query: (body) => ({
+        url: `http://localhost:8000/books/api/v1/updateBooking`,
+        method: 'PATCH',
+        body,
+      }),
+      invalidatesTags: ['books'],
+    }),
   }),
 });
 
@@ -42,4 +50,5 @@ export const {
   useCreateBookMutation,
   useUpdateBookMutation,
   useDeleteBookMutation,
+  usePatchBookMutation,
 } = BookApi;
