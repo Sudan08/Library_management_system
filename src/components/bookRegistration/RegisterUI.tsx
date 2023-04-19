@@ -29,7 +29,7 @@ import { IBookRegister } from '../../interface';
 import {
   useCreateBookMutation,
   useUpdateBookMutation,
-} from '../../books/bookApiSlice';
+} from '../../slice/api/books/bookApiSlice';
 import { useAppDispatch } from '../../store/store';
 import { useParams } from 'react-router-dom';
 

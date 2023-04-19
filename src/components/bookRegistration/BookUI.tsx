@@ -28,8 +28,9 @@ import { BsTrash3Fill } from 'react-icons/bs';
 import { BsBookmarkFill } from 'react-icons/bs';
 import {
   useDeleteBookMutation,
+  usePatchBookMutation,
   useUpdateBookMutation,
-} from '../../books/bookApiSlice';
+} from '../../slice/api/books/bookApiSlice';
 import { useNavigate } from 'react-router-dom';
 import RegisterUI from '../bookRegistration/RegisterUI';
 import { IBookState, ILoginResponse } from '../../interface';
@@ -49,7 +50,7 @@ const BookUI = () => {
   const [deleteData] = useDeleteBookMutation();
   const date = new Date().toISOString().split('T')[0];
 
-  const [updateData] = useUpdateBookMutation();
+  const [updateBooking] = usePatchBookMutation();
 
   const handleDelete = async () => {
     try {
@@ -72,51 +73,43 @@ const BookUI = () => {
     }
   };
 
-  const updateBooking = async () => {
+  const handleBook = async () => {
     try {
-      const res = await updateData({
-        _id: bookid.id,
+      const update = await updateBooking({
+        bookId: bookid.id,
         booked: true,
-      }).unwrap();
-      console.log(res);
+      });
+      if (update.status === 200)
+        fetch('http://localhost:8000/booking/api/v1/postbooking', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            bookId: bookid.id,
+            userId: _userId,
+            userName: userName,
+            title: thisbook[0].title,
+            author: thisbook[0].author,
+            bookedDate: date,
+            isIssued: false,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data) {
+              toast({
+                title: 'Book booked',
+                description: 'Book booked successfully',
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
+              });
+            }
+          });
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const handleBook = () => {
-    // try {
-    updateBooking();
-    //   fetch('http://localhost:8000/booking/api/v1/postbooking', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       bookId: bookid.id,
-    //       userId: _userId,
-    //       userName: userName,
-    //       title: thisbook[0].title,
-    //       author: thisbook[0].author,
-    //       bookedDate: date,
-    //       isIssued: false,
-    //     }),
-    //   })
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       if (data) {
-    //         toast({
-    //           title: 'Book booked',
-    //           description: 'Book booked successfully',
-    //           status: 'success',
-    //           duration: 9000,
-    //           isClosable: true,
-    //         });
-    //       }
-    //     });
-    // } catch (err) {
-    //   console.log(err);
-    // }
   };
 
   return (

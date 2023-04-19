@@ -2,8 +2,8 @@ import React, { useEffect, useMemo, Suspense } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useAppDispatch } from '../store/store';
-import { useGetBooksQuery } from '../books/bookApiSlice';
-import { addBook } from '../books/bookSlice';
+import { useGetBooksQuery } from '../slice/api/books/bookApiSlice';
+import { addBook } from '../slice/api/books/bookSlice';
 import { Spinner } from '@chakra-ui/react';
 
 const UserRoute = () => {

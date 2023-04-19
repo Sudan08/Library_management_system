@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from '../auth/authSlice';
+import authReducer from '../slice/api/auth/authSlice';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { apiSlice } from '../api/apiSlice';
-import bookReducer from '../books/bookSlice';
+import { apiSlice } from '../slice/api/apiSlice';
+import bookReducer from '../slice/api/books/bookSlice';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
 export const store = configureStore({

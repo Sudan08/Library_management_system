@@ -21,7 +21,7 @@ import { useForm } from 'react-hook-form';
 import { Form, Link } from 'react-router-dom';
 import { loginPayLoad } from '../../interface';
 import { useNavigate } from 'react-router-dom';
-import { useLoginMutation } from '../../auth/authApiSlice';
+import { useLoginMutation } from '../../slice/api/auth/authApiSlice';
 import { useAppDispatch } from '../../store/store';
 import { useCookies } from 'react-cookie';
 
