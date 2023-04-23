@@ -79,7 +79,8 @@ const BookUI = () => {
         bookId: bookid.id,
         booked: true,
       });
-      if (update.status === 200)
+      console.log(update);
+      if (update) {
         fetch('http://localhost:8000/booking/api/v1/postbooking', {
           method: 'POST',
           headers: {
@@ -107,6 +108,7 @@ const BookUI = () => {
               });
             }
           });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -155,8 +157,10 @@ const BookUI = () => {
               <Image
                 src={thisbook[0]?.src}
                 alt="#"
-                height={['10rem', '15rem', '30rem']}
-              ></Image>
+                maxHeight={['10rem', '15rem', '30rem']}
+                maxWidth={['5rem', '7rem', '15rem']}
+                object-fit="cover"
+              />
             </Box>
             <VStack
               m={'5'}

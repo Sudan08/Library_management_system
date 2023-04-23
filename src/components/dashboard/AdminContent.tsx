@@ -19,6 +19,11 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Radar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
 } from 'recharts';
 
 const data = [
@@ -63,6 +68,41 @@ const data = [
     uv: 3490,
     pv: 4300,
     amt: 2100,
+  },
+];
+
+const data2 = [
+  {
+    subject: 'Romance',
+    A: 1,
+  },
+  {
+    subject: 'Non-fiction',
+    A: 1,
+  },
+  {
+    subject: 'English',
+    A: 86,
+    B: 130,
+    fullMark: 150,
+  },
+  {
+    subject: 'Geography',
+    A: 99,
+    B: 100,
+    fullMark: 150,
+  },
+  {
+    subject: 'Physics',
+    A: 85,
+    B: 90,
+    fullMark: 150,
+  },
+  {
+    subject: 'History',
+    A: 65,
+    B: 85,
+    fullMark: 150,
   },
 ];
 
@@ -123,31 +163,21 @@ const AdminContent = () => {
             p={'10'}
             gap={'5'}
           >
-            <Text>Users</Text>
+            <Text>Genre</Text>
             <Box height={'30vh'} width={'20vw'}>
-              <ResponsiveContainer>
-                <AreaChart
-                  width={400}
-                  height={300}
-                  data={data}
-                  margin={{
-                    top: 10,
-                    right: 30,
-                    left: 0,
-                    bottom: 0,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Area
-                    type="monotone"
-                    dataKey="uv"
-                    stroke="#8884d8"
-                    fill="#8884d8"
+              <ResponsiveContainer width="100%" height="100%">
+                <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data2}>
+                  <PolarGrid />
+                  <PolarAngleAxis dataKey="subject" />
+                  <PolarRadiusAxis />
+                  <Radar
+                    name="Mike"
+                    dataKey="A"
+                    stroke="#orange"
+                    fill="orange"
+                    fillOpacity={0.5}
                   />
-                </AreaChart>
+                </RadarChart>
               </ResponsiveContainer>
             </Box>
           </VStack>

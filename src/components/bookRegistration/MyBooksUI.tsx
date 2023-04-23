@@ -1,11 +1,20 @@
 import React, { useEffect } from 'react';
-import { Flex, Text, VStack, Box } from '@chakra-ui/react';
+import { Flex, Text, VStack, Box, Spinner, HStack } from '@chakra-ui/react';
 import BookCard from './BookCard';
+import { useAppSelector } from '../../store/store';
+import { IBook, ILoginResponse } from '../../interface';
+import { IBookState } from '../../interface';
+import { useGetMyBooksQuery } from '../../slice/api/mybook/myBookApiSlice';
 
 const MyBooks = () => {
-  useEffect(() => {
-    fetch('http://localhost:3000/api/books', {});
-  });
+  const { _userId } = useAppSelector<ILoginResponse>((state) => state?.auth);
+  const { data, isLoading } = useGetMyBooksQuery(_userId);
+  const { allBooks } = useAppSelector<IBookState>((state) => state?.books);
+  const userBooks = allBooks?.books?.filter(
+    (item: IBook) =>
+      item._id === data?.bookIds[0] || item._id === data?.bookIds[1]
+  );
+  console.log(userBooks);
   return (
     <Box
       boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
@@ -21,7 +30,23 @@ const MyBooks = () => {
             My Books
           </Text>
         </Box>
-        <BookCard />
+        <HStack>
+          {isLoading ? (
+            <Spinner size={'xl'} />
+          ) : (
+            userBooks.map((item: IBook, index: number) => (
+              <BookCard
+                key={index}
+                bookId={item?._id}
+                src={item?.src}
+                title={item?.title}
+                author={item?.author}
+                genre={item?.genre}
+                desc={item?.description}
+              />
+            ))
+          )}
+        </HStack>
       </VStack>
     </Box>
   );

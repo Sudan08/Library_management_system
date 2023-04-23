@@ -1,12 +1,14 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { apiSlice } from '../apiSlice';
 
 export const BookApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getMyBooks: builder.query({
-      query: () => '/mybooks/api/v1/getBooks',
+      query: (id) => ({
+        url: `/mybooks/api/v1/getBooks/${id}`,
+        method: 'GET',
+      }),
+      providesTags: ['myBooks'],
     }),
-    providesTags: ['myBooks'],
     postMyBooks: builder.mutation({
       query: (body) => ({
         url: '/mybooks/api/v1/addBook',
@@ -26,7 +28,7 @@ export const BookApi = apiSlice.injectEndpoints({
 });
 
 export const {
-    useGetMyBooksQuery,
-    usePostMyBooksMutation,
-    useDeleteBookMutation,
+  useGetMyBooksQuery,
+  usePostMyBooksMutation,
+  useDeleteBookMutation,
 } = BookApi;

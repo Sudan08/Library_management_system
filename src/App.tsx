@@ -43,7 +43,7 @@ const App = () => {
               <Route path={'/home'} element={<Content />} />
               <Route path={'/history:id'} element={<Htable />} />
               <Route path={'/home/books/:id'} element={<BookUI />} />
-              <Route path={'/mybooks/:id'} element={<MyBooks />} />
+              <Route path={'/mybooks'} element={<MyBooks />} />
               <Route path={'*'} element={<h1>404</h1>} />
             </Route>
           </Route>

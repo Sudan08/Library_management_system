@@ -13,7 +13,6 @@ const Layout = () => {
   const authdata = JSON.parse(localStorage.getItem('authdata') as string);
 
   const { data: allbooks } = useGetBooksQuery(null);
-  console.log(allbooks);
   useEffect(() => {
     if (allbooks) {
       dispatch(addBook(allbooks));

@@ -44,7 +44,7 @@ export interface IBookState {
 export interface IBook {
   _id: string;
   title: string;
-  genre: string[];
+  genre: string | string[];
   author: string;
   booked: boolean;
   description: string;
