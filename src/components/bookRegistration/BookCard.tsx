@@ -20,7 +20,7 @@ type BookCardProps = {
   desc: string;
   bookId: string;
   author: string;
-  genre: string;
+  genre: string | string[];
 };
 
 const BookCard = (data: BookCardProps) => {
@@ -30,9 +30,10 @@ const BookCard = (data: BookCardProps) => {
     if (scope === 'admin') {
       navigate(`/admin/books/${data.bookId}`);
     } else {
-      navigate(`books/${data.bookId}`);
+      navigate(`/home/books/${data.bookId}`);
     }
   };
+  console.log(data);
   return (
     <>
       <Card height={'500px'} width={'200px'}>

@@ -56,7 +56,6 @@ const Content = () => {
         </HStack>
 
         <VStack m="4" p="4" gap="5" alignItems="flex-start">
-          <Text mx="5">Romance</Text>
           {Object.entries(books)?.map((book, index) => (
             <VStack key={index} m="4" p="4" gap="5" alignItems="flex-start">
               <Text>
@@ -72,6 +71,7 @@ const Content = () => {
                       title={item?.title}
                       author={item?.author}
                       genre={item?.genre}
+                      desc={item?.desc}
                     ></BookCard>
                   ))
                 ) : (

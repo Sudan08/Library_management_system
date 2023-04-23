@@ -111,7 +111,7 @@ const SidebarUserItems = [
   },
   {
     name: 'My Books',
-    path: '/mybooks/:id',
+    path: '/mybooks',
     icon: <Icon as={AiOutlineHistory} h={'8'} w={'8'} mr={'8'} />,
   },
 ];
