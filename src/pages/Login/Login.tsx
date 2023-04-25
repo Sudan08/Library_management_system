@@ -47,7 +47,7 @@ const Login: React.FC = () => {
     try {
       // using unwrap to get the data from the mutation
       const data = await login(values).unwrap();
-      if (data) {
+      if (data != 'Incorrect password') {
         dispatch({ type: 'auth/login', payload: data });
         toast({
           description: 'We are redirecting you to the dashboard',
@@ -63,6 +63,14 @@ const Login: React.FC = () => {
         {
           data.scope === 'admin' ? navigate('/admin') : navigate('/home');
         }
+      } else {
+        toast({
+          title: 'Login Failed',
+          description: 'Please check your credentials',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        });
       }
     } catch (err) {
       console.log(err);
@@ -86,7 +94,7 @@ const Login: React.FC = () => {
       >
         <HStack justifyContent={'center'}>
           <Image
-            src="https://images.unsplash.com/photo-1679218407381-a6f1660d60e9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+            src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80"
             alt="imagedami"
             maxW={'50%'}
           ></Image>

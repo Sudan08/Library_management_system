@@ -33,8 +33,10 @@ const MyBooks = () => {
         <HStack>
           {isLoading ? (
             <Spinner size={'xl'} />
+          ) : userBooks?.length === 0 ? (
+            <Text>No book has been booked yet.</Text>
           ) : (
-            userBooks.map((item: IBook, index: number) => (
+            userBooks?.map((item: IBook, index: number) => (
               <BookCard
                 key={index}
                 bookId={item?._id}
