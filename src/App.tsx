@@ -28,6 +28,10 @@ const theme = extendTheme({
       900: '#005A00',
     },
   },
+  fonts: {
+    heading: 'Raleway',
+    body: 'Raleway',
+  },
 });
 
 const App = () => {

@@ -75,13 +75,9 @@ const BookUI = () => {
 
   const handleBook = async () => {
     try {
-      const update = await updateBooking({
-        bookId: bookid.id,
-        booked: true,
-      });
-      console.log(update);
-      if (update) {
-        fetch('http://localhost:8000/booking/api/v1/postbooking', {
+      const response = await fetch(
+        `http://localhost:8000/booking/api/v1/postbooking/${_userId}`,
+        {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -94,20 +90,63 @@ const BookUI = () => {
             author: thisbook[0].author,
             bookedDate: date,
             isIssued: false,
+            scope: scope,
           }),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data) {
-              toast({
-                title: 'Book booked',
-                description: 'Book booked successfully',
-                status: 'success',
-                duration: 9000,
-                isClosable: true,
-              });
-            }
-          });
+        }
+      );
+
+      if (response?.status === 200) {
+        toast({
+          title: 'Book booked',
+          description: 'Book booked successfully',
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        });
+        await updateBooking({
+          bookId: bookid.id,
+          booked: true,
+        });
+      } else {
+        toast({
+          title: 'Booking limit reached',
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleBookingDelete = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8000/booking/api/v1/deletebooking/${thisbook[0]._id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (response.status === 200) {
+        toast({
+          title: 'Booking deleted',
+          description: 'Booking deleted successfully',
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        });
+        await updateBooking({
+          bookId: bookid.id,
+          booked: false,
+        });
+      } else if (response.status === 500) {
+        toast({
+          title: 'Something went wrong',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        });
       }
     } catch (err) {
       console.log(err);
@@ -121,7 +160,6 @@ const BookUI = () => {
       width={'95%'}
       my={'40px'}
       overflow={'scroll'}
-      maxH={'90%'}
     >
       {thisbook === undefined ? (
         <Spinner />
@@ -168,7 +206,6 @@ const BookUI = () => {
               justifyContent={'space-between'}
               gap={'10'}
               minHeight={'30vh'}
-              maxHeight={'70vh'}
               height={'55vh'}
             >
               <VStack justifyContent={'start'} alignItems={'start'}>
@@ -195,6 +232,7 @@ const BookUI = () => {
                 alignItems={'start'}
                 gap={'9'}
                 width={'full'}
+                py={'9'}
               >
                 <HStack
                   gap={'5'}
@@ -214,8 +252,9 @@ const BookUI = () => {
                   alignItems={'start'}
                   width={'full'}
                   gap={'8'}
+                  m={'5'}
                 >
-                  {scope === 'user' ? (
+                  {scope === 'user' && thisbook[0].booked == false ? (
                     <Button
                       leftIcon={<BsBookmarkFill />}
                       onClick={onOpen}
@@ -225,6 +264,16 @@ const BookUI = () => {
                     >
                       Book now
                     </Button>
+                  ) : scope === 'user' && thisbook[0].booked == true ? (
+                    <>
+                      <Button
+                        leftIcon={<BsTrash3Fill />}
+                        colorScheme={'red'}
+                        onClick={handleBookingDelete}
+                      >
+                        Delete Booking
+                      </Button>
+                    </>
                   ) : (
                     <>
                       <RegisterUI action={'update'} book={thisbook[0]} />

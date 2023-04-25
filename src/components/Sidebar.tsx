@@ -1,14 +1,16 @@
 import React from 'react';
 import { Box, VStack, Text, Button, Icon, HStack } from '@chakra-ui/react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { AiOutlineHome, AiOutlineHistory } from 'react-icons/ai';
-import { IoLibraryOutline } from 'react-icons/io5';
+import { AiFillHome } from 'react-icons/ai';
+import { IoLibraryOutline, IoBook } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../store/store';
+import { SiBookstack } from 'react-icons/si';
+import { BsFillBookmarkCheckFill } from 'react-icons/bs';
+import { RiChatHistoryFill } from 'react-icons/ri';
 
 const Sidebar = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const scope = useAppSelector((state) => state.auth.scope);
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -33,7 +35,7 @@ const Sidebar = () => {
       >
         <VStack display={'flex'} justifyContent={'space-around'} gap={'10'}>
           <Icon as={IoLibraryOutline} boxSize="20" />
-          <Text fontSize={'1xl'} fontWeight={'900'}>
+          <Text fontSize={'3xl'} fontWeight={'900'}>
             Library Management System
           </Text>
         </VStack>
@@ -75,22 +77,6 @@ const Sidebar = () => {
                 })}
           </VStack>
         </Box>
-        <Box>
-          <Button
-            leftIcon={<Icon as={AiOutlineHome} h={'8'} w={'8'} mr={'8'} />}
-            bg={'red.500'}
-            color={'white'}
-            width={['3rem', '6rem', '8rem', '10rem', '14rem']}
-            py={7}
-            _hover={{ bg: 'red.700' }}
-            onClick={() => {
-              navigate('/');
-              localStorage.removeItem('token');
-            }}
-          >
-            Log Out
-          </Button>
-        </Box>
       </VStack>
     </Box>
   );
@@ -102,17 +88,12 @@ const SidebarUserItems = [
   {
     name: 'Home',
     path: '/home',
-    icon: <Icon as={AiOutlineHome} h={'8'} w={'8'} mr={'8'} />,
-  },
-  {
-    name: 'History',
-    path: '/history:id',
-    icon: <Icon as={AiOutlineHistory} h={'8'} w={'8'} mr={'8'} />,
+    icon: <Icon as={SiBookstack} h={'8'} w={'8'} mr={'8'} />,
   },
   {
     name: 'My Books',
     path: '/mybooks',
-    icon: <Icon as={AiOutlineHistory} h={'8'} w={'8'} mr={'8'} />,
+    icon: <Icon as={IoBook} h={'8'} w={'8'} mr={'8'} />,
   },
 ];
 
@@ -120,16 +101,16 @@ const SidebarAdminItems = [
   {
     name: 'Home',
     path: '/admin',
-    icon: <Icon as={AiOutlineHome} h={'8'} w={'8'} mr={'8'} />,
+    icon: <Icon as={AiFillHome} h={'8'} w={'8'} mr={'8'} />,
   },
   {
     name: 'Books',
     path: '/admin/books',
-    icon: <Icon as={AiOutlineHome} h={'8'} w={'8'} mr={'8'} />,
+    icon: <Icon as={SiBookstack} h={'8'} w={'8'} mr={'8'} />,
   },
   {
     name: 'Booking Logs',
     path: '/admin/bookings',
-    icon: <Icon as={AiOutlineHome} h={'8'} w={'8'} mr={'8'} />,
+    icon: <Icon as={BsFillBookmarkCheckFill} h={'8'} w={'8'} mr={'8'} />,
   },
 ];

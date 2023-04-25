@@ -36,22 +36,27 @@ const BookCard = (data: BookCardProps) => {
   console.log(data);
   return (
     <>
-      <Card height={'500px'} width={'200px'}>
-        <CardBody>
+      <Card maxHeight={'550px'} width={'200px'} height={'550px'}>
+        <CardBody maxH={'450px'}>
           <Image
             src={data.src}
             alt="Green double couch with wooden legs"
             borderRadius="lg"
           />
           <Stack mt="6" spacing="3">
-            <Heading size="md">{data.title}</Heading>
-            <Text>{data.author}</Text>
-            <Text>{data.genre}</Text>
+            <Text fontSize="xl">{data.title}</Text>
+            <Text color="blackAlpha.700">{data.author}</Text>
+            <Text color="blackAlpha.500">{data.genre}</Text>
           </Stack>
         </CardBody>
-        <Divider />
         <CardFooter>
-          <Button bg="brand.500" width="full" onClick={handleClick}>
+          <Button
+            bg="brand.500"
+            width="full"
+            color="white"
+            onClick={handleClick}
+            _hover={{ bg: 'brand.700' }}
+          >
             View
           </Button>
         </CardFooter>

@@ -14,9 +14,11 @@ import {
 import { GrNotification } from 'react-icons/gr';
 import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
 import { useColorMode } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -57,7 +59,14 @@ const Navbar = () => {
               </MenuButton>
               <MenuList>
                 <MenuItem>Setting</MenuItem>
-                <MenuItem>LogOut</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    navigate('/');
+                    localStorage.removeItem('token');
+                  }}
+                >
+                  LogOut
+                </MenuItem>
               </MenuList>
             </Menu>
           </HStack>
