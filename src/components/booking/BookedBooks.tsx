@@ -13,7 +13,7 @@ const BookedBooks = () => {
     allBooks: { books },
   } = useAppSelector((state) => state?.books);
   const bookDetails = books?.filter((item: IBook) => item._id === bookID);
-  const thisbook = data?.booking.filter((item: any) => item.bookId === bookID);
+  const thisbook = data?.fineData.filter((item: any) => item.bookId === bookID);
   console.log(thisbook);
   return (
     <Box
