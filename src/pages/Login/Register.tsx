@@ -14,14 +14,12 @@ import {
   chakra,
   HStack,
   Image,
-  useToast,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { registerPayLoad } from '../../interface';
 import { useNavigate } from 'react-router-dom';
 
 const Register: React.FC = () => {
-  const toast = useToast();
   const {
     register,
     handleSubmit,

@@ -12,31 +12,27 @@ import {
   Button,
 } from '@chakra-ui/react';
 
+import {
+  useGetBookingsQuery,
+  useUpdateBookingsMutation,
+} from '../../slice/api/booking/bookingApiSlice';
+
 type BookingData = {
   title: string;
   author: string;
   userName: string;
   bookedDate: string;
   isIssued: boolean;
+  returnDate: string;
 };
 
 const BookingUI = () => {
-  // const [issued, setIssued] = React.useState(false);
-
-  const [bookingData, setBookingData] = React.useState<BookingData[]>([]);
-
-  useEffect(() => {
-    fetch('http://localhost:8000/booking/api/v1/getbooking', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setBookingData(data.booking.reverse());
-      });
-  }, []);
+  const { data: bookingData } = useGetBookingsQuery(null);
+  const [update] = useUpdateBookingsMutation();
+  const handleIssued = (_id: string) => {
+    const res = update(_id);
+    console.log(res);
+  };
   return (
     <Box
       boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
@@ -61,11 +57,13 @@ const BookingUI = () => {
               <Th>Author</Th>
               <Th>Booked by</Th>
               <Th>Booked Date</Th>
+              <Th>Return Date</Th>
+              <Th>Fine</Th>
               <Th>Issued</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {bookingData.map((data, index) => {
+            {bookingData?.fineData.map((data: any, index: number) => {
               return (
                 <Tr key={index}>
                   <Td>{index + 1}</Td>
@@ -73,11 +71,15 @@ const BookingUI = () => {
                   <Td>{data.author}</Td>
                   <Td>{data.userName}</Td>
                   <Td>{data.bookedDate.split('T')[0]}</Td>
+                  <Td>{data.returnDate.split('T')[0]}</Td>
+                  <Td color="red">Rs:{data.fine}</Td>
                   <Td bg={data.isIssued ? 'green' : 'red'}>
                     {data.isIssued ? 'True' : 'False'}
                   </Td>
                   <Td>
-                    <Button>Issued</Button>
+                    <Button onClick={() => handleIssued(data._id)}>
+                      Issued
+                    </Button>
                   </Td>
                 </Tr>
               );

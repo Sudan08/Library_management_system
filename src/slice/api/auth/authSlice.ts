@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IAuthState } from '../interface/index';
 
-const initalState: IAuthState = {
+const initalState = {
   token: null,
   scope: null,
   isAuthenticated: false,
@@ -25,7 +24,7 @@ const authSlice = createSlice({
       state.scope = null;
       state.isAuthenticated = false;
       state.userName = null;
-      state._userid = null;
+      state._userId = null;
     },
   },
 });

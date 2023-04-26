@@ -13,11 +13,7 @@ export interface ILoginResponse {
   _userId: string;
 }
 
-// export interface IAuthState {
-//   accessToken: string | null;
-//   scope: string | null;
-//   isAuthenticated: boolean;
-// }
+
 
 export interface registerPayLoad {
   firstName: string;

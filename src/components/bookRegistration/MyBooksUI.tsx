@@ -14,7 +14,6 @@ const MyBooks = () => {
     (item: IBook) =>
       item._id === data?.bookIds[0] || item._id === data?.bookIds[1]
   );
-  console.log(userBooks);
   return (
     <Box
       boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
@@ -26,7 +25,7 @@ const MyBooks = () => {
     >
       <VStack m={'9'} justifyContent={'start'} alignItems={'start'} gap={'9'}>
         <Box>
-          <Text fontSize="3xl" fontWeight="light" fontFamily="Popins">
+          <Text fontSize="3xl" fontWeight="500">
             My Books
           </Text>
         </Box>
@@ -45,6 +44,7 @@ const MyBooks = () => {
                 author={item?.author}
                 genre={item?.genre}
                 desc={item?.description}
+                _userId={_userId}
               />
             ))
           )}
