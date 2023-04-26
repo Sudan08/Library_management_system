@@ -17,7 +17,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalFooter,
-  ModalBody,
   ModalCloseButton,
   useDisclosure,
 } from '@chakra-ui/react';
@@ -29,11 +28,14 @@ import { BsBookmarkFill } from 'react-icons/bs';
 import {
   useDeleteBookMutation,
   usePatchBookMutation,
-  useUpdateBookMutation,
 } from '../../slice/api/books/bookApiSlice';
 import { useNavigate } from 'react-router-dom';
 import RegisterUI from '../bookRegistration/RegisterUI';
-import { IBookState, ILoginResponse } from '../../interface';
+import { IBook, IBookState, ILoginResponse } from '../../interface';
+
+interface Error {
+  status: number;
+}
 
 const BookUI = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -43,10 +45,12 @@ const BookUI = () => {
   const navigate = useNavigate();
   const { _userId, userName } =
     useAppSelector<ILoginResponse>((state) => state?.auth) || {};
-  const { allBooks } = useAppSelector<IBookState>((state) => state?.books);
+  const {
+    allBooks: { books },
+  } = useAppSelector<IBookState>((state) => state?.books);
   const thisbook = useMemo(() => {
-    return allBooks.books?.filter((item) => item._id === bookid.id);
-  }, [allBooks]);
+    return books?.filter((item: IBook) => item._id === bookid.id);
+  }, [books]);
   const [deleteData] = useDeleteBookMutation();
   const date = new Date().toISOString().split('T')[0];
 
@@ -56,7 +60,6 @@ const BookUI = () => {
     try {
       if (bookid) {
         const res = await deleteData(bookid.id);
-        console.log(res);
         if (res.data.status === 200) {
           toast({
             title: 'Book deleted',
@@ -264,16 +267,8 @@ const BookUI = () => {
                     >
                       Book now
                     </Button>
-                  ) : scope === 'user' && thisbook[0].booked == true ? (
-                    <>
-                      <Button
-                        leftIcon={<BsTrash3Fill />}
-                        colorScheme={'red'}
-                        onClick={handleBookingDelete}
-                      >
-                        Delete Booking
-                      </Button>
-                    </>
+                  ) : thisbook[0].booked == true ? (
+                    <></>
                   ) : (
                     <>
                       <RegisterUI action={'update'} book={thisbook[0]} />

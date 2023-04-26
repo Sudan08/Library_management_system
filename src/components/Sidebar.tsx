@@ -67,7 +67,7 @@ const Sidebar = () => {
                         leftIcon={item.icon}
                         bg={isActive(item.path) ? 'brand.500' : 'white'}
                         color={isActive(item.path) ? 'white' : 'black'}
-                        _hover={{ bg: 'brand.200' }}
+                        _hover={{ bg: 'brand.700' }}
                         width={['3rem', '6rem', '8rem', '10rem', '14rem']}
                       >
                         {item.name}

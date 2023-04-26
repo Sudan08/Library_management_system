@@ -13,6 +13,7 @@ import Htable from './components/History/Htable';
 import BookUI from './components/bookRegistration/BookUI';
 import BookingUI from './components/booking/BookingUI';
 import Content from './components/dashboard/Content';
+import BookedBooks from './components/booking/BookedBooks';
 
 const theme = extendTheme({
   colors: {
@@ -48,6 +49,7 @@ const App = () => {
               <Route path={'/history:id'} element={<Htable />} />
               <Route path={'/home/books/:id'} element={<BookUI />} />
               <Route path={'/mybooks'} element={<MyBooks />} />
+              <Route path={'/mybooks/:id'} element={<BookedBooks />} />
               <Route path={'*'} element={<h1>404</h1>} />
             </Route>
           </Route>

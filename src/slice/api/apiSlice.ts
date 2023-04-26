@@ -1,16 +1,10 @@
-import {
-  BaseQueryFn,
-  createApi,
-  FetchArgs,
-  fetchBaseQuery,
-} from '@reduxjs/toolkit/query/react';
-import { RootState } from '../../store/store';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:8000',
   }),
-  tagTypes: ['books', 'auth', 'myBooks'],
+  tagTypes: ['books', 'auth', 'myBooks', 'booking'],
   endpoints: (_builder) => ({}),
 });

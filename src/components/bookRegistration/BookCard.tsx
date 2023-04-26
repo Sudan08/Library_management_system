@@ -12,7 +12,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { useAppSelector } from '../../store/store';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 type BookCardProps = {
   src: string;
@@ -21,19 +21,22 @@ type BookCardProps = {
   bookId: string;
   author: string;
   genre: string | string[];
+  _userId: string;
 };
 
 const BookCard = (data: BookCardProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const scope = useAppSelector((state) => state?.auth?.scope);
   const handleClick = () => {
     if (scope === 'admin') {
       navigate(`/admin/books/${data.bookId}`);
+    } else if (location.pathname === '/mybooks') {
+      navigate(`/mybooks/${data.bookId}`);
     } else {
       navigate(`/home/books/${data.bookId}`);
     }
   };
-  console.log(data);
   return (
     <>
       <Card maxHeight={'550px'} width={'200px'} height={'550px'}>
@@ -44,7 +47,9 @@ const BookCard = (data: BookCardProps) => {
             borderRadius="lg"
           />
           <Stack mt="6" spacing="3">
-            <Text fontSize="xl">{data.title}</Text>
+            <Text fontSize="xl" fontWeight={'600'}>
+              {data.title}
+            </Text>
             <Text color="blackAlpha.700">{data.author}</Text>
             <Text color="blackAlpha.500">{data.genre}</Text>
           </Stack>

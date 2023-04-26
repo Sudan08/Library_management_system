@@ -58,7 +58,7 @@ const Content = () => {
         <VStack m="4" p="4" gap="5" alignItems="flex-start">
           {Object.entries(books)?.map((book, index) => (
             <VStack key={index} m="4" p="4" gap="5" alignItems="flex-start">
-              <Text>
+              <Text fontSize={'2xl'} fontWeight={'300'}>
                 {book[0]?.charAt(0).toUpperCase() + book[0]?.slice(1)}
               </Text>
               <HStack gap="4" justifyContent="space-around">
