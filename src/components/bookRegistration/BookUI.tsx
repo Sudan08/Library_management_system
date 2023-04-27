@@ -267,7 +267,7 @@ const BookUI = () => {
                     >
                       Book now
                     </Button>
-                  ) : thisbook[0].booked == true ? (
+                  ) : scope === 'user' && thisbook[0].booked == true ? (
                     <></>
                   ) : (
                     <>

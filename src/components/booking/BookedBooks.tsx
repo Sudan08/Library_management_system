@@ -1,9 +1,18 @@
 import React, { useEffect } from 'react';
-import { Box, HStack, VStack, Image, Text, Spinner } from '@chakra-ui/react';
+import {
+  Box,
+  HStack,
+  VStack,
+  Image,
+  Text,
+  Spinner,
+  IconButton,
+} from '@chakra-ui/react';
 import { useAppSelector } from '../../store/store';
 import { useParams } from 'react-router-dom';
 import { useGetBookingsQuery } from '../../slice/api/booking/bookingApiSlice';
 import { IBook } from '../../interface';
+import { BsTrash3Fill } from 'react-icons/bs';
 
 const BookedBooks = () => {
   const { data, isLoading } = useGetBookingsQuery(null);
@@ -14,7 +23,10 @@ const BookedBooks = () => {
   } = useAppSelector((state) => state?.books);
   const bookDetails = books?.filter((item: IBook) => item._id === bookID);
   const thisbook = data?.fineData.filter((item: any) => item.bookId === bookID);
-  console.log(thisbook);
+
+  const handleDelete = (id: string) => async () => {
+    console.log(id);
+  };
   return (
     <Box
       boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
@@ -82,9 +94,15 @@ const BookedBooks = () => {
                 <Text color={'red.500'} fontSize={'1xl'} fontWeight={'500'}>
                   Return Date :{thisbook[0]?.returnDate.split('T')[0]}
                 </Text>
-                <Text fontSize={'1xl'} fontWeight={'500'}>
-                  {bookDetails[0]?.description}
+                <Text fontSize={'3xl'} fontWeight={'500'}>
+                  Fine : Rs {thisbook[0]?.fine}
                 </Text>
+                <IconButton
+                  aria-label="Delete"
+                  colorScheme={'red'}
+                  icon={<BsTrash3Fill />}
+                  onClick={handleDelete(thisbook[0]?._id)}
+                ></IconButton>
               </VStack>
             </VStack>
           </HStack>

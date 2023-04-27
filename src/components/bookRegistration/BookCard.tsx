@@ -21,7 +21,7 @@ type BookCardProps = {
   bookId: string;
   author: string;
   genre: string | string[];
-  _userId: string;
+  _userId: string | undefined;
 };
 
 const BookCard = (data: BookCardProps) => {
@@ -39,7 +39,12 @@ const BookCard = (data: BookCardProps) => {
   };
   return (
     <>
-      <Card maxHeight={'550px'} width={'200px'} height={'550px'}>
+      <Card
+        maxHeight={'550px'}
+        minWidth={'200px'}
+        height={'550px'}
+        width={'200px'}
+      >
         <CardBody maxH={'450px'}>
           <Image
             src={data.src}
