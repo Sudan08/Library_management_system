@@ -13,16 +13,19 @@ const useFilteredBooks = () => {
     (book) => book.genre === 'Science Fiction'
   );
   const thriller = getBooks?.filter((book) => book.genre === 'Thriller');
-  return {
-    romance,
-    fiction,
-    nonFiction,
-    mystery,
-    horror,
-    fantasy,
-    scienceFiction,
-    thriller,
-  };
+  return [
+    {
+      romance,
+      fiction,
+      nonFiction,
+      mystery,
+      horror,
+      fantasy,
+      scienceFiction,
+      thriller,
+    },
+    getBooks,
+  ];
 };
 
 export default useFilteredBooks;

@@ -1,23 +1,16 @@
-import React, { useMemo, useEffect } from 'react';
-import {
-  Box,
-  HStack,
-  VStack,
-  Text,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Icon,
-} from '@chakra-ui/react';
+import React, { useMemo, useEffect, useState } from 'react';
+import { Box, HStack, VStack, Text, IconButton } from '@chakra-ui/react';
 import BookCard from '../bookRegistration/BookCard';
 import { BsSearch } from 'react-icons/bs';
 import { useAppSelector } from '../../store/store';
 import RegisterUI from '../bookRegistration/RegisterUI';
 import useFilterBooks from '../../customhooks/useFilteredBooks.ts';
+import { SearchModal } from '../SearchModal';
 
 const Content = () => {
+  const [search, setSearch] = useState(false);
   const scope = useAppSelector((state) => state?.auth?.scope);
-  const books = useFilterBooks();
+  const [books, allBooks] = useFilterBooks();
   return (
     <Box
       boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
@@ -35,18 +28,7 @@ const Content = () => {
             </Text>
           </Box>
           <HStack>
-            <InputGroup
-              boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
-            >
-              <InputLeftElement
-                pointerEvents="none"
-                color="gray.300"
-                fontSize="1.2em"
-              >
-                <Icon as={BsSearch} />
-              </InputLeftElement>
-              <Input placeholder="Search" />
-            </InputGroup>
+            <SearchModal allbooks={allBooks} />
             {scope === 'admin' ? (
               <Box>
                 <RegisterUI action={'add'} />
