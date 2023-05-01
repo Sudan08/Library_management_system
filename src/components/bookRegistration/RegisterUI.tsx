@@ -78,7 +78,6 @@ const RegisterUI = ({ action, book }) => {
         onClose;
       }
     } catch (err) {
-      console.log(err);
       toast({
         title: 'Failed',
         description: 'Please check your credentials',
@@ -92,7 +91,6 @@ const RegisterUI = ({ action, book }) => {
   const editBook = async (values: IBookRegister) => {
     try {
       values._id = id;
-      console.log(values);
       const data = await updateBook(values).unwrap();
       if (data) {
         dispatch({ type: 'books/createBook', payload: data });

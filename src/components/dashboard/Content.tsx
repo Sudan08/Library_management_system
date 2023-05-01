@@ -4,7 +4,7 @@ import BookCard from '../bookRegistration/BookCard';
 import { BsSearch } from 'react-icons/bs';
 import { useAppSelector } from '../../store/store';
 import RegisterUI from '../bookRegistration/RegisterUI';
-import useFilterBooks from '../../customhooks/useFilteredBooks.ts';
+import useFilterBooks from '../../customhooks/useFilteredBooks';
 import { SearchModal } from '../SearchModal';
 
 const Content = () => {

@@ -1,4 +1,5 @@
-import React from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 import Login from './pages/Login/Login';
@@ -15,6 +16,7 @@ import BookingUI from './components/booking/BookingUI';
 import Content from './components/dashboard/Content';
 import BookedBooks from './components/booking/BookedBooks';
 
+const queryClient = new QueryClient();
 const theme = extendTheme({
   colors: {
     brand: {
@@ -41,34 +43,37 @@ const App = () => {
   // if the user is logged in then only he can access the books page
   return (
     <ChakraProvider theme={theme}>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<UserRoute />}>
-            <Route element={<Layout />}>
-              <Route path={'/home'} element={<Content />} />
-              <Route path={'/history:id'} element={<Htable />} />
-              <Route path={'/home/books/:id'} element={<BookUI />} />
-              <Route path={'/mybooks'} element={<MyBooks />} />
-              <Route path={'/mybooks/:id'} element={<BookedBooks />} />
-              <Route path={'*'} element={<h1>404</h1>} />
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<UserRoute />}>
+              <Route element={<Layout />}>
+                <Route path={'/home'} element={<Content />} />
+                <Route path={'/history:id'} element={<Htable />} />
+                <Route path={'/home/books/:id'} element={<BookUI />} />
+                <Route path={'/mybooks'} element={<MyBooks />} />
+                <Route path={'/mybooks/:id'} element={<BookedBooks />} />
+                <Route path={'*'} element={<h1>404</h1>} />
+              </Route>
             </Route>
-          </Route>
-          <Route element={<AdminRoute />}>
-            <Route element={<Layout />}>
-              <Route path={'/admin'} element={<AdminContent />} />
-              <Route path={'/admin/books'} element={<Content />} />
-              <Route path={'/admin/books/:id'} element={<BookUI />} />
-              <Route path={'/admin/bookings'} element={<BookingUI />} />
-              <Route path={'*'} element={<h1>404</h1>} />
+            <Route element={<AdminRoute />}>
+              <Route element={<Layout />}>
+                <Route path={'/admin'} element={<AdminContent />} />
+                <Route path={'/admin/books'} element={<Content />} />
+                <Route path={'/admin/books/:id'} element={<BookUI />} />
+                <Route path={'/admin/bookings'} element={<BookingUI />} />
+                <Route path={'*'} element={<h1>404</h1>} />
+              </Route>
             </Route>
-          </Route>
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          {/* <Route path="/home/books/:id" element={<Book />} /> */}
-          {/* <Route path="/mybooks/:id" element={<MyBook />} /> */}
-          <Route path={'*'} element={<h1>404</h1>} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            {/* <Route path="/home/books/:id" element={<Book />} /> */}
+            {/* <Route path="/mybooks/:id" element={<MyBook />} /> */}
+            <Route path={'*'} element={<h1>404</h1>} />
+          </Routes>
+        </BrowserRouter>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </ChakraProvider>
   );
 };

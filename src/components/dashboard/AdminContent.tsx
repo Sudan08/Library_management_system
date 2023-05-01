@@ -1,16 +1,4 @@
-import React from 'react';
-import {
-  Box,
-  HStack,
-  Flex,
-  VStack,
-  Text,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
-  Icon,
-} from '@chakra-ui/react';
+import { Box, HStack, VStack, Text } from '@chakra-ui/react';
 import {
   AreaChart,
   Area,
