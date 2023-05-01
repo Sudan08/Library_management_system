@@ -5,10 +5,7 @@ import {
   CardFooter,
   Image,
   Stack,
-  Heading,
   Text,
-  Divider,
-  ButtonGroup,
   Button,
 } from '@chakra-ui/react';
 import { useAppSelector } from '../../store/store';

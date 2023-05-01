@@ -32,6 +32,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import RegisterUI from '../bookRegistration/RegisterUI';
 import { IBook, IBookState, ILoginResponse } from '../../interface';
+import { usePostBookingsMutation } from '../../slice/api/booking/bookingApiSlice';
 
 interface Error {
   status: number;
@@ -55,6 +56,7 @@ const BookUI = () => {
   const date = new Date().toISOString().split('T')[0];
 
   const [updateBooking] = usePatchBookMutation();
+  const [postbooking] = usePostBookingsMutation();
 
   const handleDelete = async () => {
     try {
@@ -78,27 +80,19 @@ const BookUI = () => {
 
   const handleBook = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:8000/booking/api/v1/postbooking/${_userId}`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            bookId: bookid.id,
-            userId: _userId,
-            userName: userName,
-            title: thisbook[0].title,
-            author: thisbook[0].author,
-            bookedDate: date,
-            isIssued: false,
-            scope: scope,
-          }),
-        }
-      );
-
-      if (response?.status === 200) {
+      const data = {
+        bookId: bookid.id,
+        userId: _userId,
+        userName: userName,
+        title: thisbook[0].title,
+        author: thisbook[0].author,
+        bookedDate: date,
+        isIssued: false,
+        scope: scope,
+      };
+      const res = await postbooking(data);
+      console.log(res);
+      if (res?.data?.booking !== null && res?.data?.booking !== undefined) {
         toast({
           title: 'Book booked',
           description: 'Book booked successfully',
@@ -110,45 +104,9 @@ const BookUI = () => {
           bookId: bookid.id,
           booked: true,
         });
-      } else {
+      } else if (res. error.status === 500) {
         toast({
           title: 'Booking limit reached',
-        });
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleBookingDelete = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:8000/booking/api/v1/deletebooking/${thisbook[0]._id}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      if (response.status === 200) {
-        toast({
-          title: 'Booking deleted',
-          description: 'Booking deleted successfully',
-          status: 'success',
-          duration: 9000,
-          isClosable: true,
-        });
-        await updateBooking({
-          bookId: bookid.id,
-          booked: false,
-        });
-      } else if (response.status === 500) {
-        toast({
-          title: 'Something went wrong',
-          status: 'error',
-          duration: 9000,
-          isClosable: true,
         });
       }
     } catch (err) {

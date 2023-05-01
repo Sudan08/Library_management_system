@@ -10,29 +10,53 @@ import {
   Tbody,
   Td,
   Button,
+  IconButton,
+  useToast,
 } from '@chakra-ui/react';
+
+import { BsTrash3Fill } from 'react-icons/bs';
 
 import {
   useGetBookingsQuery,
   useUpdateBookingsMutation,
 } from '../../slice/api/booking/bookingApiSlice';
 
-type BookingData = {
-  title: string;
-  author: string;
-  userName: string;
-  bookedDate: string;
-  isIssued: boolean;
-  returnDate: string;
-};
+import { usePatchBookMutation } from '../../slice/api/books/bookApiSlice';
+
+import { useDeleteBookingsMutation } from '../../slice/api/booking/bookingApiSlice';
 
 const BookingUI = () => {
+  const [updateBook] = usePatchBookMutation();
+  const toast = useToast();
+  const [bookingdelete] = useDeleteBookingsMutation();
   const { data: bookingData } = useGetBookingsQuery(null);
   const [update] = useUpdateBookingsMutation();
   const handleIssued = (_id: string) => {
     const res = update(_id);
-    console.log(res);
   };
+  const handleDelete =
+    ([bookingId, bookId]) =>
+    async () => {
+      const res = await bookingdelete(bookingId);
+      if (res.data.status === 200) {
+        toast({
+          title: 'Booking Deleted',
+          description: 'Booking Deleted Successfully',
+          status: 'success',
+          duration: 3000,
+        });
+        await updateBook({
+          bookId: bookId,
+          booked: false,
+        });
+      } else {
+        toast({
+          title: 'Something went wrong',
+          description: 'Booking Not Deleted',
+          status: 'error',
+        });
+      }
+    };
   return (
     <Box
       boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
@@ -80,6 +104,14 @@ const BookingUI = () => {
                     <Button onClick={() => handleIssued(data._id)}>
                       Issued
                     </Button>
+                  </Td>
+                  <Td>
+                    <IconButton
+                      aria-label="Delete"
+                      colorScheme={'red'}
+                      icon={<BsTrash3Fill />}
+                      onClick={handleDelete([data?._id, data?.bookId])}
+                    ></IconButton>
                   </Td>
                 </Tr>
               );

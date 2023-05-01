@@ -7,25 +7,52 @@ import {
   Text,
   Spinner,
   IconButton,
+  useToast,
 } from '@chakra-ui/react';
 import { useAppSelector } from '../../store/store';
-import { useParams } from 'react-router-dom';
-import { useGetBookingsQuery } from '../../slice/api/booking/bookingApiSlice';
+import { useNavigate, useParams } from 'react-router-dom';
+import {
+  useGetBookingsQuery,
+  useDeleteBookingsMutation,
+} from '../../slice/api/booking/bookingApiSlice';
+import { usePatchBookMutation } from '../../slice/api/books/bookApiSlice';
 import { IBook } from '../../interface';
 import { BsTrash3Fill } from 'react-icons/bs';
 
 const BookedBooks = () => {
+  const [bookingdelete] = useDeleteBookingsMutation();
   const { data, isLoading } = useGetBookingsQuery(null);
   const { _userId } = useAppSelector((state) => state?.auth);
   const { id: bookID } = useParams();
   const {
     allBooks: { books },
   } = useAppSelector((state) => state?.books);
-  const bookDetails = books?.filter((item: IBook) => item._id === bookID);
+  const bookDetails = books?.filter((item: IBook) => item._id === bookID) || [];
   const thisbook = data?.fineData.filter((item: any) => item.bookId === bookID);
-
+  const toast = useToast();
+  const navigate = useNavigate();
+  const [updateBook] = usePatchBookMutation();
   const handleDelete = (id: string) => async () => {
-    console.log(id);
+    const res = await bookingdelete(id);
+    if (res.data.status === 200) {
+      toast({
+        title: 'Booking Deleted',
+        description: 'Booking Deleted Successfully',
+        status: 'success',
+        duration: 3000,
+      });
+      await updateBook({
+        bookId: thisbook[0]?.bookId,
+        booked: false,
+      });
+      navigate('/home');
+    } else {
+      toast({
+        title: 'Something went wrong',
+        description: 'Booking Not Deleted',
+        status: 'error',
+      });
+    }
   };
   return (
     <Box
