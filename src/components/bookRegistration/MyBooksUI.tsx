@@ -10,9 +10,8 @@ const MyBooks = () => {
   const { _userId } = useAppSelector<ILoginResponse>((state) => state?.auth);
   const { data, isLoading } = useGetMyBooksQuery(_userId);
   const { allBooks } = useAppSelector<IBookState>((state) => state?.books);
-  const userBooks = allBooks?.books?.filter(
-    (item: IBook) =>
-      item._id === data?.bookIds[0] || item._id === data?.bookIds[1]
+  const userBooks = allBooks?.books?.filter((item: IBook) =>
+    data?.bookIds.includes(item._id)
   );
   return (
     <Box

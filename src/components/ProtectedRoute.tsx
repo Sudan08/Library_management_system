@@ -9,7 +9,10 @@ const UserRoute = () => {
   // adding all books to the redux store
 
   // if the user is logged in then only he can access the books page
-  if (cookies.user && cookies.user[1] === true && cookies.user[0] === 'user') {
+  if (
+    (cookies.user && cookies.user[1] === true && cookies.user[0] === 'user') ||
+    cookies.user[0] === 'teacher'
+  ) {
     return <Outlet />;
   } else {
     return <Navigate to="/" />;
