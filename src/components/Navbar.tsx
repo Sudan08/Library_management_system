@@ -40,14 +40,6 @@ const Navbar = () => {
         </Box>
         <Box p={'10px'} m={'10px'}>
           <HStack gap="10" justifyContent="space-between" mr="40px">
-            <Icon
-              as={
-                colorMode === 'light' ? MdOutlineDarkMode : MdOutlineLightMode
-              }
-              onClick={toggleColorMode}
-              w="6"
-              h="6"
-            />
             <Menu>
               <MenuButton>
                 <Avatar

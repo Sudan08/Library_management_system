@@ -67,8 +67,6 @@ const App = () => {
             </Route>
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            {/* <Route path="/home/books/:id" element={<Book />} /> */}
-            {/* <Route path="/mybooks/:id" element={<MyBook />} /> */}
             <Route path={'*'} element={<h1>404</h1>} />
           </Routes>
         </BrowserRouter>

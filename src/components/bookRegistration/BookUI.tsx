@@ -91,7 +91,6 @@ const BookUI = () => {
         scope: scope,
       };
       const res = await postbooking(data);
-      console.log(res);
       if (res?.data?.booking !== null && res?.data?.booking !== undefined) {
         toast({
           title: 'Book booked',
@@ -215,7 +214,8 @@ const BookUI = () => {
                   gap={'8'}
                   m={'5'}
                 >
-                  {scope === 'user' && thisbook[0].booked == false ? (
+                  {scope === 'user' ||
+                  (scope === 'teacher' && thisbook[0].booked == false) ? (
                     <Button
                       leftIcon={<BsBookmarkFill />}
                       onClick={onOpen}
@@ -225,7 +225,8 @@ const BookUI = () => {
                     >
                       Book now
                     </Button>
-                  ) : scope === 'user' && thisbook[0].booked == true ? (
+                  ) : scope === 'user' ||
+                    (scope === 'teacher' && thisbook[0].booked == true) ? (
                     <></>
                   ) : (
                     <>
