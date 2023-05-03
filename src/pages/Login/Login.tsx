@@ -61,7 +61,9 @@ const Login: React.FC = () => {
         setCookie('user', [data.scope, data.isAuthenticated], { path: '/' });
         // redirecting the user to the dashboard based on the scope
         {
-          data.scope === 'admin' ? navigate('/admin') : navigate('/home');
+          data.scope === 'admin' || data.scope === 'superadmin'
+            ? navigate('/admin')
+            : navigate('/home');
         }
       } else {
         toast({

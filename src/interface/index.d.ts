@@ -13,7 +13,14 @@ export interface ILoginResponse {
   _userId: string;
 }
 
-
+export interface AddTeacher {
+  firstName: string;
+  password: string;
+  userName: string;
+  lastName: string;
+  scope: string;
+  email: string;
+}
 
 export interface registerPayLoad {
   firstName: string;

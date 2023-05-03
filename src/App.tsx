@@ -10,7 +10,6 @@ import { UserRoute, AdminRoute } from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import AdminContent from './components/dashboard/AdminContent';
 import MyBooks from './components/bookRegistration/MyBooksUI';
-import Htable from './components/History/Htable';
 import BookUI from './components/bookRegistration/BookUI';
 import BookingUI from './components/booking/BookingUI';
 import Content from './components/dashboard/Content';
@@ -49,7 +48,6 @@ const App = () => {
             <Route element={<UserRoute />}>
               <Route element={<Layout />}>
                 <Route path={'/home'} element={<Content />} />
-                <Route path={'/history:id'} element={<Htable />} />
                 <Route path={'/home/books/:id'} element={<BookUI />} />
                 <Route path={'/mybooks'} element={<MyBooks />} />
                 <Route path={'/mybooks/:id'} element={<BookedBooks />} />

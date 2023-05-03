@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { AiOutlineUserAdd } from 'react-icons/ai';
+import Addteacher from './teacher/Addteacher';
 import {
   Box,
   HStack,
-  Icon,
   Image,
   Menu,
   Avatar,
@@ -11,15 +12,15 @@ import {
   MenuList,
   MenuItem,
 } from '@chakra-ui/react';
-import { GrNotification } from 'react-icons/gr';
-import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
-import { useColorMode } from '@chakra-ui/react';
+import { BiLogOut } from 'react-icons/bi';
+
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../store/store';
 
 const Navbar = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { scope, userName } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
-
+  const [modal, setModal] = useState(false);
   return (
     <Box
       width={'100vw'}
@@ -42,21 +43,32 @@ const Navbar = () => {
           <HStack gap="10" justifyContent="space-between" mr="40px">
             <Menu>
               <MenuButton>
-                <Avatar
-                  name="Elon Musk"
-                  src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
-                >
+                <Avatar name={userName}>
                   <AvatarBadge bg="brand.500" />
                 </Avatar>
               </MenuButton>
               <MenuList>
-                <MenuItem>Setting</MenuItem>
+                {scope === 'admin' || scope === 'superadmin' ? (
+                  <MenuItem
+                    display={'flex'}
+                    flexDirection={'row'}
+                    gap={'5'}
+                    onClick={() => setModal(true)}
+                  >
+                    <AiOutlineUserAdd size={24} />
+                    Add Teacher
+                  </MenuItem>
+                ) : null}
                 <MenuItem
+                  display={'flex'}
+                  flexDirection={'row'}
+                  gap={'5'}
                   onClick={() => {
                     navigate('/');
                     localStorage.removeItem('token');
                   }}
                 >
+                  <BiLogOut size={24}></BiLogOut>
                   LogOut
                 </MenuItem>
               </MenuList>
@@ -64,6 +76,7 @@ const Navbar = () => {
           </HStack>
         </Box>
       </HStack>
+      {modal === true ? <Addteacher modal={modal} setModal={setModal} /> : null}
     </Box>
   );
 };
