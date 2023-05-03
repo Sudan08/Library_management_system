@@ -1,4 +1,3 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { apiSlice } from '../apiSlice';
 
 export const authApi = apiSlice.injectEndpoints({
@@ -10,7 +9,14 @@ export const authApi = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    addTeacher: builder.mutation({
+      query: (body) => ({
+        url: '/users/api/v1/addTeacher',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useAddTeacherMutation } = authApi;

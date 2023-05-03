@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { AiOutlineUserAdd } from 'react-icons/ai';
+import Addteacher from './teacher/Addteacher';
 import {
   Box,
   HStack,
-  Icon,
   Image,
   Menu,
   Avatar,
@@ -11,15 +12,14 @@ import {
   MenuList,
   MenuItem,
 } from '@chakra-ui/react';
-import { GrNotification } from 'react-icons/gr';
-import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
-import { useColorMode } from '@chakra-ui/react';
+import { BiLogOut } from 'react-icons/bi';
+
 import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
   const navigate = useNavigate();
-
+  const [modal, setModal] = useState(false);
+  console.log(modal);
   return (
     <Box
       width={'100vw'}
@@ -50,13 +50,25 @@ const Navbar = () => {
                 </Avatar>
               </MenuButton>
               <MenuList>
-                <MenuItem>Setting</MenuItem>
                 <MenuItem
+                  display={'flex'}
+                  flexDirection={'row'}
+                  gap={'5'}
+                  onClick={() => setModal(true)}
+                >
+                  <AiOutlineUserAdd size={24} />
+                  Add Teacher
+                </MenuItem>
+                <MenuItem
+                  display={'flex'}
+                  flexDirection={'row'}
+                  gap={'5'}
                   onClick={() => {
                     navigate('/');
                     localStorage.removeItem('token');
                   }}
                 >
+                  <BiLogOut size={24}></BiLogOut>
                   LogOut
                 </MenuItem>
               </MenuList>
@@ -64,6 +76,7 @@ const Navbar = () => {
           </HStack>
         </Box>
       </HStack>
+      {modal === true ? <Addteacher modal={modal} setModal={setModal} /> : null}
     </Box>
   );
 };

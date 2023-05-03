@@ -42,7 +42,7 @@ const Sidebar = () => {
 
         <Box>
           <VStack justifyContent={'around'} alignItems={'center'} gap={'10'}>
-            {scope === 'admin'
+            {scope === 'admin' || scope === 'superadmin'
               ? SidebarAdminItems.map((item, index) => {
                   return (
                     <NavLink to={item.path} key={index}>

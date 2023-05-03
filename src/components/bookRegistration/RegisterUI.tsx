@@ -13,17 +13,10 @@ import {
   FormControl,
   Input,
   useToast,
-  HStack,
   Textarea,
-  Switch,
   Select,
-  Box,
-  Icon,
-  VStack,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
-import { BsFillTrashFill } from 'react-icons/bs';
-import { GrUpdate } from 'react-icons/gr';
+
 import { useForm } from 'react-hook-form';
 import { IBookRegister } from '../../interface';
 import {
@@ -204,12 +197,6 @@ const RegisterUI = ({ action, book }) => {
 
                 <FormErrorMessage>
                   {errors.description && errors.description.message}
-                </FormErrorMessage>
-              </FormControl>
-              <FormControl isInvalid={Boolean(errors.booked)}>
-                <FormLabel htmlFor="booked">Booked</FormLabel>
-                <FormErrorMessage>
-                  {errors.booked && errors.booked.message}
                 </FormErrorMessage>
               </FormControl>
             </ModalBody>

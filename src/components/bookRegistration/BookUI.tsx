@@ -103,7 +103,7 @@ const BookUI = () => {
           bookId: bookid.id,
           booked: true,
         });
-      } else if (res. error.status === 500) {
+      } else if (res.error.status === 500) {
         toast({
           title: 'Booking limit reached',
         });
@@ -129,19 +129,6 @@ const BookUI = () => {
           justifyContent="flex-start"
           alignItems="flex-start"
         >
-          <HStack width="300px" alignSelf="flex-end" p={4} m={4}>
-            <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                color="gray.300"
-                fontSize="1.2em"
-              >
-                <Icon as={BsSearch} />
-              </InputLeftElement>
-              <Input placeholder="Search" />
-            </InputGroup>
-          </HStack>
-
           <HStack
             m="4"
             p="4"
