@@ -67,6 +67,7 @@ const RegisterUI = ({ action, book }) => {
       // using unwrap to get the data from the mutation
       const data = await postBook(values).unwrap();
       if (data) {
+        onClose;
         // dispatching the data to the store
         dispatch({ type: 'books/createBook', payload: data });
         toast({
@@ -75,7 +76,6 @@ const RegisterUI = ({ action, book }) => {
           duration: 9000,
           isClosable: true,
         });
-        onClose;
       }
     } catch (err) {
       toast({
@@ -208,13 +208,6 @@ const RegisterUI = ({ action, book }) => {
               </FormControl>
               <FormControl isInvalid={Boolean(errors.booked)}>
                 <FormLabel htmlFor="booked">Booked</FormLabel>
-                <Switch
-                  id="bookded"
-                  {...register('booked', {
-                    value: action === 'update' ? book.bookded : false,
-                  })}
-                />
-
                 <FormErrorMessage>
                   {errors.booked && errors.booked.message}
                 </FormErrorMessage>

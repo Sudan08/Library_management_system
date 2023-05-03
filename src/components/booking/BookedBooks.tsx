@@ -6,7 +6,7 @@ import {
   Image,
   Text,
   Spinner,
-  IconButton,
+  Button,
   useToast,
 } from '@chakra-ui/react';
 import { useAppSelector } from '../../store/store';
@@ -124,12 +124,14 @@ const BookedBooks = () => {
                 <Text fontSize={'3xl'} fontWeight={'500'}>
                   Fine : Rs {thisbook[0]?.fine}
                 </Text>
-                <IconButton
+                <Button
                   aria-label="Delete"
                   colorScheme={'red'}
-                  icon={<BsTrash3Fill />}
+                  leftIcon={<BsTrash3Fill />}
                   onClick={handleDelete(thisbook[0]?._id)}
-                ></IconButton>
+                >
+                  <Text>Delete Booking</Text>
+                </Button>
               </VStack>
             </VStack>
           </HStack>
