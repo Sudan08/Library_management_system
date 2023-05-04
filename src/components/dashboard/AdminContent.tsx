@@ -14,24 +14,27 @@ const AdminContent = () => {
         <Text margin={'5'} fontSize={'3xl'} fontWeight={'bold'}>
           Admin Dashboard
         </Text>
-        <HStack justifyContent="flex-start" alignItems="start" w={'full'}>
+        <HStack justifyContent="space" alignItems="start">
           <VStack
-            justifyContent="flex-start"
-            alignItems="start"
+            justifyContent="center"
+            alignItems="center"
             gap="10"
             m={'10'}
             p={'10'}
           >
-            <Text>Books</Text>
+            <Text fontSize={'2xl'}>Total Number of Books:</Text>
+            <Text fontSize={'8xl'} fontWeight={'extrabold'}>
+              7
+            </Text>
           </VStack>
           <VStack
-            justifyContent="flex-start"
-            alignItems="start"
+            justifyContent="center"
+            alignItems="center"
             gap="10"
             m={'10'}
             p={'10'}
           >
-            <Text>Books</Text>
+            <Text fontSize={'2xl'}>Total Number of Bookings</Text>
           </VStack>
         </HStack>
       </VStack>
