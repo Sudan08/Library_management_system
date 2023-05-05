@@ -46,7 +46,6 @@ interface Fine {
 
 const BookingUI = () => {
   const [modal, setModal] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateBook] = usePatchBookMutation();
   const toast = useToast();
   const [bookingdelete] = useDeleteBookingsMutation();
@@ -55,11 +54,6 @@ const BookingUI = () => {
   const handleIssued = (_id: string) => {
     update({ id: _id, data: { issued: true } });
   };
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm<Fine>();
   const handleDelete =
     ([bookingId, bookId]) =>
     async () => {
@@ -83,10 +77,6 @@ const BookingUI = () => {
         });
       }
     };
-  const updateFine = (values: Fine) => {
-    console.log(values);
-    update({ id: values._id, data: { fine: values.fine } });
-  };
 
   return (
     <Box
@@ -144,25 +134,8 @@ const BookingUI = () => {
                       onClick={handleDelete([data?._id, data?.bookId])}
                     ></IconButton>
                   </Td>
-                  <Td>
-                    <IconButton
-                      aria-label="ChangeFine"
-                      colorScheme={'red'}
-                      icon={<FiEdit />}
-                      onClick={() => {
-                        setModal(true);
-                        onOpen();
-                      }}
-                    ></IconButton>
-                  </Td>
-                  {modal && (
-                    <ModalForm
-                      isOpen={isOpen}
-                      onClose={onClose}
-                      updateFine={updateFine}
-                      _id={data._id}
-                    />
-                  )}
+                  <Td></Td>
+                  <ModalForm _id={data._id} />
                 </Tr>
               );
             })}
@@ -173,42 +146,51 @@ const BookingUI = () => {
   );
 };
 
-const ModalForm = ({ isOpen, onClose, updateFine, _id }) => {
+const ModalForm = ({ _id }) => {
+  const [update] = useUpdateBookingsMutation();
+  console.log(_id);
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm<Fine>();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const updateFine = (values: Fine) => {
+    console.log(values);
+  };
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Change Fine</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <form onSubmit={handleSubmit(updateFine)}>
-            <FormControl isInvalid={errors.fine}>
-              <FormLabel htmlFor="fine">Fine</FormLabel>
-              <Input hidden {...register(_id)} />
-              <Input
-                id="fine"
-                placeholder="Fine"
-                {...register('fine', {
-                  required: 'Fine is required',
-                })}
-              />
-              <FormErrorMessage>
-                {errors.fine && errors.fine.message}
-              </FormErrorMessage>
-            </FormControl>
-            <Button mt={4} colorScheme="teal" type="submit">
-              Change Fine
-            </Button>
-          </form>
-        </ModalBody>
-        <ModalFooter></ModalFooter>
-      </ModalContent>
-    </Modal>
+    <>
+      <Button onClick={onOpen}>Change Fine</Button>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Change Fine</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <form onSubmit={handleSubmit(updateFine)}>
+              <FormControl isInvalid={errors.fine}>
+                <FormLabel htmlFor="fine">Fine</FormLabel>
+                <Input hidden value={_id} {...register('id')} />
+                <Input
+                  id="fine"
+                  placeholder="Fine"
+                  {...register('fine', {
+                    required: 'Fine is required',
+                  })}
+                />
+                <FormErrorMessage>
+                  {errors.fine && errors.fine.message}
+                </FormErrorMessage>
+              </FormControl>
+              <Button mt={4} colorScheme="teal" type="submit">
+                Change Fine
+              </Button>
+            </form>
+          </ModalBody>
+          <ModalFooter></ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 
