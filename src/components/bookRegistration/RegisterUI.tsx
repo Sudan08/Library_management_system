@@ -69,6 +69,7 @@ const RegisterUI = ({ action, book }) => {
           duration: 9000,
           isClosable: true,
         });
+        onClose();
       }
     } catch (err) {
       toast({
