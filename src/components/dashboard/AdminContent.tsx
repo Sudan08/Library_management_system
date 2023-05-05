@@ -31,6 +31,10 @@ const AdminContent = () => {
             <Text fontSize={'8xl'} fontWeight={'extrabold'}>
               7
             </Text>
+            <Text fontSize={'2xl'}>Total Number of Books:</Text>
+            <Text fontSize={'8xl'} fontWeight={'extrabold'}>
+              7
+            </Text>
           </VStack>
           <VStack
             justifyContent="center"

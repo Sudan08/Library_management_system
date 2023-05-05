@@ -9,9 +9,10 @@ export const bookingApi = apiSlice.injectEndpoints({
       providesTags: ['booking'],
     }),
     updateBookings: builder.mutation({
-      query: (_id: string) => ({
-        url: `/booking/api/v1/updatebooking/${_id}`,
+      query: ({ id, data }) => ({
+        url: `/booking/api/v1/updatebooking/${id}`,
         method: 'PATCH',
+        body: data,
       }),
       invalidatesTags: ['booking', 'myBooks'],
     }),
