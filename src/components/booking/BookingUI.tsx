@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   VStack,
@@ -12,9 +12,23 @@ import {
   Button,
   IconButton,
   useToast,
+  ModalFooter,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
 } from '@chakra-ui/react';
+import { useForm } from 'react-hook-form';
 
 import { BsTrash3Fill } from 'react-icons/bs';
+import { FiEdit } from 'react-icons/fi';
 
 import {
   useGetBookingsQuery,
@@ -25,6 +39,11 @@ import { usePatchBookMutation } from '../../slice/api/books/bookApiSlice';
 
 import { useDeleteBookingsMutation } from '../../slice/api/booking/bookingApiSlice';
 
+interface Fine {
+  fine: number;
+  _id: string;
+}
+
 const BookingUI = () => {
   const [updateBook] = usePatchBookMutation();
   const toast = useToast();
@@ -32,7 +51,7 @@ const BookingUI = () => {
   const { data: bookingData } = useGetBookingsQuery(null);
   const [update] = useUpdateBookingsMutation();
   const handleIssued = (_id: string) => {
-    const res = update(_id);
+    update({ id: _id, data: { issued: true } });
   };
   const handleDelete =
     ([bookingId, bookId]) =>
@@ -57,6 +76,7 @@ const BookingUI = () => {
         });
       }
     };
+
   return (
     <Box
       boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
@@ -84,6 +104,9 @@ const BookingUI = () => {
               <Th>Return Date</Th>
               <Th>Fine</Th>
               <Th>Issued</Th>
+              <Th>Change Issue</Th>
+              <Th>Delete</Th>
+              <Th>Change Fine</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -113,6 +136,9 @@ const BookingUI = () => {
                       onClick={handleDelete([data?._id, data?.bookId])}
                     ></IconButton>
                   </Td>
+                  <Td>
+                    <ModalForm _id={data._id} />
+                  </Td>
                 </Tr>
               );
             })}
@@ -120,6 +146,58 @@ const BookingUI = () => {
         </Table>
       </VStack>
     </Box>
+  );
+};
+
+const ModalForm = ({ _id }) => {
+  const [update] = useUpdateBookingsMutation();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<Fine>();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const updateFine = (values: Fine) => {
+    update({ id: _id, data: { fine: values.fine, isUpdated: true } });
+  };
+  return (
+    <>
+      <IconButton
+        aria-label="ChangeFine"
+        colorScheme={'red'}
+        icon={<FiEdit />}
+        onClick={onOpen}
+      ></IconButton>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Change Fine</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <form onSubmit={handleSubmit(updateFine)}>
+              <FormControl isInvalid={errors.fine}>
+                <FormLabel htmlFor="fine">Fine</FormLabel>
+                <Input hidden value={_id} {...register('id')} />
+                <Input
+                  id="fine"
+                  placeholder="Fine"
+                  {...register('fine', {
+                    required: 'Fine is required',
+                  })}
+                />
+                <FormErrorMessage>
+                  {errors.fine && errors.fine.message}
+                </FormErrorMessage>
+              </FormControl>
+              <Button mt={4} colorScheme="teal" type="submit">
+                Change Fine
+              </Button>
+            </form>
+          </ModalBody>
+          <ModalFooter></ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 
