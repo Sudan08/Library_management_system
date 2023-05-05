@@ -45,7 +45,6 @@ interface Fine {
 }
 
 const BookingUI = () => {
-  const [modal, setModal] = useState(false);
   const [updateBook] = usePatchBookMutation();
   const toast = useToast();
   const [bookingdelete] = useDeleteBookingsMutation();
@@ -105,6 +104,9 @@ const BookingUI = () => {
               <Th>Return Date</Th>
               <Th>Fine</Th>
               <Th>Issued</Th>
+              <Th>Change Issue</Th>
+              <Th>Delete</Th>
+              <Th>Change Fine</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -134,8 +136,9 @@ const BookingUI = () => {
                       onClick={handleDelete([data?._id, data?.bookId])}
                     ></IconButton>
                   </Td>
-                  <Td></Td>
-                  <ModalForm _id={data._id} />
+                  <Td>
+                    <ModalForm _id={data._id} />
+                  </Td>
                 </Tr>
               );
             })}
@@ -148,7 +151,6 @@ const BookingUI = () => {
 
 const ModalForm = ({ _id }) => {
   const [update] = useUpdateBookingsMutation();
-  console.log(_id);
   const {
     handleSubmit,
     register,
@@ -156,11 +158,16 @@ const ModalForm = ({ _id }) => {
   } = useForm<Fine>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const updateFine = (values: Fine) => {
-    console.log(values);
+    update({ id: _id, data: { fine: values.fine, isUpdated: true } });
   };
   return (
     <>
-      <Button onClick={onOpen}>Change Fine</Button>
+      <IconButton
+        aria-label="ChangeFine"
+        colorScheme={'red'}
+        icon={<FiEdit />}
+        onClick={onOpen}
+      ></IconButton>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
