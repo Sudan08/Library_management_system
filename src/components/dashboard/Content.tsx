@@ -29,7 +29,7 @@ const Content = () => {
           </Box>
           <HStack>
             <SearchModal allbooks={allBooks} />
-            {scope === 'admin' ? (
+            {scope === 'admin' || scope === 'superadmin' ? (
               <Box>
                 <RegisterUI action={'add'} />
               </Box>
