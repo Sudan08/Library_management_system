@@ -41,7 +41,7 @@ const Navbar = () => {
         </Box>
         <Box p={'10px'} m={'10px'}>
           <HStack gap="10" justifyContent="space-between" mr="40px">
-            <Menu>
+            <Menu z-Index={'20'}>
               <MenuButton>
                 <Avatar name={userName}>
                   <AvatarBadge bg="brand.500" />
