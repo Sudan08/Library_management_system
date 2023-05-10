@@ -56,6 +56,7 @@ const SearchModal = (props: any) => {
                       genre={item?.genre}
                       desc={item?.description}
                       _userId={item?._userId}
+                      onClose={onClose}
                     />
                   );
                 })

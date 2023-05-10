@@ -1,16 +1,8 @@
-import React, { useMemo, useEffect, useState } from 'react';
 import { Box, HStack, VStack, Text, IconButton } from '@chakra-ui/react';
 import BookCard from '../bookRegistration/BookCard';
-import { BsSearch } from 'react-icons/bs';
-import { useAppSelector } from '../../store/store';
-import RegisterUI from '../bookRegistration/RegisterUI';
-import useFilterBooks from '../../customhooks/useFilteredBooks';
-import { SearchModal } from '../SearchModal';
-
+import useFilteredBooks from '../../customhooks/useFilteredBooks';
 const Content = () => {
-  const [search, setSearch] = useState(false);
-  const scope = useAppSelector((state) => state?.auth?.scope);
-  const [books, allBooks] = useFilterBooks();
+  const [books, allBooks] = useFilteredBooks();
   return (
     <Box
       boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
@@ -27,14 +19,6 @@ const Content = () => {
               Books
             </Text>
           </Box>
-          <HStack>
-            <SearchModal allbooks={allBooks} />
-            {scope === 'admin' || scope === 'superadmin' ? (
-              <Box>
-                <RegisterUI action={'add'} />
-              </Box>
-            ) : null}
-          </HStack>
         </HStack>
 
         <VStack m="4" p="4" gap="5" alignItems="flex-start">
