@@ -1,8 +1,8 @@
-import { Box, HStack, VStack, Text, IconButton } from '@chakra-ui/react';
+import { Box, HStack, VStack, Text } from '@chakra-ui/react';
 import BookCard from '../bookRegistration/BookCard';
 import useFilteredBooks from '../../customhooks/useFilteredBooks';
 const Content = () => {
-  const [books, allBooks] = useFilteredBooks();
+  const [books] = useFilteredBooks();
   return (
     <Box
       boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}

@@ -64,7 +64,7 @@ const RegisterUI = ({ action, book }) => {
         // dispatching the data to the store
         dispatch({ type: 'books/createBook', payload: data });
         toast({
-          description: 'Adding Book',
+          description: 'Added Book',
           status: 'success',
           duration: 9000,
           isClosable: true,
@@ -89,7 +89,7 @@ const RegisterUI = ({ action, book }) => {
       if (data) {
         dispatch({ type: 'books/createBook', payload: data });
         toast({
-          description: 'Updating Book',
+          description: 'Updated Book',
           status: 'success',
           duration: 9000,
           isClosable: true,

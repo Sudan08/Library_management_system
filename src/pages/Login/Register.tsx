@@ -14,6 +14,7 @@ import {
   chakra,
   HStack,
   Image,
+  useToast,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { registerPayLoad } from '../../interface';
@@ -25,23 +26,32 @@ const Register: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<registerPayLoad>({});
-
+  const toast = useToast();
   const navigate = useNavigate();
 
   const handleRegister = (data: registerPayLoad) => {
-    data.scope = 'user';
-    console.log(data);
-    fetch('http://localhost:8000/users/api/v1/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
+    try {
+      data.scope = 'user';
+      fetch('http://localhost:8000/users/api/v1/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then(() => {
+          toast({
+            title: 'Account Created.',
+            description: 'Check your mail to verify your account.',
+          });
+        });
+    } catch {
+      toast({
+        title: 'Account Creation Failed.',
+        description: 'Please try again.',
       });
+    }
   };
 
   return (

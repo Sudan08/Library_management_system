@@ -38,6 +38,7 @@ import {
 import { usePatchBookMutation } from '../../slice/api/books/bookApiSlice';
 
 import { useDeleteBookingsMutation } from '../../slice/api/booking/bookingApiSlice';
+import { useAppSelector } from '../../store/store';
 
 interface Fine {
   fine: number;
@@ -45,6 +46,8 @@ interface Fine {
 }
 
 const BookingUI = () => {
+  const { scope } = useAppSelector((state) => state?.auth);
+  console.log(scope);
   const [updateBook] = usePatchBookMutation();
   const toast = useToast();
   const [bookingdelete] = useDeleteBookingsMutation();
@@ -106,7 +109,7 @@ const BookingUI = () => {
               <Th>Issued</Th>
               <Th>Change Issue</Th>
               <Th>Delete</Th>
-              <Th>Change Fine</Th>
+              {scope === 'superadmin' && <Th>Change Fine</Th>}
             </Tr>
           </Thead>
           <Tbody>
@@ -128,14 +131,16 @@ const BookingUI = () => {
                       Issued
                     </Button>
                   </Td>
-                  <Td>
-                    <IconButton
-                      aria-label="Delete"
-                      colorScheme={'red'}
-                      icon={<BsTrash3Fill />}
-                      onClick={handleDelete([data?._id, data?.bookId])}
-                    ></IconButton>
-                  </Td>
+                  {scope === 'superadmin' && (
+                    <Td>
+                      <IconButton
+                        aria-label="Delete"
+                        colorScheme={'red'}
+                        icon={<BsTrash3Fill />}
+                        onClick={handleDelete([data?._id, data?.bookId])}
+                      ></IconButton>
+                    </Td>
+                  )}
                   <Td>
                     <ModalForm _id={data._id} />
                   </Td>

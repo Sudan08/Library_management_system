@@ -43,16 +43,14 @@ const Navbar = () => {
             maxH={'50px'}
           />
         </Box>
-        <HStack>
-          <SearchModal allbooks={allBooks} />
-          {scope === 'admin' || scope === 'superadmin' ? (
-            <Box>
-              <RegisterUI action={'add'} />
-            </Box>
-          ) : null}
-        </HStack>
         <Box p={'10px'} m={'10px'}>
           <HStack gap="10" justifyContent="space-between" mr="40px">
+            <SearchModal allbooks={allBooks} />
+            {scope === 'admin' || scope === 'superadmin' ? (
+              <Box>
+                <RegisterUI action={'add'} />
+              </Box>
+            ) : null}
             <Menu z-Index={'20'}>
               <MenuButton>
                 <Avatar name={userName}>
