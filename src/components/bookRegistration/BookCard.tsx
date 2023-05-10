@@ -26,6 +26,9 @@ const BookCard = (data: BookCardProps) => {
   const location = useLocation();
   const scope = useAppSelector((state) => state?.auth?.scope);
   const handleClick = () => {
+    if (data.onClose){
+      data.onClose();
+    }
     if (scope === 'admin' || scope === 'superadmin') {
       navigate(`/admin/books/${data.bookId}`);
     } else if (location.pathname === '/mybooks') {

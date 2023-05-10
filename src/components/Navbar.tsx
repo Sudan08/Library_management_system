@@ -13,11 +13,15 @@ import {
   MenuItem,
 } from '@chakra-ui/react';
 import { BiLogOut } from 'react-icons/bi';
-
+import RegisterUI from './bookRegistration/RegisterUI';
+import { SearchModal } from './SearchModal';
+import useFilteredBooks from '../customhooks/useFilteredBooks';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../store/store';
 
 const Navbar = () => {
+  const [search, setSearch] = useState(false);
+  const [books, allBooks] = useFilteredBooks();
   const { scope, userName } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
@@ -39,6 +43,14 @@ const Navbar = () => {
             maxH={'50px'}
           />
         </Box>
+        <HStack>
+          <SearchModal allbooks={allBooks} />
+          {scope === 'admin' || scope === 'superadmin' ? (
+            <Box>
+              <RegisterUI action={'add'} />
+            </Box>
+          ) : null}
+        </HStack>
         <Box p={'10px'} m={'10px'}>
           <HStack gap="10" justifyContent="space-between" mr="40px">
             <Menu z-Index={'20'}>

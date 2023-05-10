@@ -54,7 +54,7 @@ const Register: React.FC = () => {
       >
         <HStack justifyContent={'center'}>
           <Image
-            src="https://images.unsplash.com/photo-1678965979554-947b6ad8e212?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80"
+            src="https://images.pexels.com/photos/1290141/pexels-photo-1290141.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             alt="city"
             maxWidth={'50%'}
           ></Image>
